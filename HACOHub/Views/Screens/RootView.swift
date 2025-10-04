@@ -8,20 +8,26 @@
 import SwiftUI
 
 struct RootView: View {
+  @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
   @State private var isActive = false
 
   var body: some View {
     ZStack {
-      if isActive {
-        NavigationStack {
-          HomeView()
-            .transition(.opacity)
-        }
-      } else {
+      if !isActive {
         SplashView {
           isActive = true
         }
         .transition(.opacity)
+      } else {
+        if hasLaunchedBefore {
+          NavigationStack {
+            HomeView()
+              .transition(.opacity)
+            }
+        } else {
+          OnboardingView()
+            .transition(.opacity)
+        }
       }
     }
     .animation(.easeInOut(duration: 0.5), value: isActive)
