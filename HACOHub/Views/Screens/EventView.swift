@@ -28,6 +28,7 @@ struct LegendItem: Identifiable {
 struct EventView: View {
   @StateObject private var locationManager = LocationManager()
 
+  @State private var searchText: String = ""
   @State private var position: MapCameraPosition = .automatic
   @State private var destinations: [CLLocationCoordinate2D] = [
     CLLocationCoordinate2D(latitude: 33.754389, longitude: -84.400480),
@@ -53,7 +54,7 @@ struct EventView: View {
                   Image("DestinationPin")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 60, height: 75)
+                    .frame(width: 41.81, height: 52.25)
                 }
                 .accessibilityHidden(true)
               }
@@ -62,9 +63,30 @@ struct EventView: View {
               Image("CurrentLocationPin")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 42, height: 52)
+                .frame(width: 26.25, height: 37.5)
                 .accessibilityHidden(true)
             }
+          }
+          .onReceive(locationManager.$currentLocation) { coordinate in
+            guard let coordinate = coordinate else { return }
+
+            if position == .automatic {
+              let offsetLatitude = coordinate.latitude - 0.008
+              let region = MKCoordinateRegion(
+                center: CLLocationCoordinate2D(latitude: offsetLatitude, longitude: coordinate.longitude),
+                span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)
+              )
+              position = .region(region)
+            }
+          }
+
+          VStack {
+            HStack {
+              SquareIconButton(iconName: "HomeIcon", length: 46, action: {})
+              SearchBar(text: $searchText)
+            }
+            .padding(.horizontal, 20)
+            Spacer()
           }
 
           HalfModalView(position: $modalPosition, viewSize: geometry.size) {modalState in
