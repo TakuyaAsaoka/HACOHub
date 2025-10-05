@@ -21,7 +21,7 @@ struct RootView: View {
       } else {
         if hasLaunchedBefore {
           NavigationStack {
-            HomeView()
+            HacoHubTabView()
               .transition(.opacity)
             }
         } else {

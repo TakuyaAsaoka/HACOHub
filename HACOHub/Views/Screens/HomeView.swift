@@ -30,13 +30,8 @@ struct HomeView: View {
 
   var body: some View {
     ZStack(alignment: .top) {
-      Image("BaseBackground")
-        .resizable()
-        .scaledToFill()
-        .ignoresSafeArea()
-
       VStack(spacing: 40) {
-        NotoBoldText(text: "HACOHub", size: 64)
+        Text.sfProBold("HACOHub", size: 64)
           .foregroundColor(.white)
           .padding(.top, 120)
         }

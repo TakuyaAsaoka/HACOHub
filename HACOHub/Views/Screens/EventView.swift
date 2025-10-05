@@ -1,0 +1,180 @@
+//
+//  EventView.swift
+//  HACOHub
+//
+//  Created by AsaokaTakuya on 2025/10/05.
+//
+
+import SwiftUI
+import MapKit
+
+struct EventPin: Identifiable {
+  let id = UUID()
+  let imageName: String
+  let width: CGFloat
+  let height: CGFloat
+  let position: CGPoint
+}
+
+struct LegendItem: Identifiable {
+  let id = UUID()
+  let imageName: String
+  let width: CGFloat
+  let height: CGFloat
+  let label: String
+  let color: Color
+}
+
+struct EventView: View {
+  @StateObject private var locationManager = LocationManager()
+
+  @State private var position: MapCameraPosition = .automatic
+  @State private var destinations: [CLLocationCoordinate2D] = [
+    CLLocationCoordinate2D(latitude: 33.754389, longitude: -84.400480),
+    CLLocationCoordinate2D(latitude: 33.758598, longitude: -84.393148),
+    CLLocationCoordinate2D(latitude: 33.756854, longitude: -84.377670),
+    CLLocationCoordinate2D(latitude: 33.767718, longitude: -84.381642),
+    CLLocationCoordinate2D(latitude: 33.764846, longitude: -84.392317),
+  ]
+  @State private var isShowingEventMap = false
+
+  @State var modalPosition = CGSize.zero
+
+  var body: some View {
+    GeometryReader { geometry in
+      ZStack {
+        if let currentLocation = locationManager.currentLocation {
+          Map(position: $position) {
+            ForEach(Array(destinations.enumerated()), id: \.offset) { index, dest in
+              Annotation("", coordinate: dest) {
+                Button {
+                  isShowingEventMap = true
+                } label: {
+                  Image("DestinationPin")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 60, height: 75)
+                }
+                .accessibilityHidden(true)
+              }
+            }
+            Annotation("", coordinate: currentLocation) {
+              Image("CurrentLocationPin")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 42, height: 52)
+                .accessibilityHidden(true)
+            }
+          }
+
+          HalfModalView(position: $modalPosition, viewSize: geometry.size) {modalState in
+            ModalContentView(modalState: modalState)
+          }
+          .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: -2)
+        } else {
+          ProgressView("Getting current location…")
+        }
+      }
+      .navigationBarBackButtonHidden(false)
+      .toolbarBackground(.hidden, for: .navigationBar)
+      .navigationDestination(isPresented: $isShowingEventMap) {
+        ReserveLockerView()
+      }
+    }
+  }
+}
+
+  struct ModalContentView: View {
+    let modalState: ModalState
+
+    private func getScrollViewHeight(viewSize: CGSize) -> CGFloat {
+      switch modalState {
+        // TODO: マジックナンバーなので直したい。HalfModalの高さの割合をコンテナの高さと設定してスクロールが効くようにしている。
+      case .high: return viewSize.height * 0.94
+      case .middle: return viewSize.height * 0.46
+      case .low: return viewSize.height * 0.12
+      }
+    }
+
+    var body: some View {
+      VStack(spacing: 25) {
+        HStack(alignment: .bottom) {
+          Text.sfProBold("Nearby Events", size: 20)
+          Spacer()
+          HStack {
+            Text.sfProBold("Sort", size: 16)
+            Image("InvertedTriangle")
+              .resizable()
+              .scaledToFit()
+              .frame(width: 10, height: 8)
+              .offset(y: 1)
+          }
+        }
+        .padding(.trailing, 22)
+
+        GeometryReader { geometry in
+          ScrollView {
+            LazyVStack(spacing: 18) {
+              ForEach(events) { event in
+                EventListView(
+                  title: event.title,
+                  imageName: event.imageName,
+                  date: event.date,
+                  time: event.time,
+                  availableLockers: event.availableLockers,
+                  totalLockers: event.totalLockers
+                )
+                Divider()
+                  .background(getRGBColor(205, 205, 205))
+              }
+            }
+            .padding(.trailing, 22)
+          }
+          .frame(height: getScrollViewHeight(viewSize: geometry.size))
+          .frame(maxWidth: .infinity)
+        }
+      }
+    }
+  }
+
+struct EventListView: View {
+  let title: String
+  let imageName: String
+  let date: String
+  let time: String
+  let availableLockers: Int
+  let totalLockers: Int
+  
+  var body: some View {
+    HStack {
+      VStack(alignment: .leading) {
+        Text.sfProBold(title, size: 16)
+        Text.sfProRegular(date, size: 16)
+        Text.sfProRegular(makeStyledText(for: availableLockers, total: totalLockers))
+        Image(imageName)
+          .resizable()
+          .scaledToFit()
+          .frame(width: 112, height: 74)
+      }
+    }
+  }
+
+  func makeStyledText(for available: Int, total: Int) -> AttributedString {
+    var string = AttributedString("Available Lockers: \(available)/\(total)")
+
+    if let slashRange = string.range(of: "/") {
+      let endRange = slashRange.lowerBound..<string.endIndex
+      string[endRange].font = .system(size: 13, weight: .regular)
+    }
+
+    if let prefixRange = string.range(of: "Available Lockers:") {
+      string[prefixRange].font = .system(size: 16, weight: .regular)
+    }
+
+    return string
+  }
+}
+
+#Preview {
+    EventView()
+}

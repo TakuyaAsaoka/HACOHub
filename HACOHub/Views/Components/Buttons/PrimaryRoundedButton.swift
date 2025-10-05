@@ -16,7 +16,7 @@ struct PrimaryRoundedButton: View {
     Button {
       action()
     } label: {
-      SFProBoldText(text: text, size: 20)
+      Text.sfProBold(text, size: 20)
         .foregroundColor(.white)
         .padding(.vertical, 20)
     }

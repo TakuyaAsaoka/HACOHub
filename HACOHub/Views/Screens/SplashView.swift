@@ -16,9 +16,9 @@ struct SplashView: View {
         .ignoresSafeArea()
 
       VStack(alignment: .trailing) {
-        SFProBoldText(text: "HACOHub", size: 64)
+        Text.sfProBold("HACOHub", size: 64)
           .foregroundColor(getRGBColor(79, 190, 159))
-        SFProRegularText(text: "@TOYOTA AUTO BODY", size: 13)
+        Text.sfProRegular("@TOYOTA AUTO BODY", size: 13)
           .foregroundColor(getRGBColor(102, 102, 102))
       }
     }

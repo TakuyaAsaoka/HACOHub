@@ -1,5 +1,5 @@
 //
-//  helper.swift
+//  HelperFunction.swift
 //  HACOHub
 //
 //  Created by AsaokaTakuya on 2025/10/02.

@@ -1,0 +1,113 @@
+//
+//  HalfModalView.swift
+//  HACOHub
+//
+//  Created by AsaokaTakuya on 2025/10/05.
+//
+
+import SwiftUI
+
+enum ModalState {
+  case low
+  case middle
+  case high
+}
+
+struct HalfModalView<Content: View>: View {
+  @State var modalState: ModalState = .middle
+  @Binding var position: CGSize
+  let viewSize: CGSize
+  let lowOffset: CGFloat
+  let middleOffset: CGFloat
+  let highOffset: CGFloat
+  let content: (ModalState) -> Content
+
+  init(position: Binding<CGSize>, viewSize: CGSize, @ViewBuilder content: @escaping (ModalState) -> Content) {
+    self._position = position
+    self.viewSize = viewSize
+    self.lowOffset = viewSize.height * 0.812
+    self.middleOffset = viewSize.height * 0.512
+    self.highOffset = viewSize.height * 0.073
+    self.content = content
+  }
+
+  var body: some View {
+    ZStack {
+      Rectangle()
+        .foregroundColor(.white)
+      VStack {
+        RoundedRectangle(cornerRadius: 10)
+          .frame(width: 50, height: 8)
+          .padding(.top)
+          .foregroundColor(getRGBColor(217, 217, 217))
+        content(modalState)
+          .padding(.leading, 12)
+          .padding(.trailing, 4)
+          .padding(.bottom, 6)
+        Spacer()
+      }
+    }
+    .frame(height: viewSize.height)
+    .cornerRadius(20)
+    .offset(y: getOffset() + position.height)
+    .gesture(
+      DragGesture()
+        .onChanged { value in
+          var translation = value.translation
+          let currentOffset = getOffset() + translation.height
+
+          if currentOffset < highOffset {
+            translation.height = highOffset - getOffset() + (translation.height - (highOffset - getOffset())) * 0.1
+          }
+
+          if currentOffset > lowOffset {
+            translation.height = lowOffset - getOffset() + (translation.height - (lowOffset - getOffset())) * 0.1
+          }
+
+          position = translation
+        }
+        .onEnded { value in
+          withAnimation(.timingCurve(0.2, 0.8, 0.2, 1, duration: 0.3)) {
+            let dragAmount = value.translation.height
+
+            switch modalState {
+            case .high:
+              if dragAmount > 30 {
+                modalState = .middle
+              }
+            case .middle:
+              if dragAmount < -30 {
+                modalState = .high
+              } else if dragAmount > 30 {
+                modalState = .low
+              }
+            case .low:
+              if dragAmount < -30 {
+                modalState = .middle
+              }
+            }
+            position = .zero
+          }
+        }
+    )
+  }
+
+  private func getOffset() -> CGFloat {
+    switch modalState {
+    case .low:
+      return lowOffset
+    case .middle:
+      return middleOffset
+    case .high:
+      return highOffset
+    }
+  }
+}
+
+#Preview {
+  HalfModalView(
+    position: Binding.constant(CGSize.zero),
+    viewSize: CGSize(width: 393, height: 852),
+    content: { _ in Text("Hello, World!") }
+  )
+}

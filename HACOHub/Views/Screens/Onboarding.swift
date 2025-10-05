@@ -43,7 +43,7 @@ struct BaseEnableView: View {
       Color(getRGBColor(236, 249, 243))
 
       VStack(spacing: 0) {
-        SFProBoldText(text: title, size: 40)
+        Text.sfProBold(title, size: 40)
           .foregroundColor(getRGBColor(110, 119, 129))
           .multilineTextAlignment(.center)
           .padding(.top, 70)
@@ -55,7 +55,7 @@ struct BaseEnableView: View {
           .frame(height: 162)
           .padding(.bottom, 64)
 
-        SFProRegularText(text: description, size: 24)
+        Text.sfProRegular(description, size: 24)
           .foregroundColor(getRGBColor(110, 119, 129))
           .multilineTextAlignment(.center)
           .padding(.bottom, 142)
