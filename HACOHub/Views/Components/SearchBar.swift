@@ -20,7 +20,7 @@ struct SearchBar: View {
           .foregroundColor(getRGBColor(110, 119, 129))
       }
       .padding(.horizontal, 16)
-      .padding(.vertical, 12)
+      .padding(.vertical, 13)
       .background(Color.white)
       .cornerRadius(29)
       .shadow(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 4)

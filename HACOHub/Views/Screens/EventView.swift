@@ -132,7 +132,7 @@ struct EventView: View {
               .offset(y: 1)
           }
         }
-        .padding(.trailing, 22)
+        .padding(.trailing, 16)
 
         GeometryReader { geometry in
           ScrollView {
@@ -143,6 +143,7 @@ struct EventView: View {
                   imageName: event.imageName,
                   date: event.date,
                   time: event.time,
+                  iconNames: event.iconNames,
                   availableLockers: event.availableLockers,
                   totalLockers: event.totalLockers
                 )
@@ -150,7 +151,7 @@ struct EventView: View {
                   .background(getRGBColor(205, 205, 205))
               }
             }
-            .padding(.trailing, 22)
+            .padding(.trailing, 16)
           }
           .frame(height: getScrollViewHeight(viewSize: geometry.size))
           .frame(maxWidth: .infinity)
@@ -159,20 +160,40 @@ struct EventView: View {
     }
   }
 
+struct EventIconView: View {
+  let iconNames: [EventIcon]
+
+  var body: some View {
+    HStack(spacing: 4) {
+      ForEach(iconNames, id: \.self) { iconNames in
+        Image(iconNames.rawValue)
+          .resizable()
+          .scaledToFit()
+          .frame(width: 24, height: 24)
+      }
+    }
+  }
+}
+
 struct EventListView: View {
   let title: String
   let imageName: String
   let date: String
   let time: String
+  let iconNames: [EventIcon]
   let availableLockers: Int
   let totalLockers: Int
   
   var body: some View {
-    HStack {
-      VStack(alignment: .leading) {
-        Text.sfProBold(title, size: 16)
-        Text.sfProRegular(date, size: 16)
-        Text.sfProRegular(makeStyledText(for: availableLockers, total: totalLockers))
+    VStack(alignment: .leading) {
+      Text.sfProBold(title, size: 16)
+      HStack {
+        VStack(alignment: .leading) {
+          Text.sfProRegular("\(date) \(time)", size: 16)
+          EventIconView(iconNames: iconNames)
+          Text.sfProRegular(makeStyledText(for: availableLockers, total: totalLockers))
+        }
+        Spacer()
         Image(imageName)
           .resizable()
           .scaledToFit()

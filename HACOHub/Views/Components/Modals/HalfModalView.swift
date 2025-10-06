@@ -41,7 +41,7 @@ struct HalfModalView<Content: View>: View {
           .padding(.top)
           .foregroundColor(getRGBColor(217, 217, 217))
         content(modalState)
-          .padding(.leading, 12)
+          .padding(.leading, 20)
           .padding(.trailing, 4)
           .padding(.bottom, 6)
         Spacer()
