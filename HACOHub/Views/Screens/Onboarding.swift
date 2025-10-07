@@ -60,7 +60,8 @@ struct BaseEnableView: View {
           .multilineTextAlignment(.center)
           .padding(.bottom, 142)
 
-        PrimaryRoundedButton(text: buttonText, width: buttonWidth, action: buttonAction)
+        PrimaryRoundedButton(text: buttonText, action: buttonAction)
+          .padding(.horizontal, 24)
       }
       .frame(maxHeight: .infinity)
     }
