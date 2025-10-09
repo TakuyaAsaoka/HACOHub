@@ -9,23 +9,12 @@ import SwiftUI
 
 struct ReserveLockerView: View {
   @Binding var selectedEvent: EventInfo?
-  @State var LockerSize: LockerSize?
   @State private var selectedRadioButtonSizeId: UUID? = nil
   @State private var selectedRadioButtonPaymentId: UUID? = nil
-  @State private var selectedTime = Date()
+  @State private var selectedSize: LockerSize?
+  @State private var selectedTime: Date = Date()
   @State private var isShowingPicker = false
-
-  let sizeButtons: [RadioButton] = [
-    RadioButton(text: "Small\n$5"),
-    RadioButton(text: "Medium\n$8"),
-    RadioButton(text: "Large\n$12"),
-    ]
-
-  let paymentButtons: [RadioButton] = [
-    RadioButton(imageName: Payment.applePay.rawValue, imageWidth: 52),
-    RadioButton(imageName: Payment.creditCard.rawValue, imageWidth: 36),
-    RadioButton(imageName: Payment.payPal.rawValue, imageWidth: 83),
-  ]
+  @State private var isShowingConfirmReservationView: Bool = false
 
   var body: some View {
     if selectedEvent == nil {
@@ -49,7 +38,7 @@ struct ReserveLockerView: View {
 
         VStack(alignment: .leading, spacing: 0) {
           HorizontalTabView(tabs: selectedEvent!.features)
-            .padding(.bottom, 12)
+            .padding(.bottom, 8)
 
           Text.sfProRegular("Size", size: 16)
             .padding(.bottom, 4)
@@ -92,7 +81,7 @@ struct ReserveLockerView: View {
             VStack(alignment: .leading) {
               Text.sfProRegular("Time", size: 12)
                 .foregroundColor(getRGBColor(110, 119, 129))
-              TimePickerView(textSize: 20)
+              TimePickerView(textSize: 20, selectedTime: $selectedTime)
             }
             .padding(.leading, 12)
             .padding(.vertical, 9)
@@ -106,23 +95,39 @@ struct ReserveLockerView: View {
 
           Text.sfProRegular("Payment", size: 16)
             .padding(.bottom, 4)
-          PrimaryRadioButtonGrid(selectedItem: $selectedRadioButtonPaymentId,
-                                 buttons: paymentButtons,
-                                 alignment: .leading,
-                                 columns: 3,
-                                 height: 40,
-                                 width: 85,
-                                 vSpacing: 0,
-                                 hSpacing: 7)
-          .padding(.bottom, 22)
+          PrimaryRadioButtonGrid(
+            selectedItem: $selectedRadioButtonPaymentId,
+            buttons: paymentButtons,
+            alignment: .leading,
+            columns: 3,
+            height: 40,
+            width: 85,
+            vSpacing: 0,
+            hSpacing: 7
+          )
 
-          PrimaryRoundedButton(text: "Next", action: {})
           Spacer()
+
+          PrimaryRoundedButton(text: "Next", action: {
+            if let selectedButton = sizeButtons.first(where: { $0.id == selectedRadioButtonSizeId }) {
+              selectedSize = LockerSize.fromText(selectedButton.text ?? "")
+            }
+
+            isShowingConfirmReservationView = true
+          })
+          .padding(.bottom, 12)
         }
         .padding(.horizontal, 20)
       }
+      .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+      .navigationDestination(isPresented: $isShowingConfirmReservationView, destination: {
+        ConfirmReservationView(
+          selectedEvent: $selectedEvent,
+          selectedSize: $selectedSize,
+          selectedTime: $selectedTime)
+        }
+      )
       .navigationTitle("Reservation")
-      .padding(.top, 4)
     }
   }
 }

@@ -64,8 +64,8 @@ struct PrimaryRadioButtonGrid: View {
       }
     }
     .onAppear {
-      if selectedItem == nil, let first = buttons.first {
-        selectedItem = first.id
+      if selectedItem == nil {
+        selectedItem = buttons.first?.id
       }
     }
   }

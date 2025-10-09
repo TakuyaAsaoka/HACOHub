@@ -10,22 +10,15 @@ import SwiftUI
 struct TimePickerView: View {
   let textSize: CGFloat
 
-  @State private var selectedTime = Date()
   @State private var isShowingSheet = false
-
-  var timeString: String {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "a hh:mm"
-    formatter.locale = Locale(identifier: "en_US_POSIX")
-    return formatter.string(from: selectedTime)
-  }
+  @Binding var selectedTime: Date
 
   var body: some View {
     Button {
       isShowingSheet.toggle()
     } label: {
       HStack {
-        Text.sfProRegular(timeString, size: textSize)
+        Text.sfProRegular(fromDateToFormattedDate(date: selectedTime), size: textSize)
       }
     }
     .buttonStyle(.plain)
@@ -57,5 +50,6 @@ struct TimePickerView: View {
 }
 
 #Preview {
-    TimePickerView(textSize: 20)
+  @Previewable @State var selectedTime = Date()
+  TimePickerView(textSize: 20, selectedTime: $selectedTime)
 }

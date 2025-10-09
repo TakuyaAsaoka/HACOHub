@@ -26,3 +26,10 @@ func getColumns(n: Int, spacing: CGFloat) -> [GridItem] {
     )
   }
 }
+
+func fromDateToFormattedDate(date: Date, format: String = "a hh:mm") -> String {
+  let formatter = DateFormatter()
+  formatter.dateFormat = format
+  formatter.locale = Locale(identifier: "en_US_POSIX")
+  return formatter.string(from: date)
+}

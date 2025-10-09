@@ -29,6 +29,14 @@ extension Text {
     Text(text).font(.system(size: size, weight: .regular))
   }
 
+  static func sfProMedium(_ text: String, size: CGFloat) -> Text {
+    Text(text).font(.system(size: size, weight: .medium))
+  }
+
+  static func sfProSemiBold(_ text: String, size: CGFloat) -> Text {
+    Text(text).font(.system(size: size, weight: .semibold))
+  }
+
   static func sfProBold(_ text: String, size: CGFloat) -> Text {
     Text(text).font(.system(size: size, weight: .bold))
   }

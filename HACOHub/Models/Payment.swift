@@ -12,3 +12,9 @@ enum Payment: String {
   case creditCard = "CreditCardIcon"
   case payPal = "PayPalIcon"
 }
+
+let paymentButtons: [RadioButton] = [
+  RadioButton(imageName: Payment.applePay.rawValue, imageWidth: 52),
+  RadioButton(imageName: Payment.creditCard.rawValue, imageWidth: 36),
+  RadioButton(imageName: Payment.payPal.rawValue, imageWidth: 83),
+]

@@ -18,10 +18,10 @@ struct PrimaryRoundedButton: View {
       Text.sfProBold(text, size: 20)
         .foregroundColor(.white)
         .padding(.vertical, 20)
+        .frame(maxWidth: .infinity)
+        .background(getRGBColor(79, 190, 159))
+        .cornerRadius(16)
     }
-    .frame(maxWidth: .infinity)
-    .background(getRGBColor(79, 190, 159))
-    .cornerRadius(16)
   }
 }
 
