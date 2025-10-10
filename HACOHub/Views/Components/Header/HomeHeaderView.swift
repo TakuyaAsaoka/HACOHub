@@ -1,5 +1,5 @@
 //
-//  HomeHeader.swift
+//  HomeHeaderView.swift
 //  HACOHub
 //
 //  Created by AsaokaTakuya on 2025/10/10.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeHeader: View {
+struct HomeHeaderView: View {
   let title: String
 
   var body: some View {
@@ -29,7 +29,7 @@ struct HomeHeader: View {
     ZStack {
       Color.gray
       VStack {
-        HomeHeader(title: "My Locker")
+        HomeHeaderView(title: "My Locker")
         Spacer()
     }
   }

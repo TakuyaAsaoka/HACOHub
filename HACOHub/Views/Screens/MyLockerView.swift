@@ -8,9 +8,23 @@
 import SwiftUI
 
 struct MyLockerView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+  var body: some View {
+    ZStack {
+      getRGBColor(240, 240, 240)
+
+      VStack(spacing: 16) {
+        HomeHeaderView(title: "My Locker")
+        ScrollView {
+          ForEach(myLockers) { myLocker in
+            MyLockerCard(myLocker: myLocker)
+          }
+          .padding(.horizontal, 20)
+          Spacer()
+        }
+      }
     }
+    .ignoresSafeArea()
+  }
 }
 
 #Preview {

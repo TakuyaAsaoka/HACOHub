@@ -64,8 +64,14 @@ struct ConfirmReservationView: View {
 
         Spacer()
 
-        PrimaryRoundedButton(text: "Confirm & Pay", action: {
-          isShowingPaymentModalView = true
+        PrimaryRoundedButton(
+          text: "Confirm & Pay",
+          weight: .bold,
+          size: 20,
+          vPadding: 20,
+          radius: 16,
+          action: {
+            isShowingPaymentModalView = true
         })
         .padding(.bottom, 12)
       }

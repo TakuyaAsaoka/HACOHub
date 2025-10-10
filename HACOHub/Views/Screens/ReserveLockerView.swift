@@ -108,7 +108,13 @@ struct ReserveLockerView: View {
 
           Spacer()
 
-          PrimaryRoundedButton(text: "Next", action: {
+          PrimaryRoundedButton(
+            text: "Next",
+            weight: .bold,
+            size: 20,
+            vPadding: 20,
+            radius: 16,
+            action: {
             if let selectedButton = sizeButtons.first(where: { $0.id == selectedRadioButtonSizeId }) {
               selectedSize = LockerSize.fromText(selectedButton.text ?? "")
             }

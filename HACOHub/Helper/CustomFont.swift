@@ -50,6 +50,13 @@ extension Text {
   }
 }
 
+enum FontWeight {
+  case regular
+  case medium
+  case semiBold
+  case bold
+}
+
 #Preview {
   Text.sfProRegular("test", size: 16)
   Text.sfProBold("test", size: 16)
