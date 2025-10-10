@@ -23,47 +23,184 @@ struct HomeView: View {
     SituationButton(text: "Medical", situation: .medical)
   ]
     
-  let count = 6
-  let bigDiameter: CGFloat = 600
-  let smalDiameter: CGFloat = 140
+  let bigCirclesize: CGFloat = 624
+  let smallCircleRadius: CGFloat = 70
+  var smallCirclesize: CGFloat {smallCircleRadius * 2}
 
   var body: some View {
-    VStack {
-        //上段HACOHub・アラームマーク spacerで間隔出し
-        HStack {
-            Text.sfProBold("HACOHub", size: 32)
-                .foregroundColor(getRGBColor(79, 190, 159))
-            Spacer()
-            Button {
-                // TODO: 通知一覧を表示する
-                print()
-            } label: {
-                ZStack {
-                    Image("AlarmIcon")
-                }
-            }
-            
-        }
-        .padding(.horizontal, 20)
-        //中段サークル
-            ZStack{
-                //大きな円
-                Circle()
-                    .foregroundColor(getRGBColor(236, 249, 243))
-                    .frame(width: bigDiameter, height: bigDiameter)
-                //小さな円
-                //ForEach(0..<count, id: \.self) { i in
-                    //let angle = Angle.degrees(Double(i) / Double(count) * 360)
-                    //let radius = (bigDiameter - smalDiameter) / 2
-                    
-                    
-                    
-                //}
-                
-        }
+      VStack {
+          //上段HACOHub・アラームマーク spacerで間隔出し
+          HStack {
+              Text.sfProBold("HACOHub", size: 32)
+                  .foregroundColor(getRGBColor(79, 190, 159))
+              Spacer()
+              Button {
+                  // TODO: 通知一覧を表示する
+                  print()
+              } label: {
+                  ZStack {
+                      Image("AlarmIcon")
+                  }
+              }
+              
+          }
+          .padding(.horizontal, 20)
+          //中段サークル
+          ZStack(alignment: .top){
+              //大きな円
+              Circle()
+                  .foregroundColor(getRGBColor(236, 249, 243))
+                  .frame(width: bigCirclesize, height: bigCirclesize)
+                  
+              Group{
+                  //小さな円１
+                  ZStack{
+                      Circle()
+                          .foregroundColor(getRGBColor(255, 235, 220))
+                          .frame(width: smallCirclesize, height: smallCirclesize)
+                      
+                      VStack(spacing:0){
+                          Image("EventIcon")
+                              .resizable()
+                              .frame(width: 64, height: 64)
+                          Text("Event")
+                              .font(.system(size: 24, weight: .bold))
+                              .foregroundColor(.black)
+                              .multilineTextAlignment(.center).font(.caption)
+                      }
+                  }
+                  .position(x:154 + smallCircleRadius, y: 27 + smallCircleRadius)
+                  
+                  //小さな円2
+                  ZStack{
+                      Circle()
+                          .foregroundColor(getRGBColor(255, 248, 222))
+                          .frame(width: smallCirclesize, height: smallCirclesize)
+                      
+                      VStack(spacing:0){
+                          Image("DeliveryIcon")
+                              .resizable()
+                              .frame(width: 64, height: 64)
+                          Text("Delivery")
+                              .font(.system(size: 24, weight: .bold))
+                              .foregroundColor(.black)
+                              .multilineTextAlignment(.center).font(.caption)
+                      }
+                  }
+                  .position(x:353 + smallCircleRadius, y:30 + smallCircleRadius)
+                  
+                  //小さな円3
+                  ZStack{
+                      Circle()
+                          .foregroundColor(getRGBColor(222, 237, 255))
+                          .frame(width: smallCirclesize, height: smallCirclesize)
+                      
+                      VStack(spacing:0){
+                          Image("MedicalIcon")
+                              .resizable()
+                              .frame(width: 64, height: 64)
+                          Text("Medical")
+                              .font(.system(size: 24, weight: .bold))
+                              .foregroundColor(.black)
+                              .multilineTextAlignment(.center).font(.caption)
+                      }
+                  }
+                  .position(x:118 + smallCircleRadius, y:193 + smallCircleRadius)
+                  
+                  //小さな円4
+                  ZStack{
+                      Circle()
+                          .foregroundColor(getRGBColor(210, 247, 222))
+                          .frame(width: smallCirclesize, height: smallCirclesize)
+                      
+                      VStack(spacing:0){
+                          Image("SendIcon")
+                              .resizable()
+                              .frame(width: 64, height: 64)
+                          Text("Send")
+                              .font(.system(size: 24, weight: .bold))
+                              .foregroundColor(.black)
+                              .multilineTextAlignment(.center).font(.caption)
+                      }
+                  }
+                  .position(x:271 + smallCircleRadius, y:160 + smallCircleRadius)
+                  
+                  //小さな円5
+                  ZStack{
+                      Circle()
+                          .foregroundColor(getRGBColor(243, 231, 255))
+                          .frame(width: smallCirclesize, height: smallCirclesize)
+                      
+                      VStack(spacing:0){
+                          Image("LentIcon")
+                              .resizable()
+                              .frame(width: 64, height: 64)
+                          Text("Lent")
+                              .font(.system(size: 24, weight: .bold))
+                              .foregroundColor(.black)
+                              .multilineTextAlignment(.center).font(.caption)
+                      }
+                  }
+                  .position(x:168 + smallCircleRadius, y:345 + smallCircleRadius)
+                  
+                  //小さな円6
+                  ZStack{
+                      Circle()
+                          .foregroundColor(getRGBColor(255, 235, 235))
+                          .frame(width: smallCirclesize, height: smallCirclesize)
+                      
+                      VStack(spacing:0){
+                          Image("BooksIcon")
+                              .resizable()
+                              .frame(width: 64, height: 64)
+                          Text("Books")
+                              .font(.system(size: 24, weight: .bold))
+                              .foregroundColor(.black)
+                              .multilineTextAlignment(.center).font(.caption)
+                      }
+                  }
+                  .position(x:344 + smallCircleRadius, y:303 + smallCircleRadius)
+                  
+                  //小さな円7
+                  ZStack{
+                      Circle()
+                          .foregroundColor(getRGBColor(205, 246, 250))
+                          .frame(width: smallCirclesize, height: smallCirclesize)
+                      
+                      VStack(spacing:0){
+                          Image("EducationIcon")
+                              .resizable()
+                              .frame(width: 64, height: 64)
+                          Text("Education")
+                              .font(.system(size: 24, weight: .bold))
+                              .foregroundColor(.black)
+                              .multilineTextAlignment(.center).font(.caption)
+                      }
+                  }
+                  .position(x:338 + smallCircleRadius, y:457 + smallCircleRadius)
+
+              }
+              .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
+              
+              //HacoHubIcon挿入
+              let imagewidth: CGFloat = 195
+              let imageheight: CGFloat = 195
+              Image("HacoHubIcon")
+                  .resizable()
+                  .scaledToFit()
+                  .frame(width: imagewidth, height: imageheight)
+                  .border(.blue)
+                  .position(x:118 + imagewidth / 2, y:471 + imageheight / 2)
+                  
+              
+              
+          }
+          .border(.red)
+          }
+      
     }
   }
-}
+
 
 #Preview {
     HomeView()

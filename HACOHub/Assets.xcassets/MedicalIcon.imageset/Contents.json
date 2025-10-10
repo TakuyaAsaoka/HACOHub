@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "MedicalIcon.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
