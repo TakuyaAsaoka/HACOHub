@@ -24,7 +24,7 @@ struct HacoHubTabView: View {
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .transition(.opacity)
-      .animation(.easeInOut(duration: 0.3), value: selectedTab)
+      .animation(.easeInOut(duration: 0.2), value: selectedTab)
 
       VStack(spacing: 0) {
         Rectangle()

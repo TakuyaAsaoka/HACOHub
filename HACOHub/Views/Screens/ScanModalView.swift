@@ -58,8 +58,11 @@ struct ScanModalView: View {
             .padding(.horizontal, 20)
           }
           .onTapGesture {
-            isShowingQRView = true
+            withAnimation(.easeInOut(duration: 0.4)) {
+              isShowingQRView = true
+            }
           }
+          .transition(.opacity.combined(with: .scale))
           .transition(.opacity)
         }
 
