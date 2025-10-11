@@ -22,7 +22,7 @@ struct ScanModalView: View {
               .padding(.horizontal, 20)
             QRCodeView()
             HStack(spacing: 8) {
-              Text.sfProBold("00:01:30", size: 24)
+              CountdownView(startTime: 90)
               Button {
 
               } label: {
