@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MyLockerCard: View {
+  @Binding var isShowingQR: Bool
   @State var isShowingDetails: Bool = false
   let myLocker: MyLocker
 
@@ -48,7 +49,10 @@ struct MyLockerCard: View {
 
         switch myLocker.status {
           case .reserved:
-            ReservedDetailsView(isShowingDetails: isShowingDetails)
+          ReservedDetailsView(
+            isShowingQR: $isShowingQR,
+            isShowingDetails: isShowingDetails
+          )
           case .inUse:
             InUseDetailsView(isShowingDetails: isShowingDetails)
           case .completed:
@@ -131,6 +135,7 @@ struct DailyRateView: View {
 }
 
 struct ReservedDetailsView: View {
+  @Binding var isShowingQR: Bool
   let isShowingDetails: Bool
 
   var body: some View {
@@ -148,13 +153,15 @@ struct ReservedDetailsView: View {
           size: 16,
           vPadding: 10,
           radius: 11,
-          action: {}
+          action: {
+            isShowingQR = true
+          }
         )
           .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
 
         WhiteRoundedButton(
           text: "Edit Reservation",
-          color: .black,
+          textColor: .black,
           weight: .regular,
           size: 16,
           vPadding: 10,
@@ -164,7 +171,7 @@ struct ReservedDetailsView: View {
 
         WhiteRoundedButton(
           text: "Cancel Reservation",
-          color: getRGBColor(248, 63, 63),
+          textColor: getRGBColor(248, 63, 63),
           weight: .regular,
           size: 16,
           vPadding: 10,
@@ -237,8 +244,11 @@ struct CompletedDetailsView: View {
 }
 
 #Preview {
+  @Previewable @State var isShowingQR: Bool = false
+
   VStack {
     MyLockerCard(
+      isShowingQR: $isShowingQR,
       myLocker: MyLocker(
         status: LockerStatus.reserved,
         size: LockerSize.small,
@@ -248,6 +258,7 @@ struct CompletedDetailsView: View {
       )
     )
     MyLockerCard(
+      isShowingQR: $isShowingQR,
       myLocker: MyLocker(
         status: LockerStatus.inUse,
         size: LockerSize.medium,
@@ -257,6 +268,7 @@ struct CompletedDetailsView: View {
       )
     )
     MyLockerCard(
+      isShowingQR: $isShowingQR,
       myLocker: MyLocker(
         status: LockerStatus.completed,
         size: LockerSize.large,

@@ -20,7 +20,7 @@ struct PaymentModalView: View {
             Text("Loading...")
               .font(.system(size: 24, weight: .bold))
           }
-          .transition(.opacity) // フェードインアウト
+          .transition(.opacity)
         }
 
         // Completed
@@ -39,7 +39,7 @@ struct PaymentModalView: View {
             )
             .multilineTextAlignment(.center)
           }
-          .transition(.opacity) // フェードインアウト
+          .transition(.opacity)
         }
       }
       .onAppear {

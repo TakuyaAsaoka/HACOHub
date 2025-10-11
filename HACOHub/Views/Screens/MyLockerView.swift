@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MyLockerView: View {
+  @State private var isScanModalView: Bool = false
+
   var body: some View {
     ZStack {
       getRGBColor(240, 240, 240)
@@ -16,11 +18,21 @@ struct MyLockerView: View {
         HomeHeaderView(title: "My Locker")
         ScrollView {
           ForEach(myLockers) { myLocker in
-            MyLockerCard(myLocker: myLocker)
+            MyLockerCard(
+              isShowingQR: $isScanModalView,
+              myLocker: myLocker
+            )
           }
           .padding(.horizontal, 20)
           Spacer()
         }
+      }
+
+      if isScanModalView {
+        ScanModalView()
+          .onTapGesture {
+            isScanModalView = false
+          }
       }
     }
     .ignoresSafeArea()
