@@ -29,29 +29,8 @@ struct HomeView: View {
 
   var body: some View {
     GeometryReader { geomerty in
-      VStack {
-        HStack {
-          HStack{
-            Image("GrayLocationOnFilled")
-            VStack{
-              Text.sfProRegular("CurrentLocation", size: 12)
-                .foregroundColor(getRGBColor(66, 74, 83))
-              Text.sfProBold("Atlanta, GA", size: 16)
-                .foregroundColor(getRGBColor(66, 74, 83))
-            }
-          }
-          Spacer()
-          Button {
-            // TODO: 通知一覧を表示する
-            print()
-          } label: {
-            ZStack {
-              Image("AlarmIcon")
-            }
-          }
-        }
-        .padding(.horizontal, 20)
-
+      VStack(spacing: 0) {
+        HomeHeaderView()
         //中段サークル
         ZStack(alignment: .top){
           //大きな円
