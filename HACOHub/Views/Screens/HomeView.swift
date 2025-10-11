@@ -30,31 +30,16 @@ struct HomeView: View {
   var body: some View {
     GeometryReader { geomerty in
       VStack {
-        //上段HACOHub・アラームマーク spacerで間隔出し
         HStack {
           HStack{
             Image("GrayLocationOnFilled")
-
             VStack{
-              Text("CurrentLocation")
-                .font(.custom("Noto Sans JP", size: 12))
-                .fontWeight(.regular)
+              Text.sfProRegular("CurrentLocation", size: 12)
                 .foregroundColor(getRGBColor(66, 74, 83))
-                .multilineTextAlignment(.center)
-                .lineSpacing(0)
-                .tracking(0)
-              Text("Atlanta, GA")
-                .font(.custom("Noto Sans JP", size: 16))
-                .fontWeight(.bold)
+              Text.sfProBold("Atlanta, GA", size: 16)
                 .foregroundColor(getRGBColor(66, 74, 83))
-                .multilineTextAlignment(.center)
-                .lineSpacing(0)
-                .tracking(0)
             }
-
-
           }
-
           Spacer()
           Button {
             // TODO: 通知一覧を表示する
@@ -64,15 +49,15 @@ struct HomeView: View {
               Image("AlarmIcon")
             }
           }
-
         }
         .padding(.horizontal, 20)
+
         //中段サークル
         ZStack(alignment: .top){
           //大きな円
           Circle()
             .foregroundColor(getRGBColor(236, 249, 243))
-            .frame(width: bigCirclesize, height: bigCirclesize)
+//            .frame(width: bigCirclesize, height: bigCirclesize)
             .clipped()
           //
           Group{
@@ -254,6 +239,8 @@ struct HomeView: View {
         //              .frame(width: .infinity, height: .infinity)
         .border(.red)
       }
+      .ignoresSafeArea()
+      .border(.blue)
       .frame(width: geomerty.size.width, height: .infinity)
     }
   }

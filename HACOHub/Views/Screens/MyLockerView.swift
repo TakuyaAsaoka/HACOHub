@@ -15,7 +15,7 @@ struct MyLockerView: View {
       getRGBColor(240, 240, 240)
 
       VStack(spacing: 16) {
-        HomeHeaderView(title: "My Locker")
+        TitleHeaderView(title: "My Locker")
         ScrollView {
           ForEach(myLockers) { myLocker in
             MyLockerCard(

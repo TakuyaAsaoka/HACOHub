@@ -1,5 +1,5 @@
 //
-//  HomeHeaderView.swift
+//  TitleHeaderView.swift
 //  HACOHub
 //
 //  Created by AsaokaTakuya on 2025/10/10.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeHeaderView: View {
+struct TitleHeaderView: View {
   let title: String
 
   var body: some View {
@@ -29,7 +29,7 @@ struct HomeHeaderView: View {
     ZStack {
       Color.gray
       VStack {
-        HomeHeaderView(title: "My Locker")
+        TitleHeaderView(title: "My Locker")
         Spacer()
     }
   }
