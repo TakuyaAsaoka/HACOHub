@@ -11,7 +11,7 @@ struct HacoHubTabView: View {
   @State private var selectedTab: Int = 0
 
   var body: some View {
-    ZStack(alignment: .bottom) {
+    VStack(spacing: 0) {
       Group {
         switch selectedTab {
           case 0: HomeView()

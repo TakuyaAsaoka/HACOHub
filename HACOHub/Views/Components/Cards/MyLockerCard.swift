@@ -14,7 +14,9 @@ struct MyLockerCard: View {
 
   var body: some View {
     Button {
-      isShowingDetails.toggle()
+      withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+        isShowingDetails.toggle()
+      }
     } label: {
       VStack(alignment: .leading, spacing: 8) {
         HStack {
@@ -47,17 +49,19 @@ struct MyLockerCard: View {
         }
         .padding(.bottom, 3)
 
-
         switch myLocker.status {
-          case .reserved:
+        case .reserved:
           ReservedDetailsView(
             isShowingQR: $isShowingQR,
             isShowingDetails: isShowingDetails
           )
-          case .inUse:
-            InUseDetailsView(isShowingDetails: isShowingDetails)
-          case .completed:
-            CompletedDetailsView(isShowingDetails: isShowingDetails)
+        case .inUse:
+          InUseDetailsView(
+            isShowingQR: $isShowingQR,
+            isShowingDetails: isShowingDetails
+          )
+        case .completed:
+          CompletedDetailsView(isShowingDetails: isShowingDetails)
         }
       }
       .padding(.vertical, 12)
@@ -147,40 +151,41 @@ struct ReservedDetailsView: View {
           Text.sfProBold("4h 11m", size: 32)
           Text.sfProRegular("Remaining", size: 32)
         }
-      VStack(spacing: 12) {
-        PrimaryRoundedButton(
-          text: "Open Locker",
-          weight: .regular,
-          size: 16,
-          vPadding: 10,
-          radius: 11,
-          action: {
-            isShowingQR = true
-          }
-        )
+        VStack(spacing: 12) {
+          PrimaryRoundedButton(
+            text: "Open Locker",
+            weight: .regular,
+            size: 16,
+            vPadding: 10,
+            radius: 11,
+            action: {
+              isShowingQR = true
+            }
+          )
           .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
 
-        WhiteRoundedButton(
-          text: "Edit Reservation",
-          textColor: .black,
-          weight: .regular,
-          size: 16,
-          vPadding: 10,
-          radius: 11,
-          action: {}
-        )
+          WhiteRoundedButton(
+            text: "Edit Reservation",
+            textColor: .black,
+            weight: .regular,
+            size: 16,
+            vPadding: 10,
+            radius: 11,
+            action: {}
+          )
 
-        WhiteRoundedButton(
-          text: "Cancel Reservation",
-          textColor: getRGBColor(248, 63, 63),
-          weight: .regular,
-          size: 16,
-          vPadding: 10,
-          radius: 11,
-          action: {}
-        )
+          WhiteRoundedButton(
+            text: "Cancel Reservation",
+            textColor: getRGBColor(248, 63, 63),
+            weight: .regular,
+            size: 16,
+            vPadding: 10,
+            radius: 11,
+            action: {}
+          )
+        }
       }
-    }
+      .transition(.opacity.combined(with: .opacity))
     } else {
       HStack {
         Spacer()
@@ -192,6 +197,7 @@ struct ReservedDetailsView: View {
 }
 
 struct InUseDetailsView: View {
+  @Binding var isShowingQR: Bool
   let isShowingDetails: Bool
 
   var body: some View {
@@ -223,9 +229,12 @@ struct InUseDetailsView: View {
           size: 16,
           vPadding: 10,
           radius: 11,
-          action: {}
+          action: {
+            isShowingQR = true
+          }
         )
       }
+      .transition(.opacity.combined(with: .opacity))
     } else {
       HStack {
         Spacer()

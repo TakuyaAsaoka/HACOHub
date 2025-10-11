@@ -68,7 +68,7 @@ struct ReserveLockerView: View {
             .frame(maxWidth: .infinity)
             .padding(.bottom, 12)
 
-          Text.sfProRegular("Time", size: 16)
+          Text.sfProRegular("Date", size: 16)
             .padding(.bottom, 4)
           HStack (spacing: 16) {
             Image("ClockIcon")
