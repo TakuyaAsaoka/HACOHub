@@ -12,7 +12,7 @@ struct MyLocker: Identifiable {
   var status: LockerStatus
   var size: LockerSize
   var locatin: String
-  var time: Date
+  var date: Date
   var dailyRate: Double
 }
 
@@ -27,21 +27,21 @@ let myLockers: [MyLocker] = [
     status: .reserved,
     size: .small,
     locatin: "Sweet Auburn Music Fest Entrance",
-    time: Date(),
-    dailyRate: 4
+    date: Date(),
+    dailyRate: 5
   ),
   MyLocker(
     status: .inUse,
     size: .medium,
     locatin: "Sweet Auburn Music Fest Entrance",
-    time: Date(),
+    date: Date(),
     dailyRate: 8
   ),
   MyLocker(
     status: .completed,
     size: .large,
     locatin: "Sweet Auburn Music Fest Entrance",
-    time: Date(),
+    date: Date(),
     dailyRate: 12
   )
 ]

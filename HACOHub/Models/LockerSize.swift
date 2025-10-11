@@ -27,6 +27,14 @@ enum LockerSize: String {
     case .large: return "$12"
     }
   }
+
+  var inches: String {
+    switch self {
+    case .small: return "12”W×15”D×15”H"
+    case .medium: return "15”W×18”D×18”H"
+    case .large: return "18”W×20”D×24”H"
+    }
+  }
 }
 
 let sizeButtons: [RadioButton] = [

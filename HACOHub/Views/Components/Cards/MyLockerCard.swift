@@ -28,7 +28,8 @@ struct MyLockerCard: View {
             .frame(width: 67, alignment: .leading)
             .foregroundColor(getRGBColor(110, 119, 129))
           Text.sfProBold(myLocker.size.rawValue, size: 20)
-          Text.sfProRegular("34×57×42 cm", size: 14)
+            .padding(.trailing, 20)
+          Text.sfProRegular(myLocker.size.inches, size: 14)
         }
 
         HStack(spacing: 8) {
@@ -39,10 +40,10 @@ struct MyLockerCard: View {
         }
 
         HStack(spacing: 8) {
-          Text.sfProMedium("Time", size: 16)
+          Text.sfProMedium("Date", size: 16)
             .frame(width: 67, alignment: .leading)
             .foregroundColor(getRGBColor(110, 119, 129))
-          Text.sfProRegular(fromDateToFullDate(date: myLocker.time), size: 14)
+          Text.sfProRegular(fromDateToFullDate(date: myLocker.date), size: 14)
         }
         .padding(.bottom, 3)
 
@@ -213,7 +214,7 @@ struct InUseDetailsView: View {
           }
         }
         Text.sfProRegular("Increase screen brightness for easier scanning.", size: 14)
-        Text.sfProRegular("Contact: +1-XX-XXXX-XXXX", size: 14)
+        Text.sfProRegular("Contact: +1-555-2368", size: 14)
           .padding(.bottom, 25)
 
         PrimaryRoundedButton(
@@ -253,7 +254,7 @@ struct CompletedDetailsView: View {
         status: LockerStatus.reserved,
         size: LockerSize.small,
         locatin: "Sweet Auburn Music Fest Entrance",
-        time: Date(),
+        date: Date(),
         dailyRate: 4.0
       )
     )
@@ -263,7 +264,7 @@ struct CompletedDetailsView: View {
         status: LockerStatus.inUse,
         size: LockerSize.medium,
         locatin: "Sweet Auburn Music Fest Entrance",
-        time: Date(),
+        date: Date(),
         dailyRate: 4.05
       )
     )
@@ -273,7 +274,7 @@ struct CompletedDetailsView: View {
         status: LockerStatus.completed,
         size: LockerSize.large,
         locatin: "Sweet Auburn Music Fest Entrance",
-        time: Date(),
+        date: Date(),
         dailyRate: 4.05
       )
     )

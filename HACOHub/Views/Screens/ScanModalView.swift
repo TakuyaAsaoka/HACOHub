@@ -42,7 +42,7 @@ struct ScanModalView: View {
               Text.sfProRegular("HACOHub Music Plaza Entrance Locker 02", size: 14)
                 .padding(.bottom, 14)
               Text.sfProRegular("Increase screen brightness for easier scanning.", size: 14)
-              Text.sfProRegular("Contact: +1-XX-XXXX-XXXX", size: 14)
+              Text.sfProRegular("Contact: +1-555-2368", size: 14)
                 .padding(.bottom, 2)
 
               GrayRoundedButton(

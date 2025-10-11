@@ -12,6 +12,7 @@ struct ReserveLockerView: View {
   @State private var selectedRadioButtonSizeId: UUID? = nil
   @State private var selectedRadioButtonPaymentId: UUID? = nil
   @State private var selectedSize: LockerSize?
+  @State private var selectedPayment: Payment?
   @State private var selectedTime: Date = Date()
   @State private var isShowingPicker = false
   @State private var isShowingConfirmReservationView: Bool = false
@@ -115,12 +116,21 @@ struct ReserveLockerView: View {
             vPadding: 20,
             radius: 16,
             action: {
-            if let selectedButton = sizeButtons.first(where: { $0.id == selectedRadioButtonSizeId }) {
-              selectedSize = LockerSize.fromText(selectedButton.text ?? "")
-            }
+              if let selectedButton = sizeButtons.first(where: {
+                $0.id == selectedRadioButtonSizeId
+              }) {
+                selectedSize = LockerSize.fromText(selectedButton.text ?? "")
+              }
 
-            isShowingConfirmReservationView = true
-          })
+              if let selectedButton = paymentButtons.first(where: {
+                $0.id == selectedRadioButtonPaymentId
+              }) {
+                selectedPayment = Payment.fromImageName(selectedButton.imageName ?? "")
+              }
+              
+              isShowingConfirmReservationView = true
+            }
+          )
           .padding(.bottom, 12)
         }
         .padding(.horizontal, 20)
@@ -130,9 +140,10 @@ struct ReserveLockerView: View {
         ConfirmReservationView(
           selectedEvent: $selectedEvent,
           selectedSize: $selectedSize,
-          selectedTime: $selectedTime)
-        }
-      )
+          selectedTime: $selectedTime,
+          selectedPayment: $selectedPayment
+        )
+      })
       .navigationTitle("Reservation")
     }
   }
@@ -141,15 +152,17 @@ struct ReserveLockerView: View {
 #Preview {
   ReserveLockerView(
     selectedEvent: .constant(
-      EventInfo(title: "Autumn Sound Festival",
-                imageName: "AutumnSoundFestival",
-                date: "Oct 15",
-                fullDate: "October, 15, 2025",
-                time: "10:00~17:00",
-                place: "Sweet Auburn Music Fest",
-                features: [EventFeature.ticket, EventFeature.bagStorage, EventFeature.food, EventFeature.vip, EventFeature.goods],
-                availableLockers: 22,
-                totalLockers: 24)
+      EventInfo(
+        title: "Autumn Sound Festival",
+        imageName: "AutumnSoundFestival",
+        date: "Oct 15",
+        fullDate: "October 15, 2025",
+        time: "10:00~17:00",
+        place: "Sweet Auburn Music Fest",
+        features: [EventFeature.ticket, EventFeature.bagStorage, EventFeature.food, EventFeature.vip, EventFeature.goods],
+        availableLockers: 22,
+        totalLockers: 24
+      )
     )
   )
 }
