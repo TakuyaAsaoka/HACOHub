@@ -29,7 +29,7 @@ struct HomeView: View {
 
   var body: some View {
     GeometryReader { geomerty in
-      VStack(spacing: 10) {
+      VStack(spacing: 20) {
         HomeHeaderView()
           
         //小さい円情報
