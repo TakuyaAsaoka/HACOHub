@@ -29,7 +29,7 @@ struct HomeView: View {
 
   var body: some View {
     GeometryReader { geomerty in
-      VStack(spacing: 20) {
+      VStack(spacing: 0) {
         HomeHeaderView()
           
         //小さい円情報
@@ -44,10 +44,9 @@ struct HomeView: View {
          
         ]
           
-        //配置する円の半径(小さい円の中心が置かれる線路円の半径)
-        let middleRadius = ((bigCirclesize / 2) - (smallCirclesize / 2)) - 10
-          let ellipseRadiusX = (bigCirclesize / 2) - (smallCirclesize / 2) * 2.2 // 横方向の短い半径
-          let ellipseRadiusY = (bigCirclesize / 2) - (smallCirclesize / 2) * 1.2 // 縦方向の長い半径
+        
+        let ellipseRadiusX = (bigCirclesize / 2) - (smallCirclesize / 2) * 2.2
+        let ellipseRadiusY = (bigCirclesize / 2) - (smallCirclesize / 2) * 1.2
           
         //中段サークル
         ZStack{
