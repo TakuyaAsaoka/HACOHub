@@ -45,6 +45,7 @@ func getIconNames(features: [EventFeature]) -> [EventIcon] {
 struct EventView: View {
   @State private var selectedEvent: EventInfo?
   @StateObject private var locationManager = LocationManager()
+  @Environment(\.dismiss) private var dismiss
 
   @State private var searchText: String = ""
   @State private var position: MapCameraPosition = .automatic
@@ -100,7 +101,9 @@ struct EventView: View {
 
           VStack {
             HStack {
-              SquareIconButton(iconName: "HomeIcon", length: 46, action: {})
+              SquareIconButton(iconName: "HomeIcon", length: 46, action: {
+                dismiss()
+              })
               SearchBar(text: $searchText)
             }
             .padding(.horizontal, 20)
@@ -115,9 +118,8 @@ struct EventView: View {
           ProgressView("Getting current location…")
         }
       }
-      // TODO: これ不要じゃない？
-//      .navigationBarBackButtonHidden(false)
-//      .toolbarBackground(.hidden, for: .navigationBar)
+      .navigationBarBackButtonHidden(true)
+      .toolbarBackground(.hidden, for: .navigationBar)
       .navigationDestination(item: $selectedEvent) { _ in
         ReserveLockerView(selectedEvent: $selectedEvent)
       }

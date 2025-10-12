@@ -16,7 +16,7 @@ struct HacoHubTabView: View {
         switch selectedTab {
           case 0: HomeView()
           case 1: ServicesView()
-          case 2: EventView()
+          case 2: MapView()
           case 3: MyLockerView()
           case 4: AccountView()
           default: HomeView()
