@@ -6,9 +6,15 @@
 //
 
 enum Situation: Hashable {
-  case delivery
-  case event
   case send
+  case pickup
+  case dropoff
+  case share
+  case airport
+  case event
+  case sendtofriend
+  
+  case delivery
   case education
   case lent
   case medical

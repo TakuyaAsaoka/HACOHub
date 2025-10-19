@@ -14,7 +14,7 @@ struct HacoHubTabView: View {
     VStack(spacing: 0) {
       Group {
         switch selectedTab {
-          case 0: HomeView()
+          case 0: HomeView2()
           case 1: ServicesView()
           case 2: MapView()
           case 3: MyLockerView()
