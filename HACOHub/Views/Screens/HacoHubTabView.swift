@@ -12,7 +12,7 @@ struct HacoHubTabView: View {
 
   var body: some View {
     VStack(spacing: 0) {
-      HacoHubTabView()
+      HomeHeaderView()
 
       Group {
         switch selectedTab {

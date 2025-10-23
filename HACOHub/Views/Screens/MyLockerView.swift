@@ -14,8 +14,7 @@ struct MyLockerView: View {
     ZStack {
       getRGBColor(240, 240, 240)
 
-      VStack(spacing: 16) {
-        TitleHeaderView(title: "My Locker")
+      VStack(spacing: 0) {
         ScrollView {
           ForEach(myLockers) { myLocker in
             MyLockerCard(
@@ -23,6 +22,7 @@ struct MyLockerView: View {
               myLocker: myLocker
             )
           }
+          .padding(.top, 16)
           .padding(.horizontal, 20)
           Spacer()
         }
