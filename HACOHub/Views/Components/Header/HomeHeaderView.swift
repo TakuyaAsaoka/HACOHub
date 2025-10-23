@@ -1,5 +1,5 @@
 //
-//  HomeHeader.swift
+//  HomeHeaderView.swift
 //  HACOHub
 //
 //  Created by AsaokaTakuya on 2025/10/11.
@@ -24,7 +24,7 @@ struct HomeHeaderView: View {
       .padding(.horizontal, 20)
     }
     .padding(.bottom, 8)
-    .frame(height: 103)
+    .frame(height: 115)
     .background(.white)
   }
 }

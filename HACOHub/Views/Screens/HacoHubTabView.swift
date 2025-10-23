@@ -12,6 +12,8 @@ struct HacoHubTabView: View {
 
   var body: some View {
     VStack(spacing: 0) {
+      HacoHubTabView()
+
       Group {
         switch selectedTab {
           case 0: HomeView2()
