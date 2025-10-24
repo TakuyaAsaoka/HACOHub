@@ -39,43 +39,62 @@ struct MapView: View {
   let usedLocker: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 33.758534, longitude: -84.393106)
 
   var body: some View {
-      Map {
-        ForEach(Array(unusedLockers.enumerated()), id: \.offset) { index, locker in
-          Annotation("", coordinate: locker) {
-            if !isHideUnusedLockers {
-              Button {
-  //              isShowingEventMap = true
-              } label: {
-                Image("UnusedLockerIcon")
-                  .resizable()
-                  .scaledToFit()
-                  .frame(width: 43, height: 60)
-              }
-              .accessibilityHidden(true)
-            }
-          }
-        }
-        Annotation("", coordinate: usedLocker) {
-          Button {
-            // isShowingEventMap = true
-          } label: {
-            Image("UsedLockerIcon")
-              .resizable()
-              .scaledToFit()
-              .frame(width: 43, height: 60)
-          }
-          .accessibilityHidden(true)
-        }
-        Annotation("", coordinate: fixedLocation) {
-          Image("CurrentLocationPin")
-            .resizable()
-            .scaledToFit()
-            .frame(width: 26.25, height: 37.5)
-            .accessibilityHidden(true)
-        }
-      }
-    }
-  }
+		ZStack {
+			Map {
+					ForEach(Array(unusedLockers.enumerated()), id: \.offset) { index, locker in
+							Annotation("", coordinate: locker) {
+									if !isHideUnusedLockers {
+											Button {
+													//              isShowingEventMap = true
+											} label: {
+													Image("UnusedLockerIcon")
+															.resizable()
+															.scaledToFit()
+															.frame(width: 43, height: 60)
+											}
+											.accessibilityHidden(true)
+									}
+							}
+					}
+					Annotation("", coordinate: usedLocker) {
+							Button {
+									// isShowingEventMap = true
+							} label: {
+									Image("UsedLockerIcon")
+											.resizable()
+											.scaledToFit()
+											.frame(width: 43, height: 60)
+							}
+							.accessibilityHidden(true)
+					}
+					Annotation("", coordinate: fixedLocation) {
+							Image("CurrentLocationPin")
+									.resizable()
+									.scaledToFit()
+									.frame(width: 26.25, height: 37.5)
+									.accessibilityHidden(true)
+					}
+			}
+			
+			VStack {
+				HStack {
+					Spacer()
+					Button {
+						isHideUnusedLockers.toggle()
+					} label: {
+						Image(isHideUnusedLockers ? "EyeSlashIcon" : "EyeIcon")
+							.resizable()
+							.scaledToFit()
+							.frame(width: 36, height: 36)
+					}
+				}
+				Spacer()
+			}
+			.padding(.trailing, 23)
+			.padding(.top, 8)
+		}
+	}
+}
 
 #Preview {
     MapView()
