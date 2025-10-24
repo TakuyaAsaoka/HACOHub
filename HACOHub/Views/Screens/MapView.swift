@@ -82,15 +82,20 @@ struct MapView: View {
 					Button {
 						isHideUnusedLockers.toggle()
 					} label: {
-						Image(isHideUnusedLockers ? "EyeSlashIcon" : "EyeIcon")
-							.resizable()
-							.scaledToFit()
-							.frame(width: 36, height: 36)
+						VStack(spacing: 0) {
+							Image(isHideUnusedLockers ? "EyeSlashIcon" : "EyeIcon")
+								.resizable()
+								.scaledToFit()
+								.frame(width: 36, height: 36)
+							Text.sfProRegular(isHideUnusedLockers ? "Hide Others" : "Show All", size: 13)
+								.foregroundColor(getRGBColor(110, 119, 129))
+						}
+						.frame(width: 74)
 					}
 				}
 				Spacer()
 			}
-			.padding(.trailing, 23)
+			.padding(.trailing, 10)
 			.padding(.top, 8)
 		}
 	}
