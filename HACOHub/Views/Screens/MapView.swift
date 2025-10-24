@@ -10,6 +10,7 @@ import MapKit
 
 struct MapView: View {
   @State var isHideUnusedLockers: Bool = false
+	@State var selectedLocker: CLLocationCoordinate2D? = nil
   @State private var position: MapCameraPosition = .region(
     MKCoordinateRegion(
       center: CLLocationCoordinate2D(latitude: 33.759987, longitude: -84.393362),
@@ -57,15 +58,22 @@ struct MapView: View {
 							}
 					}
 					Annotation("", coordinate: usedLocker) {
+						VStack {
+							
+						
 							Button {
-									// isShowingEventMap = true
+								if selectedLocker == usedLocker {
+									selectedLocker = nil
+								} else {
+									selectedLocker = usedLocker
+								}
 							} label: {
 									Image("UsedLockerIcon")
-											.resizable()
-											.scaledToFit()
-											.frame(width: 43, height: 60)
+										.resizable()
+										.scaledToFit()
+										.frame(width: 43, height: 60)
 							}
-							.accessibilityHidden(true)
+						}
 					}
 					Annotation("", coordinate: fixedLocation) {
 							Image("CurrentLocationPin")
@@ -98,6 +106,12 @@ struct MapView: View {
 			.padding(.trailing, 10)
 			.padding(.top, 8)
 		}
+	}
+}
+
+extension CLLocationCoordinate2D: @retroactive Equatable {
+	public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+			return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
 	}
 }
 
