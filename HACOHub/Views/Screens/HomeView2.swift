@@ -75,10 +75,9 @@ struct HomeView2: View {
 
   var body: some View {
     GeometryReader { geomerty in
-      VStack(spacing: 0) {
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(spacing: 0) {
         
-        
-          ScrollView(.vertical, showsIndicators: false) {
               Spacer()
                   .frame(height: 19.46)
               
@@ -532,12 +531,12 @@ struct HomeView2: View {
                       
                       .padding(.horizontal, 24)
                   }
-                  .frame(width: 345)
+                  .frame(maxWidth: .infinity)
                   
               }
           }
+          .frame(maxWidth: .infinity)
       }
-      .frame(maxHeight: .infinity, alignment: .top)
       .background(getRGBColor(245, 247, 247,1))
       .ignoresSafeArea()
       .frame(width: geomerty.size.width)
