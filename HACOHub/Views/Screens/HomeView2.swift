@@ -18,6 +18,8 @@ struct HomeView2: View {
     let imageName: String
     let color: Color
     let situation: Situation
+    let imageSize: CGSize
+    let padding: CGFloat
       
   }
 
@@ -29,14 +31,18 @@ struct HomeView2: View {
       imageName: "SendIcon",
       color: getRGBColor(255, 255, 255, 1),
       situation: .send,
+      imageSize: CGSize(width: 79, height: 69),
+      padding: 26
     ),
     SituationButton(
-      text: "Pickup",
-      subtitle1: "Ship items to",
-      subtitle2: "anyone",
+      text: "Receive",
+      subtitle1: "Collect your",
+      subtitle2: "items",
       imageName: "PickUpIcon",
       color: getRGBColor(255, 255, 255, 1),
       situation: .pickup,
+      imageSize: CGSize(width: 83, height: 83),
+      padding: 26
     ),
     SituationButton(
       text: "Share",
@@ -45,14 +51,19 @@ struct HomeView2: View {
       imageName: "ShareIcon",
       color: getRGBColor(255, 255, 255, 1),
       situation: .share,
+      imageSize: CGSize(width: 83, height: 83),
+      padding: 13
+      
     ),
     SituationButton(
-      text: "Drop off",
-      subtitle1: "Ship items to",
-      subtitle2: "anyone",
-      imageName: "DropOffIcon",
+      text: "Store",
+      subtitle1: "Store items",
+      subtitle2: "in zone",
+      imageName: "StoreIcon",
       color: getRGBColor(255, 255, 255, 1),
       situation: .dropoff,
+      imageSize: CGSize(width: 55, height: 100),
+      padding: 16
     )
     
   ]
@@ -65,7 +76,7 @@ struct HomeView2: View {
   var body: some View {
     GeometryReader { geomerty in
       VStack(spacing: 0) {
-        HomeHeaderView()
+        
         
           ScrollView(.vertical, showsIndicators: false) {
               Spacer()
@@ -133,13 +144,12 @@ struct HomeView2: View {
                                   
                                   Image(button.imageName)
                                       .resizable()
-                                      .frame(width: 80, height: 80)
-                                  .padding(16)
+                                      .frame(width: button.imageSize.width, height: button.imageSize.height)
+                                      //.padding(button.)
+                                      //.padding(button.padding)
+                                      .padding(.bottom, button.padding)
+                                      
                                   
-                                  //Text.sfProBold(button.text, size: 24)
-                                  //Image(button.imageName)
-                                      //.resizable()
-                                      //.frame(width: 64, height: 64)
                                   
                                   
                               }
