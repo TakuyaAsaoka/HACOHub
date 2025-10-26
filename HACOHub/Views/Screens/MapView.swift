@@ -18,7 +18,18 @@ struct MapView: View {
       span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
     )
   )
-
+	
+	@State private var elapsedTime = DateComponents(hour: 1, minute: 22, second: 15)
+	@State private var timer: Timer?
+	private var formattedTime: String {
+			let h = elapsedTime.hour ?? 0
+			let m = elapsedTime.minute ?? 0
+			let s = elapsedTime.second ?? 0
+			return String(format: "%02d:%02d:%02d", h, m, s)
+	}
+	
+	@State var isShowingScanModalView: Bool = false
+	
   let fixedLocation = CLLocationCoordinate2D(
     latitude: 33.759987,
     longitude: -84.393362
@@ -45,22 +56,19 @@ struct MapView: View {
 					ForEach(Array(unusedLockers.enumerated()), id: \.offset) { index, locker in
 							Annotation("", coordinate: locker) {
 									if !isHideUnusedLockers {
-											Button {
-													//              isShowingEventMap = true
-											} label: {
-													Image("UnusedLockerIcon")
-															.resizable()
-															.scaledToFit()
-															.frame(width: 43, height: 60)
+										Image("UnusedLockerIcon")
+											.resizable()
+											.scaledToFit()
+											.frame(width: 43, height: 60)
+											.contentShape(Rectangle()) // タップ範囲を明確に
+											.onTapGesture {
+													// isShowingEventMap = true
 											}
-											.accessibilityHidden(true)
 									}
 							}
 					}
 					Annotation("", coordinate: usedLocker) {
 						VStack {
-							
-						
 							Button {
 								if selectedLocker == usedLocker {
 									selectedLocker = nil
@@ -68,10 +76,75 @@ struct MapView: View {
 									selectedLocker = usedLocker
 								}
 							} label: {
+								ZStack {
+									if selectedLocker == usedLocker {
+										PopupBubbleView(
+											triangleWidth: 78,
+											triangleHeight: 36,
+											triangleLineWidth: 20,
+											offset: 34
+										) {
+											VStack(spacing: 4) {
+												HStack(alignment: .top) {
+													VStack(alignment: .leading, spacing: 8) {
+														VStack(alignment: .leading, spacing: 0) {
+															Text.sfProMedium("Located", size: 12)
+																.foregroundColor(
+																	getRGBColor(110, 119, 129)
+																)
+															Text.sfProBold("East Street No.2", size: 16)
+																.foregroundColor(
+																	getRGBColor(36, 41, 47)
+																)
+														}
+														
+														VStack(alignment: .leading, spacing: 0) {
+															Text.sfProMedium("Elapsed Time", size: 12)
+																.foregroundColor(
+																	getRGBColor(110, 119, 129)
+																)
+															
+															Text.sfProBold(formattedTime, size: 16)
+																.foregroundColor(
+																	getRGBColor(36, 41, 47)
+																)
+																.onAppear {
+																	startTimer()
+																}
+														}
+													}
+													
+													PrimaryRoundedButton(
+														text: "In Use",
+														weight: .regular,
+														size: 16,
+														vPadding: 3,
+														radius: 24,
+														action: {}
+													)
+													.frame(width: 72)
+												}
+												
+												PrimaryRoundedButton(
+													text: "Open Locker",
+													weight: .medium,
+													size: 16,
+													vPadding: 6,
+													radius: 11,
+													action: {
+														isShowingScanModalView = true
+													}
+												)
+											}
+										}
+										.offset(y: -100)
+									}
+								
 									Image("UsedLockerIcon")
 										.resizable()
 										.scaledToFit()
 										.frame(width: 43, height: 60)
+								}
 							}
 						}
 					}
@@ -105,7 +178,26 @@ struct MapView: View {
 			}
 			.padding(.trailing, 10)
 			.padding(.top, 8)
+			
+			if isShowingScanModalView {
+				ScanModalView()
+			}
 		}
+	}
+	
+	private func startTimer() {
+			timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+					incrementTime()
+			}
+	}
+
+	private func incrementTime() {
+			var seconds = (elapsedTime.hour ?? 0) * 3600 + (elapsedTime.minute ?? 0) * 60 + (elapsedTime.second ?? 0)
+			seconds += 1
+
+			elapsedTime.hour = (seconds / 3600) % 24
+			elapsedTime.minute = (seconds % 3600) / 60
+			elapsedTime.second = seconds % 60
 	}
 }
 
