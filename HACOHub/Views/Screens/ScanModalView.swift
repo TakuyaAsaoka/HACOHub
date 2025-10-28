@@ -89,7 +89,7 @@ struct ScanModalView: View {
 }
 
 struct QRCodeView: View {
-  let text: String = "1234567890-abcdef"
+  let text: String = "HACOHub1-123456"
 
   var body: some View {
     ZStack {
