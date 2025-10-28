@@ -8,118 +8,191 @@
 import SwiftUI
 
 struct HomeView: View {
-  @State var situation: Situation? = nil
+  @State var action: Action? = nil
 
-  struct SituationButton: Identifiable {
-    let id = UUID()
-    let text: String
-    let imageName: String
-    let color: Color
-    let situation: Situation
+  struct UseCases: Identifiable {
+		let id = UUID()
+		let imageName: String
+		let useCaseName: String
+		let description: String
+		let leftColor: Color
+		let rightColor: Color
+		let backgroundColer: Color
   }
 
-  let situationButtons: [SituationButton] = [
-    SituationButton(
-      text: "Delivery",
-      imageName: "DeliveryIcon",
-      color: getRGBColor(255, 248, 222),
-      situation: .delivery,
-    ),
-    SituationButton(
-      text: "Event",
-      imageName: "EventIcon",
-      color: getRGBColor(255, 235, 220),
-      situation: .event,
-    ),
-    SituationButton(
-      text: "Send",
-      imageName: "SendIcon",
-      color: getRGBColor(210, 247, 222),
-      situation: .send,
-    ),
-    SituationButton(
-      text: "Education",
-      imageName: "EducationIcon",
-      color: getRGBColor(205, 246, 250),
-      situation: .education,
-    ),
-    SituationButton(
-      text: "Lent",
-      imageName: "LentIcon",
-      color: getRGBColor(243, 231, 255),
-      situation: .lent,
-    ),
-    SituationButton(
-      text: "Medical",
-      imageName: "MedicalIcon",
-      color: getRGBColor(222, 237, 255),
-      situation: .medical,
-    )
-  ]
+	let UseCaseButtons: [UseCases] = [
+		 UseCases(
+			imageName: "AirplaneIcon",
+			useCaseName: "AirPort to Hotel",
+			description: "Send luggage directly\nto your hotel",
+			leftColor: getRGBColor(43, 127, 255),
+			rightColor: getRGBColor(0, 184, 219),
+			backgroundColer: getRGBColor(245, 251, 254),
+		),
+		 UseCases(
+			imageName: "EventIcon",
+			useCaseName: "Event Locker",
+			description: "Store items during events",
+			leftColor: getRGBColor(173, 70, 255),
+			rightColor: getRGBColor(246, 51, 154),
+			backgroundColer: getRGBColor(252, 245, 251),
+		),
+		 UseCases(
+			imageName: "PeopleIcon",
+			useCaseName: "Send to Friend",
+			description: "Share items via secure locker",
+			leftColor: getRGBColor(0, 188, 125),
+			rightColor: getRGBColor(0, 187, 167),
+			backgroundColer: getRGBColor(245, 252, 250),
+		)
+	]
+    
+	struct NearbyHacohubLocation: Identifiable {
+		let id = UUID()
+		let location: String
+		let distance: String
+		let availableNumber: Int
+	}
 
-  let bigCircleSize: CGFloat = 624
-  let smallCircleRadius: CGFloat = 70
-  var smallCircleSize: CGFloat {smallCircleRadius * 2}
-
+	let NearbyHacohubLocations: [NearbyHacohubLocation] = [
+		NearbyHacohubLocation(
+			location: "Shibuya Station",
+			distance: "0.3",
+			availableNumber: 5
+		),
+		NearbyHacohubLocation(
+			location: "Omotesando Hills",
+			distance: "0.8",
+			availableNumber: 5
+		),
+		NearbyHacohubLocation(
+			location: "Harajuku Center",
+			distance: "1.2",
+			availableNumber: 5
+		),
+	]
+    
   var body: some View {
-    GeometryReader { geomerty in
-      VStack(spacing: 0) {
-        HomeHeaderView()
-
-        let ellipseRadiusX = (bigCircleSize / 2) - (smallCircleSize / 2) * 2.2
-        let ellipseRadiusY = (bigCircleSize / 2) - (smallCircleSize / 2) * 1.2
-          
-        ZStack{
-          Circle()
-            .foregroundColor(getRGBColor(236, 249, 243))
-            .frame(width: bigCircleSize, height: bigCircleSize)
-
-          Image("TrackIcon")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 179, height: 179)
-                .offset(y: -bigCircleSize / 2 + bigCircleSize / 2)
-            
-          ForEach(situationButtons.enumerated(), id: \.element.id) { index, button in
-              let angle = Angle(degrees: Double(index) * (360.0 / Double(situationButtons.count)) - 90)
-
-              Button{
-                situation = button.situation
-              } label: {
-                ZStack{
-                  Circle()
-                    .foregroundColor(button.color)
-                    .frame(width: smallCircleSize, height: smallCircleSize)
-
-                  VStack(spacing:0){
-                    Image(button.imageName)
-                        .resizable()
-                        .frame(width: 64, height: 64)
-                    Text.sfProBold(button.text, size: 24)
-                  }
-                }
-              }
-              .buttonStyle(PlainButtonStyle())
-              .offset(
-                  x: CGFloat(cos(angle.radians)) * ellipseRadiusX,
-                  y: CGFloat(sin(angle.radians)) * ellipseRadiusY
-              )
-              .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
-          }
-        }
-      }
-      .ignoresSafeArea()
-      .frame(width: geomerty.size.width)
-      .frame(maxHeight: .infinity)
-      .navigationDestination(item: $situation) { situation in
-        switch (situation) {
-        case .event:
+			ScrollView(.vertical, showsIndicators: false) {
+				VStack(alignment: .leading, spacing: 16) {
+					Text.sfProRegular("What would you like to do?", size: 16)
+						.foregroundColor(getRGBColor(54, 65, 83))
+					
+					VStack(spacing: 12) {
+						HStack(spacing: 21) {
+							ActionButton(
+								action: .send,
+								description: "Ship item to\nanyone",
+								imageName: "SendIcon",
+								imageWidth: 79,
+								imageHeight: 69,
+								offsetX: 18,
+								offsetY: 24
+							)
+							ActionButton(
+								action: .receive,
+								description: "Collect your\nitems",
+								imageName: "ReceiveIcon",
+								imageWidth: 89,
+								imageHeight: 86,
+								offsetX: 14,
+								offsetY: 30
+							)
+						}
+						HStack(spacing: 21) {
+							ActionButton(
+								action: .storeItems,
+								description: "Store items\nin zones",
+								imageName: "StoreItemsIcon",
+								imageWidth: 55,
+								imageHeight: 100,
+								offsetX: 18,
+								offsetY: 24
+							)
+							ActionButton(
+								action: .share,
+								description: "Share locker\naccess",
+								imageName: "ShareIcon",
+								imageWidth: 83,
+								imageHeight: 83,
+								offsetX: 8,
+								offsetY: 24
+							)
+						}
+					}
+					
+					HStack{
+						Text.sfProRegular("Popular Use Case", size: 16)
+							.foregroundColor(getRGBColor(54, 65, 83, 1))
+						
+						Spacer()
+						
+						HStack(spacing: 0) {
+							Text.sfProRegular("View More", size: 14)
+								.foregroundColor(getRGBColor(79, 190, 159, 1))
+							Image("RightArrow")
+								.resizable()
+								.scaledToFit()
+								.frame(width: 16, height: 16)
+						}
+					}
+					.padding(.trailing, 18)
+					
+					VStack(spacing:12) {
+						ForEach(UseCaseButtons) { button in
+							UseCaseButton(
+								imageName: button.imageName,
+								useCaseName: button.useCaseName,
+								description: button.description,
+								leftColor: button.leftColor,
+								rightColor: button.rightColor,
+								backgroundColer: button.backgroundColer,
+								action: {}
+							)
+						}
+					}
+					
+					HStack{
+						Text.sfProRegular("Nearby HACOHub Locations", size: 16)
+							.foregroundColor(getRGBColor(54, 65, 83, 1))
+						
+						Spacer()
+						
+						HStack(spacing: 0) {
+							Text.sfProRegular("Map", size: 14)
+								.foregroundColor(getRGBColor(79, 190, 159, 1))
+							Image("RightArrow")
+								.resizable()
+								.scaledToFit()
+								.frame(width: 16, height: 16)
+						}
+						.padding(.trailing, 18)
+					}
+					
+					VStack(spacing:12) {
+						ForEach(NearbyHacohubLocations) { location in
+							NearbyHacoHubLocationButton(
+								location: location.location,
+								distance: location.distance,
+								availableNumber: location.availableNumber,
+							)
+						}
+					}
+				}
+			.padding(.horizontal, 24)
+      .background(getRGBColor(245, 247, 247))
+      .navigationDestination(item: $action) { action in
+        switch (action) {
+        case .send:
           EventView()
+				case .receive:
+					EmptyView()
         default:
           EmptyView()
         }
       }
     }
+		.ignoresSafeArea()
   }
 }
 

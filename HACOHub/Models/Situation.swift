@@ -13,9 +13,6 @@ enum Situation: Hashable {
   case airport
   case event
   case sendtofriend
-  case shibuya
-  case OmotesandoHills
-  case HarajukuCenter
   
   case delivery
   case education
