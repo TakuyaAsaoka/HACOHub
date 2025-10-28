@@ -68,8 +68,8 @@ struct StepperView: View {
 }
 
 #Preview {
-	Stepper(
-			steps: ["Locker", "Location", "Payment"],
-			completeNumber: 1
+	StepperView(
+		steps: ["Locker", "Location", "Payment"],
+		completeNumber: 1
 	)
 }
