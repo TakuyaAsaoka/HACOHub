@@ -179,6 +179,7 @@ struct HomeView: View {
 						}
 					}
 				}
+				.padding(.top, 20)
 			.padding(.horizontal, 24)
       .background(getRGBColor(245, 247, 247))
       .navigationDestination(item: $action) { action in
