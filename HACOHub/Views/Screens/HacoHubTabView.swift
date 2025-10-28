@@ -81,5 +81,5 @@ struct HacoHubTabView: View {
 }
 
 #Preview {
-    HacoHubTabView()
+	HacoHubTabView()
 }

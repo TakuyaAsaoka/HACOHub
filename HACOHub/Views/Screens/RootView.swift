@@ -20,10 +20,10 @@ struct RootView: View {
         .transition(.opacity)
       } else {
         if hasLaunchedBefore {
-          NavigationStack {
+					NavigationStack {
             HacoHubTabView()
               .transition(.opacity)
-            }
+					}
         } else {
           OnboardingView()
             .transition(.opacity)

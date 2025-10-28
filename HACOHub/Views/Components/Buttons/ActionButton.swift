@@ -39,8 +39,9 @@ struct ActionButton: View {
 			.frame(height: 176)
 			.padding(.leading, 24)
 			.padding(.top, 20)
-			.overlay(
+			.background(
 				RoundedRectangle(cornerRadius: 16)
+					.fill(.white)
 					.stroke(getRGBColor(208, 215, 222), lineWidth: 1)
 					.shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
 					.shadow(color: .black.opacity(0.1), radius: 6, x: 0, y: 4)
