@@ -13,35 +13,45 @@ struct SendView: View {
 		"Delivery\ndetail",
 		"Select\na HACOHub",
 	]
-	@State var address: String = ""
+	@StateObject private var addressStore = AddressStore()
+
 	
 	var body: some View {
 		PhaseLayoutView(
 			steps: steps,
-			completeNumber: 1,
-			content: { ShippingDetailView(
-				address: $address
-			) },
+			completeNumber: 0,
+			content: { ShippingDetailView()
+			.environmentObject(addressStore)
+			},
 			buttonText: "Next",
 			action: {
-				
+				print(addressStore.address)
 			}
 		)
 	}
 }
 
 struct ShippingDetailView: View {
-	@Binding var address: String
+	@EnvironmentObject var addressStore: AddressStore
+	@State var isShowingSelectRecipientView: Bool = false
 	
 	var body: some View {
-		VStack(spacing: 16) {
-			Text.sfProRegular("Shipping Location", size: 16)
-			MapWithPinView(mapHeight: 354)
-			Spacer()
-		}
+		ZStack {
+			getRGBColor(245, 245, 247)
+			
+			VStack(alignment: .leading, spacing: 16) {
+				Text.sfProRegular("Shipping Location", size: 16)
+				MapWithPinView(address: $addressStore.address)
+			}
 		.frame(maxWidth: .infinity, alignment: .leading)
-		.padding(.top, 20)
+		.padding(.vertical, 20)
 		.padding(.horizontal, 16)
+		}
+		.navigationTitle("Send")
+		.navigationDestination(isPresented: $isShowingSelectRecipientView) {
+			
+//			SelectRecipientView()
+		}
 	}
 }
 

@@ -10,73 +10,78 @@ import MapKit
 
 struct MapWithPinView: View {
 	@State private var region = MKCoordinateRegion(
-			center: CLLocationCoordinate2D(latitude: 33.759987, longitude: -84.393362),
+			center: CLLocationCoordinate2D(latitude: 33.7518510, longitude: -84.3853718),
 			span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
 	)
 	
-	@State private var centerCoordinate = CLLocationCoordinate2D(latitude: 33.759987, longitude: -84.393362)
-	@State private var address: String = "住所を取得中..."
+	@State private var centerCoordinate = CLLocationCoordinate2D(latitude: 33.7518510, longitude: -84.3853718)
+	@Binding var address: String
 	@State private var geocodeWorkItem: DispatchWorkItem?
-	let mapHeight: CGFloat
-	
+	@State private var didInitialLoad = false
+
 	var body: some View {
 		VStack {
+			InputBoxView(imageName: "GreenLocationIcon", text: $address)
+			
 			ZStack {
 				Map(coordinateRegion: $region, interactionModes: .all)
 						.onChange(of: region.center) { newCenter in
 							centerCoordinate = newCenter
-							// 古いリクエストをキャンセル
+
 							geocodeWorkItem?.cancel()
 							
-							// 新しいリクエストを0.2秒後に実行
 							let workItem = DispatchWorkItem { [newCenter] in
-									fetchAddress(for: newCenter)
-							}
+									 // 最初のロード時は住所を変更しない
+									 if didInitialLoad {
+											 fetchAddress(for: newCenter)
+									 } else {
+											 // 初回ロード完了後にフラグを true に
+											 didInitialLoad = true
+									 }
+							 }
 							geocodeWorkItem = workItem
 							DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: workItem)
-							
-							print("onChange: center moved")
 						}
-						.frame(height: mapHeight)
 					
 				Image("RedPinIcon")
 					.font(.system(size: 40))
 					.foregroundColor(.red)
 					.offset(y: -20)
 			}
-				
-			// 取得した座標情報
-			VStack(alignment: .leading) {
-					Text("緯度: \(centerCoordinate.latitude)")
-					Text("経度: \(centerCoordinate.longitude)")
-					Text("住所: \(address)")
-			}
-			.padding()
 		}
 	}
 	
-	// 逆ジオコーディングで住所を取得
 	func fetchAddress(for coordinate: CLLocationCoordinate2D) {
-		print("coordinates: \(coordinate)")
-			let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-			CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
-					if let placemark = placemarks?.first {
-							let address = [
-									placemark.administrativeArea, // 都道府県
-									placemark.locality,            // 市区町村
-									placemark.thoroughfare         // 通り名
-							].compactMap { $0 }.joined()
-							
-							DispatchQueue.main.async {
-									self.address = address.isEmpty ? "住所を取得できません" : address
-							}
-					}
+		let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+		let geocoder = CLGeocoder()
+		
+		// 英語（アメリカ）で住所を取得
+		geocoder.reverseGeocodeLocation(location, preferredLocale: Locale(identifier: "en_US")) { placemarks, error in
+			if let placemark = placemarks?.first {
+				let address = [
+					placemark.subThoroughfare,     // 番地
+					placemark.thoroughfare,        // 通り名
+					placemark.subLocality,         // 区や町名
+					placemark.locality,            // 市
+					placemark.administrativeArea,  // 州
+					placemark.postalCode,          // 郵便番号
+					placemark.country              // 国
+				].compactMap { $0 }.joined(separator: ", ")
+				
+				DispatchQueue.main.async {
+					self.address = address.isEmpty ? "Address not available" : address
+				}
+			} else if let error = error {
+				DispatchQueue.main.async {
+					self.address = "Geocode error: \(error.localizedDescription)"
+				}
 			}
+		}
 	}
 }
 
 #Preview {
 	MapWithPinView(
-		mapHeight: 354
+		address: .constant("test")
 	)
 }

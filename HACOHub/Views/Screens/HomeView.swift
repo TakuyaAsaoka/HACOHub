@@ -197,7 +197,7 @@ struct HomeView: View {
       .navigationDestination(item: $action) { action in
         switch (action) {
         case .send:
-          EventView()
+          SendView()
 				case .receive:
 					EmptyView()
 				case .storeItems:

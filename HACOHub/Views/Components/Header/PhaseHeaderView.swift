@@ -14,10 +14,12 @@ struct PhaseHeaderView<Content: View>: View {
 	
 	var body: some View {
 		VStack(spacing: 28) {
+			Spacer()
 			StepperView(
 				steps: steps, completeNumber: completeNumber
 			)
 		}
+		.frame(height: 150)
 		.padding(.horizontal, 20)
 		.padding(.bottom, 12)
 	}
