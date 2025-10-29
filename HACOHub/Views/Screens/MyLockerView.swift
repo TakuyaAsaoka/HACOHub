@@ -29,7 +29,7 @@ struct MyLockerView: View {
       }
 
       if isScanModalView {
-        ScanModalView()
+        ScanModalView(isPresented: $isScanModalView)
           .onTapGesture {
             isScanModalView = false
           }

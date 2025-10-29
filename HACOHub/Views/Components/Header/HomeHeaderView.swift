@@ -9,18 +9,22 @@ import SwiftUI
 
 struct HomeHeaderView: View {
 	@State var isShowingAlert: Bool = false
+	@State var isShowingComingSoon: Bool = false
 	
   var body: some View {
 		VStack(spacing: 16) {
       HStack(alignment: .bottom) {
-				Button {
-					isShowingAlert.toggle()
-				}	label: {
+//				Button {
+//					isShowingAlert.toggle()
+//					isShowingComingSoon = true
+//				}	label: {
 					Text.sfProBold("HACOHub", size: 32)
 						.foregroundColor(getRGBColor(79, 190, 159))
-				}
+//				}
         Spacer()
-        Button {} label: {
+        Button {
+					isShowingComingSoon = true
+				} label: {
           Image("AlartIcon")
         }
       }
@@ -53,6 +57,9 @@ struct HomeHeaderView: View {
 		.padding(.top, 72)
     .padding(.bottom, 8)
     .background(.white)
+		.navigationDestination(isPresented: $isShowingComingSoon) {
+			ComingSoonView()
+		}
   }
 }
 

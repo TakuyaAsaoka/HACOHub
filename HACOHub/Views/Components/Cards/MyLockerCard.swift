@@ -140,6 +140,7 @@ struct DailyRateView: View {
 }
 
 struct ReservedDetailsView: View {
+	@State var isComingSoon: Bool = false
   @Binding var isShowingQR: Bool
   let isShowingDetails: Bool
 
@@ -171,7 +172,9 @@ struct ReservedDetailsView: View {
             size: 16,
             vPadding: 10,
             radius: 11,
-            action: {}
+            action: {
+							isComingSoon = true
+						}
           )
 
           WhiteRoundedButton(
@@ -181,11 +184,16 @@ struct ReservedDetailsView: View {
             size: 16,
             vPadding: 10,
             radius: 11,
-            action: {}
+            action: {
+							isComingSoon = true
+						}
           )
         }
       }
       .transition(.opacity.combined(with: .opacity))
+			.navigationDestination(isPresented: $isComingSoon) {
+				ComingSoonView()
+			}
     } else {
       HStack {
         Spacer()

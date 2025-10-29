@@ -13,14 +13,11 @@ struct HacoHubTabView: View {
   var body: some View {
     VStack(spacing: 0) {
       HomeHeaderView()
-
-      Group {
+       Group {
         switch selectedTab {
           case 0: HomeView()
-          case 1: ServicesView()
-          case 2: MapView()
-          case 3: MyLockerView()
-          case 4: AccountView()
+          case 1: MapView()
+					case 2: MyLockerView()
           default: HomeView()
         }
       }
@@ -33,14 +30,14 @@ struct HacoHubTabView: View {
           .frame(height: 1)
           .foregroundColor(getRGBColor(208, 215, 222))
 
-        HStack {
+				HStack(spacing: 0) {
+					Spacer()
           tabButton(index: 0, icon: "HomeIcon", label: "Home")
-          tabButton(index: 1, icon: "ServicesIcon", label: "Services")
-
+					Spacer()
           Button(action: {
-            selectedTab = 2
+            selectedTab = 1
           }) {
-            if selectedTab == 2 {
+            if selectedTab == 1 {
               Image("PrimaryMapIcon")
             } else {
               Image("GrayMapIcon")
@@ -48,8 +45,9 @@ struct HacoHubTabView: View {
           }
           .offset(y: -6)
 
-          tabButton(index: 3, icon: "MyLockerIcon", label: "My Locker")
-          tabButton(index: 4, icon: "AccountIcon", label: "Account")
+					Spacer()
+          tabButton(index: 2, icon: "MyLockerIcon", label: "My Locker")
+					Spacer()
         }
         .frame(maxWidth: .infinity)
         .padding(.bottom, 16)

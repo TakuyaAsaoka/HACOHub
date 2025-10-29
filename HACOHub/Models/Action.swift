@@ -12,4 +12,6 @@ enum Action: String {
 	case receive = "Receive"
 	case storeItems = "Store items"
 	case share = "Share"
+	
+	case comingSoon = "ComingSoon"
 }

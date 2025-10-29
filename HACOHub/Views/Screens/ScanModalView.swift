@@ -9,6 +9,7 @@ import SwiftUI
 import CoreImage.CIFilterBuiltins
 
 struct ScanModalView: View {
+	@Binding var isPresented: Bool
   @State private var isShowingQRView = false
 
   var body: some View {
@@ -51,7 +52,9 @@ struct ScanModalView: View {
                 size: 16,
                 vPadding: 10,
                 radius: 11,
-                action: {}
+                action: {
+									isPresented = false
+								}
               )
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -135,6 +138,6 @@ struct QRCodeView: View {
   }
 }
 
-#Preview {
-    ScanModalView()
-}
+//#Preview {
+//    ScanModalView()
+//}

@@ -31,7 +31,9 @@ struct ConfirmSuccessView: View {
 				.background(.white)
 			}
 			
-			if isShowingQR { ScanModalView() }
+			if isShowingQR { ScanModalView(
+				isPresented: $isShowingQR
+			) }
 		}
 		.navigationTitle("Send")
 //		.navigationDestination(isPresented: $isComfirmed) {

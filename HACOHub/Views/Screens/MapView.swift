@@ -180,7 +180,9 @@ struct MapView: View {
 			.padding(.top, 8)
 			
 			if isShowingScanModalView {
-				ScanModalView()
+				ScanModalView(
+					isPresented: $isShowingScanModalView
+				)
 			}
 		}
 	}

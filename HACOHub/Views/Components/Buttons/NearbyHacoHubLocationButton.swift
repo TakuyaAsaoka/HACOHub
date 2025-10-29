@@ -11,10 +11,11 @@ struct NearbyHacoHubLocationButton: View {
 	let location: String
 	let distance: String
 	let availableNumber: Int
+	@State var isShowingComingSoon: Bool = false
 	
 	var body: some View {
 		Button {
-			
+			isShowingComingSoon = true
 		} label: {
 			HStack(spacing: 12) {
 				Image("GreenPinIcon")
@@ -53,6 +54,9 @@ struct NearbyHacoHubLocationButton: View {
 			)
 			.shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
 			.shadow(color: .black.opacity(0.1), radius: 3, x: 0, y: 1)
+		}
+		.navigationDestination(isPresented: $isShowingComingSoon) {
+			ComingSoonView()
 		}
 	}
 }

@@ -170,13 +170,17 @@ struct HomeView: View {
 						
 						Spacer()
 						
-						HStack(spacing: 0) {
-							Text.sfProRegular("Map", size: 14)
-								.foregroundColor(getRGBColor(79, 190, 159, 1))
-							Image("RightArrow")
-								.resizable()
-								.scaledToFit()
-								.frame(width: 16, height: 16)
+						Button {
+							action = .comingSoon
+						} label: {
+							HStack(spacing: 0) {
+								Text.sfProRegular("Map", size: 14)
+									.foregroundColor(getRGBColor(79, 190, 159, 1))
+								Image("RightArrow")
+									.resizable()
+									.scaledToFit()
+									.frame(width: 16, height: 16)
+							}
 						}
 						.padding(.trailing, 18)
 					}
@@ -199,11 +203,13 @@ struct HomeView: View {
         case .send:
           SendView()
 				case .receive:
-					EmptyView()
+					ComingSoonView()
 				case .storeItems:
-					EmptyView()
+					ComingSoonView()
 				case .share:
-					EmptyView()
+					ComingSoonView()
+				default:
+					ComingSoonView()
         }
       }
     }
