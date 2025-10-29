@@ -52,6 +52,7 @@ struct StepperView: View {
 								.foregroundColor(getRGBColor(189, 189, 189))
 						}
 					}
+					.multilineTextAlignment(.center)
 				}
 				
 				if index < steps.count - 1 {
@@ -69,7 +70,7 @@ struct StepperView: View {
 
 #Preview {
 	StepperView(
-		steps: ["Locker", "Location", "Payment"],
+		steps: ["Locker", "Locati\non", "Payment"],
 		completeNumber: 1
 	)
 }
