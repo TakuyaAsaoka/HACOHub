@@ -81,42 +81,54 @@ struct HomeView: View {
 					VStack(spacing: 12) {
 						HStack(spacing: 21) {
 							ActionButton(
-								action: .send,
+								actionName: .send,
 								description: "Ship item to\nanyone",
 								imageName: "SendIcon",
 								imageWidth: 79,
 								imageHeight: 69,
 								offsetX: 18,
-								offsetY: 24
+								offsetY: 24,
+								action: {
+									action = .send
+								}
 							)
 							ActionButton(
-								action: .receive,
+								actionName: .receive,
 								description: "Collect your\nitems",
 								imageName: "ReceiveIcon",
 								imageWidth: 89,
 								imageHeight: 86,
 								offsetX: 14,
-								offsetY: 30
+								offsetY: 30,
+								action: {
+									action = .receive
+								}
 							)
 						}
 						HStack(spacing: 21) {
 							ActionButton(
-								action: .storeItems,
+								actionName: .storeItems,
 								description: "Store items\nin zones",
 								imageName: "StoreItemsIcon",
 								imageWidth: 55,
 								imageHeight: 100,
 								offsetX: 18,
-								offsetY: 24
+								offsetY: 24,
+								action: {
+									action = .storeItems
+								}
 							)
 							ActionButton(
-								action: .share,
+								actionName: .share,
 								description: "Share locker\naccess",
 								imageName: "ShareIcon",
 								imageWidth: 83,
 								imageHeight: 83,
 								offsetX: 8,
-								offsetY: 24
+								offsetY: 24,
+								action: {
+									action = .share
+								}
 							)
 						}
 					}
@@ -188,8 +200,10 @@ struct HomeView: View {
           EventView()
 				case .receive:
 					EmptyView()
-        default:
-          EmptyView()
+				case .storeItems:
+					EmptyView()
+				case .share:
+					EmptyView()
         }
       }
     }

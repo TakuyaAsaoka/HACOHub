@@ -8,21 +8,22 @@
 import SwiftUI
 
 struct ActionButton: View {
-	let action: Action
+	let actionName: Action
 	let description: String
 	let imageName: String
 	let imageWidth: CGFloat
 	let imageHeight: CGFloat
 	let offsetX: CGFloat
 	let offsetY: CGFloat
+	let action: () -> Void
 	
 	var body: some View {
 		Button {
-			
+			action()
 		} label: {
 			ZStack {
 				VStack(alignment: .leading, spacing: 4) {
-					Text.sfProBold(action.rawValue, size: 20)
+					Text.sfProBold(actionName.rawValue, size: 20)
 						.foregroundColor(getRGBColor(36, 41, 47))
 					Text.sfProRegular(description, size: 20)
 						.foregroundColor(getRGBColor(106, 114, 130))
@@ -52,12 +53,13 @@ struct ActionButton: View {
 
 #Preview {
 	ActionButton(
-		action: .send,
+		actionName: .send,
 		description: "Ship item to\nanyone",
 		imageName: "SendIcon",
 		imageWidth: 79,
 		imageHeight: 69,
 		offsetX: 18,
-		offsetY: 24
+		offsetY: 24,
+		action: {}
 	)
 }
