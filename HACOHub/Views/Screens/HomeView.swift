@@ -121,36 +121,36 @@ struct HomeView: View {
 						}
 					}
 					
-					HStack{
-						Text.sfProRegular("Popular Use Case", size: 16)
-							.foregroundColor(getRGBColor(54, 65, 83, 1))
-						
-						Spacer()
-						
-						HStack(spacing: 0) {
-							Text.sfProRegular("View More", size: 14)
-								.foregroundColor(getRGBColor(79, 190, 159, 1))
-							Image("RightArrow")
-								.resizable()
-								.scaledToFit()
-								.frame(width: 16, height: 16)
-						}
-					}
-					.padding(.trailing, 18)
-					
-					VStack(spacing:12) {
-						ForEach(UseCaseButtons) { button in
-							UseCaseButton(
-								imageName: button.imageName,
-								useCaseName: button.useCaseName,
-								description: button.description,
-								leftColor: button.leftColor,
-								rightColor: button.rightColor,
-								backgroundColer: button.backgroundColer,
-								action: {}
-							)
-						}
-					}
+//					HStack{
+//						Text.sfProRegular("Popular Use Case", size: 16)
+//							.foregroundColor(getRGBColor(54, 65, 83, 1))
+//						
+//						Spacer()
+//						
+//						HStack(spacing: 0) {
+//							Text.sfProRegular("View More", size: 14)
+//								.foregroundColor(getRGBColor(79, 190, 159, 1))
+//							Image("RightArrow")
+//								.resizable()
+//								.scaledToFit()
+//								.frame(width: 16, height: 16)
+//						}
+//					}
+//					.padding(.trailing, 18)
+//					
+//					VStack(spacing:12) {
+//						ForEach(UseCaseButtons) { button in
+//							UseCaseButton(
+//								imageName: button.imageName,
+//								useCaseName: button.useCaseName,
+//								description: button.description,
+//								leftColor: button.leftColor,
+//								rightColor: button.rightColor,
+//								backgroundColer: button.backgroundColer,
+//								action: {}
+//							)
+//						}
+//					}
 					
 					HStack{
 						Text.sfProRegular("Nearby HACOHub Locations", size: 16)
