@@ -13,18 +13,19 @@ struct SendView: View {
 		"Delivery\ndetail",
 		"Select\na HACOHub",
 	]
-	@StateObject private var addressStore = AddressStore()
+	@StateObject private var addressStore = SendStore()
+	@State var isShowingSelectRecipientView: Bool = false
 
-	
 	var body: some View {
 		PhaseLayoutView(
 			steps: steps,
 			completeNumber: 0,
-			content: { ShippingDetailView()
+			content: { ShippingDetailView(isShowingSelectRecipientView: $isShowingSelectRecipientView)
 			.environmentObject(addressStore)
 			},
 			buttonText: "Next",
 			action: {
+				isShowingSelectRecipientView = true
 				print(addressStore.address)
 			}
 		)
@@ -32,8 +33,8 @@ struct SendView: View {
 }
 
 struct ShippingDetailView: View {
-	@EnvironmentObject var addressStore: AddressStore
-	@State var isShowingSelectRecipientView: Bool = false
+	@EnvironmentObject var sendStore: SendStore
+	@Binding var isShowingSelectRecipientView: Bool
 	
 	var body: some View {
 		ZStack {
@@ -41,7 +42,7 @@ struct ShippingDetailView: View {
 			
 			VStack(alignment: .leading, spacing: 16) {
 				Text.sfProRegular("Shipping Location", size: 16)
-				MapWithPinView(address: $addressStore.address)
+				MapWithPinView(address: $sendStore.address)
 			}
 		.frame(maxWidth: .infinity, alignment: .leading)
 		.padding(.vertical, 20)
@@ -49,8 +50,7 @@ struct ShippingDetailView: View {
 		}
 		.navigationTitle("Send")
 		.navigationDestination(isPresented: $isShowingSelectRecipientView) {
-			
-//			SelectRecipientView()
+			DeliveryDetailView()
 		}
 	}
 }

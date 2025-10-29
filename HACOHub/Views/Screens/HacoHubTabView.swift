@@ -20,7 +20,7 @@ struct HacoHubTabView: View {
           case 1: ServicesView()
           case 2: MapView()
           case 3: MyLockerView()
-          case 4: SendView()
+          case 4: AccountView()
           default: HomeView()
         }
       }
