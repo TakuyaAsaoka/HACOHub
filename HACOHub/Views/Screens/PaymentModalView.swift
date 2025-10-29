@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PaymentModalView: View {
+	@Binding var isConfirmed: Bool
   @State private var isCompletedLoading = false
 
   var body: some View {
@@ -50,9 +51,16 @@ struct PaymentModalView: View {
         }
       }
     }
+		.onTapGesture {
+							if isCompletedLoading {
+									withAnimation {
+											isConfirmed = true
+									}
+							}
+					}
   }
 }
 
 #Preview {
-    PaymentModalView()
+	PaymentModalView(isConfirmed: .constant(false))
 }

@@ -85,7 +85,7 @@ struct ConfirmReservationView: View {
       .navigationTitle("Confirm Reservation")
 
       if isShowingPaymentModalView {
-        PaymentModalView()
+//        PaymentModalView()
       }
     }
   }

@@ -14,6 +14,7 @@ struct ConfirmView: View {
 		"Select\na HACOHub",
 	]
 	@State var isShowingPayment: Bool = false
+	@State var isComfirmed: Bool = false
 	
 	var body: some View {
 		ZStack {
@@ -36,9 +37,12 @@ struct ConfirmView: View {
 				.background(.white)
 			}
 			
-			if isShowingPayment { PaymentModalView() }
+			if isShowingPayment { PaymentModalView(isConfirmed: $isComfirmed) }
 		}
 		.navigationTitle("Send")
+		.navigationDestination(isPresented: $isComfirmed) {
+			ConfirmSuccessView()
+		}
 	}
 }
 
