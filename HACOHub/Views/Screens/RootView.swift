@@ -13,6 +13,7 @@ struct RootView: View {
 	@State private var path = NavigationPath()
 	@State private var selectedTab = 0
 	@StateObject private var sendStore = SendStore()
+	@StateObject private var receiveStore = ReceiveStore()
 
   var body: some View {
     ZStack {
@@ -39,7 +40,15 @@ struct RootView: View {
 										.navigationBarBackButtonHidden(true)
 										.toolbarBackground(.hidden, for: .navigationBar)
 								case .receive:
-									ComingSoonView()
+									ReceiveView(path: $path)
+										.environmentObject(sendStore)
+										.navigationBarBackButtonHidden(true)
+										.toolbarBackground(.hidden, for: .navigationBar)
+								case .changePickUpLocation:
+									ChangePickUpLocationView(path: $path)
+										.environmentObject(sendStore)
+										.navigationBarBackButtonHidden(true)
+										.toolbarBackground(.hidden, for: .navigationBar)
 								}
 							}
 					}

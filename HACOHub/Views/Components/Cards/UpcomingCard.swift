@@ -45,7 +45,7 @@ struct UpcomingCard: View {
 					}
 					
 					PrimaryRoundedButton(
-						text: "Scan a QR codde",
+						text: "Scan a QR code",
 						weight: .bold,
 						size: 16,
 						vPadding: 10,
