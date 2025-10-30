@@ -57,10 +57,7 @@ struct ConfirmAndPayContentView: View {
 					VStack {
 						DeliveryDetailsGreenCard()
 						
-						Image("ShippingCard")
-							.resizable()
-							.scaledToFit()
-							.frame(maxWidth: .infinity)
+						DeliveryDetailsWhiteCard()
 					}
 					
 					Text.sfProRegular("Choose payment method", size: 16)
@@ -85,9 +82,9 @@ struct ConfirmAndPayContentView: View {
 	}
 }
 
-#Preview {
-	ConfirmAndPayView(
-		path: .constant(NavigationPath()),
-		selectedTab: .constant(0)
-	)
-}
+//#Preview {
+//	ConfirmAndPayView(
+//		path: .constant(NavigationPath()),
+//		selectedTab: .constant(0)
+//	)
+//}
