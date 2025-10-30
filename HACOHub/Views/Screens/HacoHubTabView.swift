@@ -18,7 +18,7 @@ struct HacoHubTabView: View {
        Group {
         switch selectedTab {
 				case 0: HomeView(path: $path)
-				case 1: MyLockerView(path: $path)
+				case 1: ActivityView()
 				default: HomeView(path: $path)
 				}
       }
