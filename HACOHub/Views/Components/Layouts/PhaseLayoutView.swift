@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PhaseLayoutView<Content: View>: View {
+	@Binding var path: NavigationPath
+	let title: String
 	let steps: [String]
 	let completeNumber: Int
 	@ViewBuilder let content: () -> Content
@@ -17,6 +19,8 @@ struct PhaseLayoutView<Content: View>: View {
 	var body: some View {
 		VStack(spacing: 0) {
 			PhaseHeaderView (
+				path: $path,
+				title: title,
 				steps: steps,
 				completeNumber: completeNumber,
 				content: content
@@ -41,6 +45,8 @@ struct PhaseLayoutView<Content: View>: View {
 
 #Preview {
 	PhaseLayoutView(
+		path: .constant(NavigationPath()),
+		title: "title1",
 		steps: ["test1", "test2", "test3"],
 		completeNumber: 2,
 		content: {

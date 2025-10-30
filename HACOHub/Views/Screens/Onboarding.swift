@@ -10,6 +10,7 @@ import SwiftUI
 struct OnboardingView: View {
   @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
   @State private var step = 0
+	@Binding var path: NavigationPath
 
   var body: some View {
     ZStack {
@@ -93,5 +94,5 @@ struct EnableNotificationsView: View {
 }
 
 #Preview {
-  OnboardingView()
+	OnboardingView(path: .constant(NavigationPath()))
 }

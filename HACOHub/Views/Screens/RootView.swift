@@ -10,6 +10,7 @@ import SwiftUI
 struct RootView: View {
   @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
   @State private var isActive = false
+	@State private var path = NavigationPath()
 
   var body: some View {
     ZStack {
@@ -20,12 +21,35 @@ struct RootView: View {
         .transition(.opacity)
       } else {
         if hasLaunchedBefore {
-					NavigationStack {
-            HacoHubTabView()
+					NavigationStack(path: $path) {
+						HacoHubTabView(path: $path)
               .transition(.opacity)
+							.navigationDestination(for: Route.self) { route in
+								switch route {
+								case .shippingDetail:
+									ShippingDetailView(path: $path)
+										.navigationBarBackButtonHidden(true)
+										.toolbarBackground(.hidden, for: .navigationBar)
+								case .deliveryDetail:
+									DeliveryDetailView(path: $path)
+										.navigationBarBackButtonHidden(true)
+										.toolbarBackground(.hidden, for: .navigationBar)
+								case .selectHacoHub:
+									SelectHacoHubView(path: $path)
+										.navigationBarBackButtonHidden(true)
+										.toolbarBackground(.hidden, for: .navigationBar)
+								case .confirmAndPay:
+									ConfirmAndPayView(path: $path)
+										.navigationBarBackButtonHidden(true)
+										.toolbarBackground(.hidden, for: .navigationBar)
+								case .receive:
+									ComingSoonView()
+								}
+	
+							}
 					}
         } else {
-          OnboardingView()
+					OnboardingView(path: $path)
             .transition(.opacity)
         }
       }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MyLockerView: View {
   @State private var isScanModalView: Bool = false
+	@Binding var path: NavigationPath
 
   var body: some View {
     ZStack {
@@ -40,5 +41,5 @@ struct MyLockerView: View {
 }
 
 #Preview {
-    MyLockerView()
+	MyLockerView(path: .constant(NavigationPath()))
 }

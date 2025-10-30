@@ -7,19 +7,15 @@
 
 import SwiftUI
 
-struct ConfirmView: View {
-	let steps: [String] = [
-		"Shipping\ndetail",
-		"Delivery\ndetail",
-		"Select\na HACOHub",
-	]
+struct ConfirmAndPayView: View {
 	@State var isShowingPayment: Bool = false
 	@State var isComfirmed: Bool = false
+	@Binding var path: NavigationPath
 	
 	var body: some View {
 		ZStack {
 			VStack(alignment: .leading, spacing: 0) {
-				ConfirmContentView()
+				ConfirmAndPayContentView()
 				
 				PrimaryRoundedButton(
 					text: "Confirm & Pay",
@@ -39,14 +35,11 @@ struct ConfirmView: View {
 			
 			if isShowingPayment { PaymentModalView(isConfirmed: $isComfirmed) }
 		}
-		.navigationTitle("Send")
-		.navigationDestination(isPresented: $isComfirmed) {
-			ConfirmSuccessView()
-		}
+		.ignoresSafeArea()
 	}
 }
 
-struct ConfirmContentView: View {
+struct ConfirmAndPayContentView: View {
 	@State private var selectedRadioButtonPaymentId: UUID? = nil
 
 	var body: some View {
@@ -93,5 +86,5 @@ struct ConfirmContentView: View {
 }
 
 #Preview {
-    ConfirmView()
+	ConfirmAndPayView(path: .constant(NavigationPath()))
 }

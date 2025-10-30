@@ -13,19 +13,18 @@ struct HomeHeaderView: View {
 	
   var body: some View {
 		VStack(spacing: 16) {
-      HStack(alignment: .bottom) {
-//				Button {
-//					isShowingAlert.toggle()
-//					isShowingComingSoon = true
-//				}	label: {
-					Text.sfProBold("HACOHub", size: 32)
-						.foregroundColor(getRGBColor(79, 190, 159))
-//				}
+      HStack() {
+				Text.sfProBold("HACOHub", size: 32)
+					.foregroundColor(getRGBColor(79, 190, 159))
         Spacer()
         Button {
-					isShowingComingSoon = true
+					// TODO: アイコンをタップしたらどうなる？
+//					isShowingComingSoon = true
 				} label: {
-          Image("AlartIcon")
+          Image("UserIcon")
+						.resizable()
+						.scaledToFit()
+						.frame(width: 44, height: 44)
         }
       }
 			

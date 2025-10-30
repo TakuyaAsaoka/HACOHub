@@ -9,17 +9,18 @@ import SwiftUI
 
 struct HacoHubTabView: View {
   @State private var selectedTab: Int = 0
+	@Binding var path: NavigationPath
 
   var body: some View {
     VStack(spacing: 0) {
       HomeHeaderView()
+			
        Group {
         switch selectedTab {
-          case 0: HomeView()
-          case 1: MapView()
-					case 2: MyLockerView()
-          default: HomeView()
-        }
+				case 0: HomeView(path: $path)
+				case 1: MyLockerView(path: $path)
+				default: HomeView(path: $path)
+				}
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .transition(.opacity)
@@ -34,23 +35,11 @@ struct HacoHubTabView: View {
 					Spacer()
           tabButton(index: 0, icon: "HomeIcon", label: "Home")
 					Spacer()
-          Button(action: {
-            selectedTab = 1
-          }) {
-            if selectedTab == 1 {
-              Image("PrimaryMapIcon")
-            } else {
-              Image("GrayMapIcon")
-            }
-          }
-          .offset(y: -6)
-
-					Spacer()
-          tabButton(index: 2, icon: "MyLockerIcon", label: "My Locker")
+          tabButton(index: 1, icon: "MyLockerIcon", label: "My Locker")
 					Spacer()
         }
         .frame(maxWidth: .infinity)
-        .padding(.bottom, 16)
+        .padding(.vertical, 14)
         .background(.white)
       }
     }
@@ -79,5 +68,5 @@ struct HacoHubTabView: View {
 }
 
 #Preview {
-	HacoHubTabView()
+	HacoHubTabView(path: .constant(NavigationPath()))
 }
