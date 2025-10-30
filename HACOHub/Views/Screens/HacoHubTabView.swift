@@ -35,7 +35,7 @@ struct HacoHubTabView: View {
 					Spacer()
           tabButton(index: 0, icon: "HomeIcon", label: "Home")
 					Spacer()
-          tabButton(index: 1, icon: "MyLockerIcon", label: "My Locker")
+          tabButton(index: 1, icon: "ActivityIcon", label: "Activity")
 					Spacer()
         }
         .frame(maxWidth: .infinity)

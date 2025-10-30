@@ -52,7 +52,7 @@ struct HomeHeaderView: View {
 				.cornerRadius(16)
 			}
     }
-		.padding(.horizontal, 20)
+		.padding(.horizontal, 24)
 		.padding(.top, 72)
     .padding(.bottom, 8)
     .background(.white)

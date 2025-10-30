@@ -10,70 +10,11 @@ import SwiftUI
 struct HomeView: View {
   @State var action: Action? = nil
 	@Binding var path: NavigationPath
-
-  struct UseCases: Identifiable {
-		let id = UUID()
-		let imageName: String
-		let useCaseName: String
-		let description: String
-		let leftColor: Color
-		let rightColor: Color
-		let backgroundColer: Color
-  }
-
-	let UseCaseButtons: [UseCases] = [
-		 UseCases(
-			imageName: "AirplaneIcon",
-			useCaseName: "AirPort to Hotel",
-			description: "Send luggage directly\nto your hotel",
-			leftColor: getRGBColor(43, 127, 255),
-			rightColor: getRGBColor(0, 184, 219),
-			backgroundColer: getRGBColor(245, 251, 254),
-		),
-		 UseCases(
-			imageName: "EventIcon",
-			useCaseName: "Event Locker",
-			description: "Store items during events",
-			leftColor: getRGBColor(173, 70, 255),
-			rightColor: getRGBColor(246, 51, 154),
-			backgroundColer: getRGBColor(252, 245, 251),
-		),
-		 UseCases(
-			imageName: "PeopleIcon",
-			useCaseName: "Send to Friend",
-			description: "Share items via secure locker",
-			leftColor: getRGBColor(0, 188, 125),
-			rightColor: getRGBColor(0, 187, 167),
-			backgroundColer: getRGBColor(245, 252, 250),
-		)
-	]
-    
-	struct NearbyHacohubLocation: Identifiable {
-		let id = UUID()
-		let location: String
-		let distance: String
-		let availableNumber: Int
-	}
-
-	let NearbyHacohubLocations: [NearbyHacohubLocation] = [
-		NearbyHacohubLocation(
-			location: "Shibuya Station",
-			distance: "0.3",
-			availableNumber: 5
-		),
-		NearbyHacohubLocation(
-			location: "Omotesando Hills",
-			distance: "0.8",
-			availableNumber: 5
-		),
-		NearbyHacohubLocation(
-			location: "Harajuku Center",
-			distance: "1.2",
-			availableNumber: 5
-		),
-	]
     
   var body: some View {
+		ZStack {
+			getRGBColor(245, 247, 247)
+		
 			ScrollView(.vertical, showsIndicators: false) {
 				VStack(alignment: .leading, spacing: 16) {
 					Text.sfProRegular("What would you like to do?", size: 16)
@@ -93,18 +34,29 @@ struct HomeView: View {
 									path.append(Route.shippingDetail)
 								}
 							)
-							ActionButton(
-								actionName: .receive,
-								description: "Collect your\nitems",
-								imageName: "ReceiveIcon",
-								imageWidth: 89,
-								imageHeight: 86,
-								offsetX: 14,
-								offsetY: 30,
-								action: {
-									path.append(Route.receive)
+							ZStack {
+								ActionButton(
+									actionName: .receive,
+									description: "Collect your\nitems",
+									imageName: "ReceiveIcon",
+									imageWidth: 89,
+									imageHeight: 86,
+									offsetX: 14,
+									offsetY: 30,
+									action: {
+										path.append(Route.receive)
+									}
+								)
+								
+								ZStack {
+									Circle()
+										.fill(getRGBColor(255, 92, 92))
+										.frame(width: 38, height: 38)
+									Text.sfProBold("1", size: 20)
+										.foregroundColor(.white)
 								}
-							)
+								.offset(x: 60, y: -76)
+							}
 						}
 						HStack(spacing: 21) {
 							ActionButton(
@@ -119,6 +71,25 @@ struct HomeView: View {
 									action = .storeItems
 								}
 							)
+							.disabled(true)
+							.overlay(
+								ZStack {
+									getRGBColor(232, 231, 231, 0.8)
+											.cornerRadius(16)
+									VStack(spacing: 0) {
+										Image("ComingSoonIcon")
+											.resizable()
+											.scaledToFit()
+											.frame(width: 84, height: 54)
+											.offset(y: 14)
+										
+										Text.sfProBold("Coming Soon", size: 24)
+											.foregroundColor(getRGBColor(74, 85, 101, 0.8))
+									}
+									.offset(y: -30)
+									.rotationEffect(.degrees(49))
+								}
+							)
 							ActionButton(
 								actionName: .share,
 								description: "Share locker\naccess",
@@ -131,12 +102,32 @@ struct HomeView: View {
 									action = .share
 								}
 							)
+							.disabled(true)
+							.overlay(
+								ZStack {
+									getRGBColor(232, 231, 231, 0.8)
+											.cornerRadius(16)
+									VStack(spacing: 0) {
+										Image("ComingSoonIcon")
+											.resizable()
+											.scaledToFit()
+											.frame(width: 84, height: 54)
+											.offset(y: 14)
+										
+										Text.sfProBold("Coming Soon", size: 24)
+											.foregroundColor(getRGBColor(74, 85, 101, 0.8))
+									}
+									.offset(y: -30)
+									.rotationEffect(.degrees(49))
+								}
+							)
 						}
 					}
+					Spacer()
 				}
 				.padding(.top, 20)
 				.padding(.horizontal, 24)
-				.background(getRGBColor(245, 247, 247))
+			}
     }
 		.ignoresSafeArea()
   }
