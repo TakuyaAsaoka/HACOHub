@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HacoHubTabView: View {
-  @State private var selectedTab: Int = 0
+	@Binding var selectedTab: Int
 	@Binding var path: NavigationPath
 
   var body: some View {
@@ -68,5 +68,5 @@ struct HacoHubTabView: View {
 }
 
 #Preview {
-	HacoHubTabView(path: .constant(NavigationPath()))
+//	HacoHubTabView(selectedTab: 1, path: .constant(NavigationPath()))
 }

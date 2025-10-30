@@ -11,10 +11,13 @@ struct ConfirmAndPayView: View {
 	@State var isShowingPayment: Bool = false
 	@State var isComfirmed: Bool = false
 	@Binding var path: NavigationPath
+	@Binding var selectedTab: Int
 	
 	var body: some View {
 		ZStack {
 			VStack(alignment: .leading, spacing: 0) {
+				NormalHeader(path: $path, title: "Send Comfirmation")
+				
 				ConfirmAndPayContentView()
 				
 				PrimaryRoundedButton(
@@ -33,7 +36,7 @@ struct ConfirmAndPayView: View {
 				.background(.white)
 			}
 			
-			if isShowingPayment { PaymentModalView(isConfirmed: $isComfirmed) }
+			if isShowingPayment { PaymentModalView(path: $path, selectedTab: $selectedTab) }
 		}
 		.ignoresSafeArea()
 	}
@@ -84,7 +87,7 @@ struct ConfirmAndPayContentView: View {
 		}
 	}
 }
-
-#Preview {
-	ConfirmAndPayView(path: .constant(NavigationPath()))
-}
+//
+//#Preview {
+//	ConfirmAndPayView(path: .constant(NavigationPath()))
+//}

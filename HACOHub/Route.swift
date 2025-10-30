@@ -6,9 +6,7 @@
 //
 
 enum Route: Hashable {
-	case shippingDetail
-	case deliveryDetail
-	case selectHacoHub
+	case send
 	case confirmAndPay
 	case receive
 }

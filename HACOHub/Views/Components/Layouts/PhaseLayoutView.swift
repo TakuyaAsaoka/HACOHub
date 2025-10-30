@@ -11,7 +11,10 @@ struct PhaseLayoutView<Content: View>: View {
 	@Binding var path: NavigationPath
 	let title: String
 	let steps: [String]
-	let completeNumber: Int
+	@Binding var currentScreen: Int
+	@Binding var oldScreen: Int
+	@Binding var currentFlow: Bool
+	@Binding var oldFlow: Bool
 	@ViewBuilder let content: () -> Content
 	let buttonText: String
 	let action: () -> Void
@@ -22,7 +25,10 @@ struct PhaseLayoutView<Content: View>: View {
 				path: $path,
 				title: title,
 				steps: steps,
-				completeNumber: completeNumber,
+				currentScreen: $currentScreen,
+				oldScreen: $oldScreen,
+				currentFlow: $currentFlow,
+				oldFlow: $oldFlow,
 				content: content
 			)
 			content()
@@ -43,19 +49,19 @@ struct PhaseLayoutView<Content: View>: View {
 	}
 }
 
-#Preview {
-	PhaseLayoutView(
-		path: .constant(NavigationPath()),
-		title: "title1",
-		steps: ["test1", "test2", "test3"],
-		completeNumber: 2,
-		content: {
-			ZStack {
-				getRGBColor(20, 30, 40, 0.2)
-				Text("test")
-			}
-		},
-		buttonText: "Next",
-		action: { }
-	)
-}
+//#Preview {
+//	PhaseLayoutView(
+//		path: .constant(NavigationPath()),
+//		title: "title1",
+//		steps: ["test1", "test2", "test3"],
+//		currentScreen: 2,
+//		content: {
+//			ZStack {
+//				getRGBColor(20, 30, 40, 0.2)
+//				Text("test")
+//			}
+//		},
+//		buttonText: "Next",
+//		action: { }
+//	)
+//}

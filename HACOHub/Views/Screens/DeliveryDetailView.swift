@@ -7,25 +7,25 @@
 
 import SwiftUI
 
-struct DeliveryDetailView: View {
-	@Binding var path: NavigationPath
-
-	var body: some View {
-		PhaseLayoutView(
-			path: $path,
-			title: "Send",
-			steps: sendSteps,
-			completeNumber: 1,
-			content: {
-				DeliveryDetailContentView()
-			},
-			buttonText: "Next",
-			action: {
-				path.append(Route.selectHacoHub)
-			}
-		)
-	}
-}
+//struct DeliveryDetailView: View {
+//	@Binding var path: NavigationPath
+//
+//	var body: some View {
+//		PhaseLayoutView(
+//			path: $path,
+//			title: "Send",
+//			steps: sendSteps,
+//			completeNumber: 1,
+//			content: {
+//				DeliveryDetailContentView()
+//			},
+//			buttonText: "Next",
+//			action: {
+//				path.append(Route.selectHacoHub)
+//			}
+//		)
+//	}
+//}
 
 struct DeliveryDetailContentView: View {
 	@State var selectedFriend: String? = "Luka Moretti"
@@ -100,5 +100,5 @@ struct DeliveryDetailContentView: View {
 
 
 #Preview {
-	DeliveryDetailView(path: .constant(NavigationPath()))
+//	DeliveryDetailView(path: .constant(NavigationPath()))
 }

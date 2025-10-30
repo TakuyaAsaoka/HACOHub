@@ -7,30 +7,30 @@
 
 import SwiftUI
 
-struct ShippingDetailView: View {
-	@StateObject private var sendStore = SendStore()
-	@State var isShowingSelectRecipientView: Bool = false
-	@Binding var path: NavigationPath
-
-	var body: some View {
-		PhaseLayoutView(
-			path: $path,
-			title: "Send",
-			steps: sendSteps,
-			completeNumber: 0,
-			content: {
-				ShippingDetailContentView()
-				.environmentObject(sendStore)
-			},
-			buttonText: "Next",
-			action: {
-				path.append(Route.deliveryDetail)
-				print("path: \(path)")
-				print(sendStore.address)
-			}
-		)
-	}
-}
+//struct ShippingDetailView: View {
+//	@StateObject private var sendStore = SendStore()
+//	@State var isShowingSelectRecipientView: Bool = false
+//	@Binding var path: NavigationPath
+//
+//	var body: some View {
+//		PhaseLayoutView(
+//			path: $path,
+//			title: "Send",
+//			steps: sendSteps,
+//			completeNumber: 0,
+//			content: {
+//				ShippingDetailContentView()
+//				.environmentObject(sendStore)
+//			},
+//			buttonText: "Next",
+//			action: {
+//				path.append(Route.deliveryDetail)
+//				print("path: \(path)")
+//				print(sendStore.address)
+//			}
+//		)
+//	}
+//}
 
 struct ShippingDetailContentView: View {
 	@EnvironmentObject var sendStore: SendStore
@@ -51,5 +51,5 @@ struct ShippingDetailContentView: View {
 }
 
 #Preview {
-	ShippingDetailView(path: .constant(NavigationPath()))
+//	ShippingDetailView(path: .constant(NavigationPath()))
 }

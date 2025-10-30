@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct PaymentModalView: View {
-	@Binding var isConfirmed: Bool
+	@Binding var path: NavigationPath
+	@Binding var selectedTab: Int
   @State private var isCompletedLoading = false
 
   var body: some View {
@@ -52,15 +53,17 @@ struct PaymentModalView: View {
       }
     }
 		.onTapGesture {
-							if isCompletedLoading {
-									withAnimation {
-											isConfirmed = true
-									}
-							}
-					}
+			if isCompletedLoading {
+				withAnimation {
+					selectedTab = 1
+					let count = path.count
+					path.removeLast(count)
+				}
+			}
+		}
   }
 }
 
-#Preview {
-	PaymentModalView(isConfirmed: .constant(false))
-}
+//#Preview {
+//	PaymentModalView(path: .constant(NavigationPath()))
+//}

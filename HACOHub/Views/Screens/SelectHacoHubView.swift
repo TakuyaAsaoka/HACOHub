@@ -7,25 +7,25 @@
 
 import SwiftUI
 
-struct SelectHacoHubView: View {
-	@Binding var path: NavigationPath
-	
-	var body: some View {
-		PhaseLayoutView(
-			path: $path,
-			title: "Send",
-			steps: sendSteps,
-			completeNumber: 2,
-			content: {
-				SelectHacoHubContentView()
-			},
-			buttonText: "Next",
-			action: {
-				path.append(Route.confirmAndPay)
-			}
-		)
-	}
-}
+//struct SelectHacoHubView: View {
+//	@Binding var path: NavigationPath
+//	
+//	var body: some View {
+//		PhaseLayoutView(
+//			path: $path,
+//			title: "Send",
+//			steps: sendSteps,
+//			currentScreen: 2,
+//			content: {
+//				SelectHacoHubContentView()
+//			},
+//			buttonText: "Next",
+//			action: {
+//				path.append(Route.confirmAndPay)
+//			}
+//		)
+//	}
+//}
 
 struct SelectHacoHubContentView: View {
 	@State private var selectedSize: String = "Small"
@@ -155,6 +155,6 @@ struct HacoHubOptionView: View {
 	}
 }
 
-#Preview {
-	SelectHacoHubView(path: .constant(NavigationPath()))
-}
+//#Preview {
+//	SelectHacoHubView(path: .constant(NavigationPath()))
+//}

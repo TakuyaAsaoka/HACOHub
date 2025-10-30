@@ -11,6 +11,7 @@ struct RootView: View {
   @AppStorage("hasLaunchedBefore") var hasLaunchedBefore: Bool = false
   @State private var isActive = false
 	@State private var path = NavigationPath()
+	@State private var selectedTab = 0
 
   var body: some View {
     ZStack {
@@ -22,30 +23,21 @@ struct RootView: View {
       } else {
         if hasLaunchedBefore {
 					NavigationStack(path: $path) {
-						HacoHubTabView(path: $path)
+						HacoHubTabView(selectedTab: $selectedTab, path: $path)
               .transition(.opacity)
 							.navigationDestination(for: Route.self) { route in
 								switch route {
-								case .shippingDetail:
-									ShippingDetailView(path: $path)
-										.navigationBarBackButtonHidden(true)
-										.toolbarBackground(.hidden, for: .navigationBar)
-								case .deliveryDetail:
-									DeliveryDetailView(path: $path)
-										.navigationBarBackButtonHidden(true)
-										.toolbarBackground(.hidden, for: .navigationBar)
-								case .selectHacoHub:
-									SelectHacoHubView(path: $path)
+								case .send:
+									SendView(path: $path)
 										.navigationBarBackButtonHidden(true)
 										.toolbarBackground(.hidden, for: .navigationBar)
 								case .confirmAndPay:
-									ConfirmAndPayView(path: $path)
+									ConfirmAndPayView(path: $path, selectedTab: $selectedTab)
 										.navigationBarBackButtonHidden(true)
 										.toolbarBackground(.hidden, for: .navigationBar)
 								case .receive:
 									ComingSoonView()
 								}
-	
 							}
 					}
         } else {

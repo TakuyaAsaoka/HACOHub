@@ -11,18 +11,28 @@ struct PhaseHeaderView<Content: View>: View {
 	@Binding var path: NavigationPath
 	let title: String
 	let steps: [String]
-	let completeNumber: Int
+	@Binding var currentScreen: Int
+	@Binding var oldScreen: Int
+	@Binding var currentFlow: Bool
+	@Binding var oldFlow: Bool
 	@ViewBuilder let content: () -> Content
 	
-	let backButtonWidth: CGFloat = 36
+	let backButtonWidth: CGFloat = 44
 	
 	var body: some View {
-		VStack(spacing: 28) {
+		VStack(spacing: 16) {
 			HStack {
 				Button {
-					if !path.isEmpty { path.removeLast() }
+					oldFlow = currentFlow
+					currentFlow = false
+					oldScreen = currentScreen
+					if currentScreen == 0 {
+						if !path.isEmpty { path.removeLast() }
+					} else if currentScreen > 0 {
+						currentScreen -= 1
+					}
 				} label: {
-					Image("GreenPinIcon")
+					Image("BackButtonIcon")
 						.resizable()
 						.scaledToFit()
 						.frame(width: backButtonWidth, height: backButtonWidth)
@@ -30,7 +40,7 @@ struct PhaseHeaderView<Content: View>: View {
 				
 				Spacer()
 				
-				Text.sfProBold(title, size: 16)
+				Text.sfProRegular(title, size: 20)
 				Spacer()
 				
 				Color.clear
@@ -38,25 +48,25 @@ struct PhaseHeaderView<Content: View>: View {
 		}
 			
 			StepperView(
-				steps: steps, completeNumber: completeNumber
+				steps: steps, completeNumber: currentScreen
 			)
 		}
-		.padding(.top, 60)
+		.padding(.top, 56)
 		.padding(.horizontal, 20)
-		.padding(.bottom, 12)
+		.padding(.bottom, 16)
 	}
 }
 
-#Preview {
-	VStack(spacing: 0) {
-		PhaseHeaderView(
-			path: .constant(NavigationPath()),
-			title: "title1",
-			steps: ["test1", "test2", "test3"],
-			completeNumber: 2,
-			content: { Text("test") }
-		)
-		getRGBColor(29, 39, 50, 0.2)
-	}
-	.ignoresSafeArea()
-}
+//#Preview {
+//	VStack(spacing: 0) {
+//		PhaseHeaderView(
+//			path: .constant(NavigationPath()),
+//			title: "title1",
+//			steps: ["test1", "test2", "test3"],
+//			currentScreen: 2,
+//			content: { Text("test") }
+//		)
+//		getRGBColor(29, 39, 50, 0.2)
+//	}
+//	.ignoresSafeArea()
+//}

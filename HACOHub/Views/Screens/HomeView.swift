@@ -31,7 +31,7 @@ struct HomeView: View {
 								offsetX: 18,
 								offsetY: 24,
 								action: {
-									path.append(Route.shippingDetail)
+									path.append(Route.send)
 								}
 							)
 							ZStack {
