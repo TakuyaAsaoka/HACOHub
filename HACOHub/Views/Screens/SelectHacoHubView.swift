@@ -28,8 +28,7 @@ import SwiftUI
 //}
 
 struct SelectHacoHubContentView: View {
-	@State private var selectedSize: String = "Small"
-	@State private var isExpress: Bool = false
+	@EnvironmentObject var sendStore: SendStore
 	
 	var body: some View {
 		ZStack {
@@ -46,7 +45,6 @@ struct SelectHacoHubContentView: View {
 						size: "Small",
 						sizeDescription: "12'W×15'D×15'H",
 						description: "Shopping bag / Tote bag",
-						selectedSize: $selectedSize
 					)
 					HacoHubOptionView(
 						cost: 8,
@@ -54,7 +52,6 @@ struct SelectHacoHubContentView: View {
 						size: "Medium",
 						sizeDescription: "15'W×18'D×18'H",
 						description: "Backpack / Weekend bag",
-						selectedSize: $selectedSize
 					)
 					HacoHubOptionView(
 						cost: 12,
@@ -62,17 +59,16 @@ struct SelectHacoHubContentView: View {
 						size: "Large",
 						sizeDescription: "18'W×20'D×24'H",
 						description: "Carry-onsuitcase",
-						selectedSize: $selectedSize
 					)
 				}
 				
 				Text.sfProRegular("Select option", size: 16)
 				
 				Button {
-					isExpress.toggle()
+					sendStore.isExpress.toggle()
 				} label: {
 					HStack(spacing: 16) {
-						Image(isExpress ? "OrangeCheckIcon" : "OrangeNotCheckIcon")
+						Image(sendStore.isExpress ? "OrangeCheckIcon" : "OrangeNotCheckIcon")
 							.resizable()
 							.scaledToFit()
 							.frame(width: 18, height: 18)
@@ -89,11 +85,11 @@ struct SelectHacoHubContentView: View {
 					.padding(.vertical, 8)
 					.background(
 						RoundedRectangle(cornerRadius: 14)
-							.fill(isExpress ? getRGBColor(255, 241, 224) : Color.white) // 薄緑 or 白
+							.fill(sendStore.isExpress ? getRGBColor(255, 241, 224) : Color.white) // 薄緑 or 白
 					)
 					.overlay(
 						RoundedRectangle(cornerRadius: 14)
-							.stroke(isExpress ? getRGBColor(255, 172, 71) : getRGBColor(208, 215, 222), lineWidth: 2) // 緑 or グレー
+							.stroke(sendStore.isExpress ? getRGBColor(255, 172, 71) : getRGBColor(208, 215, 222), lineWidth: 2) // 緑 or グレー
 					)
 					.cornerRadius(14)
 				}
@@ -112,11 +108,12 @@ struct HacoHubOptionView: View {
 	let size: String
 	let sizeDescription: String
 	let description: String
-	@Binding var selectedSize: String
+	@EnvironmentObject var sendStore: SendStore
 	
 	var body: some View {
 		Button {
-			selectedSize = size
+			sendStore.size = size
+			sendStore.cost = cost
 		} label: {
 			HStack(spacing: 8) {
 				Image(imageName)
@@ -142,11 +139,11 @@ struct HacoHubOptionView: View {
 			.padding(.vertical, 16)
 			.background(
 					RoundedRectangle(cornerRadius: 8)
-						.fill(selectedSize == size ? getRGBColor(236, 249, 243) : Color.white) // 薄緑 or 白
+						.fill(sendStore.size == size ? getRGBColor(236, 249, 243) : Color.white) // 薄緑 or 白
 			)
 			.overlay(
 				RoundedRectangle(cornerRadius: 8)
-					.stroke(selectedSize == size ? getRGBColor(79, 190, 159) : getRGBColor(208, 215, 222), lineWidth: 1) // 緑 or グレー
+					.stroke(sendStore.size == size ? getRGBColor(79, 190, 159) : getRGBColor(208, 215, 222), lineWidth: 1) // 緑 or グレー
 			)
 			.cornerRadius(8)
 			.shadow(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 2)

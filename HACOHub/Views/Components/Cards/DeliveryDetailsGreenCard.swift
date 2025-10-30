@@ -1,8 +1,9 @@
 import SwiftUI
 
-struct DeliveryDetailsCard: View {
+struct DeliveryDetailsGreenCard: View {
+	@EnvironmentObject var sendStore: SendStore
+	
 	var body: some View {
-
 		Group{
 			VStack(alignment: .leading, spacing: 12) {
 				HStack(alignment: .top) {
@@ -25,7 +26,7 @@ struct DeliveryDetailsCard: View {
 						Text("Package Size")
 							.font(.custom("SFPro-Regular", size: 12))
 							.foregroundColor(getRGBColor(106, 114, 130, 1))
-						Text("Small")
+						Text(sendStore.size)
 							.font(.custom("SFPro-Medium", size: 14))
 							.foregroundColor(getRGBColor(30, 41, 57, 1))
 					}
@@ -49,16 +50,17 @@ struct DeliveryDetailsCard: View {
 							.foregroundColor(getRGBColor(30, 41, 57, 1))
 					}
 
-					HStack {
-						Image("RocketIcon")
-							.resizable()
-							.scaledToFit()
-							.frame(width: 12, height: 12)
-						Text("Express delivery - 40% faster")
-							.font(.custom("SFPro-Regular", size: 12))
-							.foregroundColor(getRGBColor(245, 73, 0, 1))
-						Spacer()
-						
+					if sendStore.isExpress {
+						HStack {
+							Image("RocketIcon")
+								.resizable()
+								.scaledToFit()
+								.frame(width: 12, height: 12)
+							Text("Express delivery - 40% faster")
+								.font(.custom("SFPro-Regular", size: 12))
+								.foregroundColor(getRGBColor(245, 73, 0, 1))
+							Spacer()
+						}
 					}
 				}
 				.padding(.vertical)
@@ -69,26 +71,28 @@ struct DeliveryDetailsCard: View {
 				VStack(spacing: 8) {
 					HStack(spacing: 8) {
 						Image("GreenLugageIcon")
-							.frame(width: 16) // アイコン幅揃え
-						Text("Small")
+							.frame(width: 16)
+						Text(sendStore.size)
 							.font(.custom("SFPro-Regular", size: 14))
 							.foregroundColor(getRGBColor(74, 85, 101, 1))
 						Spacer()
-						Text("$5")
+						Text("$\(sendStore.cost)")
 							.font(.custom("SFPro-Medium", size: 16))
 							.foregroundColor(getRGBColor(54, 65, 83, 1))
 					}
 					
-					HStack(spacing: 8) {
-						Image("RocketIcon")
-							.frame(width: 16, height: 16)
-						Text("Express Fee")
-							.font(.custom("SFPro-Regular", size: 14))
-							.foregroundColor(getRGBColor(74, 85, 101, 1))
-						Spacer()
-						Text("$3")
-							.font(.custom("SFPro-Medium", size: 16))
-							.foregroundColor(getRGBColor(245, 73, 0, 1))
+					if sendStore.isExpress {
+						HStack(spacing: 8) {
+							Image("RocketIcon")
+								.frame(width: 16, height: 16)
+							Text("Express Fee")
+								.font(.custom("SFPro-Regular", size: 14))
+								.foregroundColor(getRGBColor(74, 85, 101, 1))
+							Spacer()
+							Text("$3")
+								.font(.custom("SFPro-Medium", size: 16))
+								.foregroundColor(getRGBColor(245, 73, 0, 1))
+						}
 					}
 				}
 				.padding(.top)
@@ -98,7 +102,7 @@ struct DeliveryDetailsCard: View {
 						.font(.custom("SFPro-Regular", size: 14))
 						.foregroundColor(getRGBColor(54, 65, 83, 1))
 					Spacer()
-					Text("$8")
+					Text("$\(sendStore.cost + (sendStore.isExpress ? 3 : 0))")
 						.font(.custom("SFPro-Medium", size: 24))
 						.foregroundColor(getRGBColor(79, 190, 159, 1))
 				}
@@ -116,5 +120,5 @@ struct DeliveryDetailsCard: View {
 }
 
 #Preview {
-	DeliveryDetailsCard()
+	DeliveryDetailsGreenCard()
 }

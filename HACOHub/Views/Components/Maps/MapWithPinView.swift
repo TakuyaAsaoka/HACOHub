@@ -15,13 +15,13 @@ struct MapWithPinView: View {
 	)
 	
 	@State private var centerCoordinate = CLLocationCoordinate2D(latitude: 33.7518510, longitude: -84.3853718)
-	@Binding var address: String
+	@Binding var location: String
 	@State private var geocodeWorkItem: DispatchWorkItem?
 	@State private var didInitialLoad = false
 
 	var body: some View {
 		VStack {
-			InputBoxView(imageName: "GreenLocationIcon", text: $address)
+			InputBoxView(imageName: "GreenLocationIcon", text: $location)
 			
 			ZStack {
 				Map(coordinateRegion: $region, interactionModes: .all)
@@ -69,11 +69,11 @@ struct MapWithPinView: View {
 				].compactMap { $0 }.joined(separator: ", ")
 				
 				DispatchQueue.main.async {
-					self.address = address.isEmpty ? "Address not available" : address
+					self.location = address.isEmpty ? "Address not available" : address
 				}
 			} else if let error = error {
 				DispatchQueue.main.async {
-					self.address = "Geocode error: \(error.localizedDescription)"
+					self.location = "Geocode error: \(error.localizedDescription)"
 				}
 			}
 		}
@@ -82,6 +82,6 @@ struct MapWithPinView: View {
 
 #Preview {
 	MapWithPinView(
-		address: .constant("test")
+		location: .constant("test")
 	)
 }

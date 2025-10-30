@@ -28,7 +28,7 @@ import SwiftUI
 //}
 
 struct DeliveryDetailContentView: View {
-	@State var selectedFriend: String? = "Luka Moretti"
+	@EnvironmentObject var sendStore: SendStore
 	
 	var body: some View {
 		ScrollView {
@@ -41,17 +41,13 @@ struct DeliveryDetailContentView: View {
 				VStack(spacing: 12) {
 						FriendButton(
 							friendImage: Image("LukaMoretti"),
-							name: "Luka Moretti",
-							address: "Atlanta, GA",
-							phone: "",
-							selectedFriend: $selectedFriend
+							friend: Friend.lucaMoretti.friend,
+							storeFriend: $sendStore.friend
 						)
 						FriendButton(
 								friendImage: Image("AishaKhan"),
-								name: "Aisha Khan",
-								address: "Dallas, TX",
-								phone: "",
-								selectedFriend: $selectedFriend
+								friend: Friend.aishaKhan.friend,
+								storeFriend: $sendStore.friend
 						)
 				}
 				
@@ -62,31 +58,23 @@ struct DeliveryDetailContentView: View {
 				VStack(spacing: 12) {
 					FriendButton(
 							friendImage: Image("ElenaRojas"),
-							name: "Elena Rojas",
-							address: "Los Angeles, CA",
-							phone: "",
-							selectedFriend: $selectedFriend
+							friend: Friend.elenaRojas.friend,
+							storeFriend: $sendStore.friend
 					)
 					FriendButton(
 							friendImage: Image("OmarAISayed"),
-							name: "Omar AI-Sayed",
-							address: "Seattle, WA",
-							phone: "",
-							selectedFriend: $selectedFriend
+							friend: Friend.omarAlSayed.friend,
+							storeFriend: $sendStore.friend
 					)
 					FriendButton(
 							friendImage: Image("SofiaPetrova"),
-							name: "Sofia Petrova",
-							address: "Forest, MS",
-							phone: "",
-							selectedFriend: $selectedFriend
+							friend: Friend.sofiaPetrova.friend,
+							storeFriend: $sendStore.friend
 					)
 					FriendButton(
 							friendImage: Image("MiaKhan"),
-							name: "Mia Khan",
-							address: "Dallas, TX",
-							phone: "",
-							selectedFriend: $selectedFriend
+							friend: Friend.miaKhan.friend,
+							storeFriend: $sendStore.friend
 					)
 				}
 				Spacer()

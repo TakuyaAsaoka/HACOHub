@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SendView: View {
-	@StateObject private var sendStore = SendStore()
+//	@StateObject private var sendStore = SendStore()
 	@Binding var path: NavigationPath
 	@State var currentScreen: Int = 0
 	@State var oldScreen: Int = -1
@@ -31,7 +31,6 @@ struct SendView: View {
 					currentFlow: $currentFlow,
 					oldFlow: $oldFlow
 				)
-					.environmentObject(sendStore)
 			},
 			buttonText: "Next",
 			action: {
@@ -57,34 +56,19 @@ struct SendContentView: View {
 	
 	var body: some View {
 		ZStack {
-//			// 画面1
-//			if currentScreen == 0 {
-//				ShippingDetailContentView()
-//					.transition(currentFlow == oldFlow ? transitionDirection : reverseTransitionDirection)
-//			}
-//			// 画面2
-//			if currentScreen == 1 {
-//				DeliveryDetailContentView()
-//					.transition(currentFlow == oldFlow ? transitionDirection : reverseTransitionDirection)
-//			}
-//			// 画面3
-//			if currentScreen == 2 {
-//				SelectHacoHubContentView()
-//					.transition(currentFlow == oldFlow ? transitionDirection : reverseTransitionDirection)
-//			}
 			Group {
-								switch currentScreen {
-								case 0:
-										ShippingDetailContentView()
-								case 1:
-										DeliveryDetailContentView()
-								case 2:
-										SelectHacoHubContentView()
-								default:
-										EmptyView()
-								}
-						}
-						.transition(transitionDirection)
+				switch currentScreen {
+				case 0:
+						ShippingDetailContentView()
+				case 1:
+						DeliveryDetailContentView()
+				case 2:
+						SelectHacoHubContentView()
+				default:
+						EmptyView()
+				}
+			}
+			.transition(transitionDirection)
 		}
 		.animation(.easeInOut, value: currentScreen)
 		.onChange(of: currentScreen) {
@@ -92,25 +76,6 @@ struct SendContentView: View {
 				oldScreen = currentScreen
 		}
 	}
-	
-//	private var transitionDirection: AnyTransition {
-//		print("currentScreen: \(currentScreen), oldScreen: \(oldScreen)")
-//			if currentScreen > oldScreen {
-//					// 進む：右→左
-//					return AnyTransition.asymmetric(
-//							insertion: .move(edge: .trailing),
-//							removal: .move(edge: .leading)
-//					)
-//			} else if currentScreen < oldScreen {
-//					// 戻る：左→右
-//					return AnyTransition.asymmetric(
-//							insertion: .move(edge: .leading),
-//							removal: .move(edge: .trailing)
-//					)
-//			} else {
-//					return .identity
-//			}
-//	}
 	
 	private var transitionDirection: AnyTransition {
 			if isMovingForward {

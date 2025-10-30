@@ -55,10 +55,7 @@ struct ConfirmAndPayContentView: View {
 						.foregroundColor(getRGBColor(54, 65, 83))
 				
 					VStack {
-						Image("TonyCard")
-							.resizable()
-							.scaledToFit()
-							.frame(maxWidth: .infinity)
+						DeliveryDetailsGreenCard()
 						
 						Image("ShippingCard")
 							.resizable()
@@ -87,7 +84,10 @@ struct ConfirmAndPayContentView: View {
 		}
 	}
 }
-//
-//#Preview {
-//	ConfirmAndPayView(path: .constant(NavigationPath()))
-//}
+
+#Preview {
+	ConfirmAndPayView(
+		path: .constant(NavigationPath()),
+		selectedTab: .constant(0)
+	)
+}

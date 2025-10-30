@@ -12,6 +12,7 @@ struct RootView: View {
   @State private var isActive = false
 	@State private var path = NavigationPath()
 	@State private var selectedTab = 0
+	@StateObject private var sendStore = SendStore()
 
   var body: some View {
     ZStack {
@@ -29,10 +30,12 @@ struct RootView: View {
 								switch route {
 								case .send:
 									SendView(path: $path)
+										.environmentObject(sendStore)
 										.navigationBarBackButtonHidden(true)
 										.toolbarBackground(.hidden, for: .navigationBar)
 								case .confirmAndPay:
 									ConfirmAndPayView(path: $path, selectedTab: $selectedTab)
+										.environmentObject(sendStore)
 										.navigationBarBackButtonHidden(true)
 										.toolbarBackground(.hidden, for: .navigationBar)
 								case .receive:
