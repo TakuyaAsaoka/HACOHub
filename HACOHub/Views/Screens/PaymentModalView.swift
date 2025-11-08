@@ -12,10 +12,11 @@ struct PaymentModalView: View {
 	@Binding var selectedTab: Int
   @State private var isCompletedLoading = false
 
+  @EnvironmentObject var sendStore: SendStore
+
   var body: some View {
     DimmedOverlayModalView(vPadding: 32) {
       ZStack {
-        // Loading
         if !isCompletedLoading {
           VStack(spacing: 12) {
             PrimarySpinner()
@@ -25,7 +26,6 @@ struct PaymentModalView: View {
           .transition(.opacity)
         }
 
-        // Completed
         if isCompletedLoading {
           VStack(spacing: 0) {
             Image("CompletedIcon")
@@ -47,6 +47,7 @@ struct PaymentModalView: View {
       .onAppear {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
           withAnimation {
+            sendStore.reset()
             isCompletedLoading = true
           }
         }
@@ -64,6 +65,7 @@ struct PaymentModalView: View {
   }
 }
 
-//#Preview {
-//	PaymentModalView(path: .constant(NavigationPath()))
-//}
+#Preview {
+  PaymentModalView(path: .constant(NavigationPath()), selectedTab: .constant(1))
+    .environmentObject(SendStore())
+}

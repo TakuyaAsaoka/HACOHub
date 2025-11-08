@@ -18,6 +18,17 @@ class SendStore: ObservableObject {
 	@Published var isExpress: Bool = false
 	@Published var expressFee: Int = 3
 	@Published var friend: FriendInfo = Friend.lucaMoretti.friend
+
+  func reset() {
+    location = "Current Location"
+    latitude = 33.7518510
+    longitude = -84.3853718
+    size = "Small"
+    cost = 5
+    isExpress = false
+    expressFee = 3
+    friend = Friend.lucaMoretti.friend
+  }
 }
 
 class ReceiveStore: ObservableObject {
