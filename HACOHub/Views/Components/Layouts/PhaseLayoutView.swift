@@ -11,8 +11,8 @@ struct PhaseLayoutView<Content: View>: View {
 	@Binding var path: NavigationPath
 	let title: String
 	let steps: [String]
-	@Binding var currentScreen: Int
-	@Binding var oldScreen: Int
+	@Binding var currentStep: Int
+  let backAction: () -> Void
 	@ViewBuilder let content: () -> Content
 	let buttonText: String
 	let action: () -> Void
@@ -23,8 +23,8 @@ struct PhaseLayoutView<Content: View>: View {
 				path: $path,
 				title: title,
 				steps: steps,
-				currentScreen: $currentScreen,
-				oldScreen: $oldScreen,
+				currentStep: $currentStep,
+        backAction: backAction,
 				content: content
 			)
 			content()
@@ -45,19 +45,20 @@ struct PhaseLayoutView<Content: View>: View {
 	}
 }
 
-//#Preview {
-//	PhaseLayoutView(
-//		path: .constant(NavigationPath()),
-//		title: "title1",
-//		steps: ["test1", "test2", "test3"],
-//		currentScreen: 2,
-//		content: {
-//			ZStack {
-//				getRGBColor(20, 30, 40, 0.2)
-//				Text("test")
-//			}
-//		},
-//		buttonText: "Next",
-//		action: { }
-//	)
-//}
+#Preview {
+	PhaseLayoutView(
+		path: .constant(NavigationPath()),
+		title: "title1",
+		steps: ["test1", "test2", "test3"],
+    currentStep: .constant(2),
+    backAction: {},
+		content: {
+			ZStack {
+				getRGBColor(20, 30, 40, 0.2)
+				Text("test")
+			}
+		},
+		buttonText: "Next",
+		action: { }
+	)
+}

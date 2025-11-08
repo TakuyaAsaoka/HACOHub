@@ -2,7 +2,7 @@
 //  SendView.swift
 //  HACOHub
 //
-//  Created by user on 2025/10/28.
+//  Created by TakuyaAsaoka on 2025/10/28.
 //
 
 import SwiftUI

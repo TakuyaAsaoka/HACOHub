@@ -2,7 +2,7 @@
 //  PhaseHeaderView.swift
 //  HACOHub
 //
-//  Created by user on 2025/10/28.
+//  Created by TakuyaAsaoka on 2025/10/28.
 //
 
 import SwiftUI
@@ -11,8 +11,8 @@ struct PhaseHeaderView<Content: View>: View {
 	@Binding var path: NavigationPath
 	let title: String
 	let steps: [String]
-	@Binding var currentScreen: Int
-	@Binding var oldScreen: Int
+	@Binding var currentStep: Int
+  let backAction: () -> Void
 	@ViewBuilder let content: () -> Content
 	
 	let backButtonWidth: CGFloat = 44
@@ -21,12 +21,7 @@ struct PhaseHeaderView<Content: View>: View {
 		VStack(spacing: 16) {
 			HStack {
 				Button {
-					oldScreen = currentScreen
-					if currentScreen == 0 {
-						if !path.isEmpty { path.removeLast() }
-					} else if currentScreen > 0 {
-						currentScreen -= 1
-					}
+          backAction()
 				} label: {
 					Image("BackButtonIcon")
 						.resizable()
@@ -44,7 +39,7 @@ struct PhaseHeaderView<Content: View>: View {
 		}
 			
 			StepperView(
-				steps: steps, completeNumber: currentScreen
+				steps: steps, completeNumber: currentStep
 			)
 		}
 		.padding(.top, 56)
@@ -53,16 +48,17 @@ struct PhaseHeaderView<Content: View>: View {
 	}
 }
 
-//#Preview {
-//	VStack(spacing: 0) {
-//		PhaseHeaderView(
-//			path: .constant(NavigationPath()),
-//			title: "title1",
-//			steps: ["test1", "test2", "test3"],
-//			currentScreen: 2,
-//			content: { Text("test") }
-//		)
-//		getRGBColor(29, 39, 50, 0.2)
-//	}
-//	.ignoresSafeArea()
-//}
+#Preview {
+	VStack(spacing: 0) {
+		PhaseHeaderView(
+			path: .constant(NavigationPath()),
+			title: "title1",
+			steps: ["test1", "test2", "test3"],
+      currentStep: .constant(2),
+      backAction: {},
+			content: { Text("test") }
+		)
+		getRGBColor(29, 39, 50, 0.2)
+	}
+	.ignoresSafeArea()
+}

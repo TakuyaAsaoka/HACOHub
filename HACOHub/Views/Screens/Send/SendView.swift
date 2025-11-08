@@ -9,77 +9,53 @@ import SwiftUI
 
 struct SendView: View {
 	@Binding var path: NavigationPath
-	@State var currentScreen: Int = 0
-	@State var oldScreen: Int = -1
+	@State var currentStep: Int = 0
 
 	var body: some View {
 		PhaseLayoutView(
 			path: $path,
 			title: "Send",
 			steps: sendSteps,
-			currentScreen: $currentScreen,
-			oldScreen: $oldScreen,
+			currentStep: $currentStep,
+      backAction: goBack,
 			content: {
 				SendContentView(
-					currentScreen: $currentScreen,
-					oldScreen: $oldScreen,
+					currentScreen: $currentStep,
 				)
 			},
 			buttonText: "Next",
-			action: {
-				oldScreen = currentScreen
-				if currentScreen == 0 || currentScreen == 1 {
-					currentScreen += 1
-				} else if currentScreen == 2 {
-					path.append(Route.confirmAndPay)
-				}
-			}
+			action: goNext
 		)
 	}
+
+  private func goNext() {
+    if currentStep == 2 {
+      path.append(Route.confirmAndPay)
+    } else {
+      currentStep += 1
+    }
+  }
+
+  private func goBack() {
+    if currentStep == 0 {
+      path.removeLast()
+    } else {
+      currentStep -= 1
+    }
+  }
 }
 
 struct SendContentView: View {
 	@Binding var currentScreen: Int
-	@Binding var oldScreen: Int
-	@State private var isMovingForward: Bool = true
-	
+
 	var body: some View {
-		ZStack {
-			Group {
-				switch currentScreen {
-				case 0:
-						ShippingDetailContentView()
-				case 1:
-						DeliveryDetailContentView()
-				case 2:
-						SelectHacoHubContentView()
-				default:
-						EmptyView()
-				}
-			}
-			.transition(transitionDirection)
-		}
+    TabView(selection: $currentScreen) {
+      ShippingDetailContentView().tag(0)
+      DeliveryDetailContentView().tag(1)
+      SelectHacoHubContentView().tag(2)
+    }
+    .tabViewStyle(.page(indexDisplayMode: .never))
 		.animation(.easeInOut, value: currentScreen)
-		.onChange(of: currentScreen) {
-				isMovingForward = currentScreen > oldScreen
-				oldScreen = currentScreen
-		}
-	}
-	
-	private var transitionDirection: AnyTransition {
-			if isMovingForward {
-					// 次へ進む：右→左
-					return .asymmetric(
-							insertion: .move(edge: .trailing),
-							removal: .move(edge: .leading)
-					)
-			} else {
-					// 戻る：左→右
-					return .asymmetric(
-							insertion: .move(edge: .leading),
-							removal: .move(edge: .trailing)
-					)
-			}
 	}
 }
 
