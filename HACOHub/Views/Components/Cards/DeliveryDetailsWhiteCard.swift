@@ -22,8 +22,15 @@ struct DeliveryDetailsWhiteCard: View {
 					Text.sfProRegular("Shipping Location", size: 12)
 						.foregroundColor(getRGBColor(106, 114, 130, 1))
 					
-					Text.sfProRegular(sendStore.location, size: 16)
-						.foregroundColor(getRGBColor(36, 41, 47, 1))
+          Text.sfProRegular(
+            sendStore.location ?? "Not available",
+            size: 16
+          )
+          .foregroundColor(
+            sendStore.location == nil
+            ? Color.gray.opacity(0.5)
+            : getRGBColor(36, 41, 47)
+          )
 				}
 			}
 			

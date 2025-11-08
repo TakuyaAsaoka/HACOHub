@@ -28,7 +28,15 @@ struct ReceiveConfirmAndPayView: View {
 						VStack(alignment: .leading) {
 							Text.sfProRegular("Location", size: 12)
 								.foregroundColor(getRGBColor(106, 114, 130))
-							Text.sfProMedium(receiveStore.location, size: 16)
+              Text.sfProRegular(
+                receiveStore.location ?? "Not available",
+                size: 16
+              )
+              .foregroundColor(
+                receiveStore.location == nil
+                  ? Color.gray.opacity(0.5)
+                  : getRGBColor(36, 41, 47)
+              )
 						}
 					}
 					

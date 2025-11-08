@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 enum Location: Hashable {
 	case shibuya

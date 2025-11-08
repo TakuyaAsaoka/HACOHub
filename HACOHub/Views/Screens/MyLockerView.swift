@@ -15,7 +15,7 @@ struct MyLockerView: View {
     ZStack {
       getRGBColor(240, 240, 240)
 
-      VStack(spacing: 0) {
+      VStack(spacing: 16) {
         ScrollView {
           ForEach(myLockers) { myLocker in
             MyLockerCard(

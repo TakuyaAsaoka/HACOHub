@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SendView: View {
-//	@StateObject private var sendStore = SendStore()
 	@Binding var path: NavigationPath
 	@State var currentScreen: Int = 0
 	@State var oldScreen: Int = -1

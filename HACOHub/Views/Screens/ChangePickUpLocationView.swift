@@ -40,8 +40,12 @@ struct ChangePickUpLocationView: View {
 							Spacer()
 						}
 						
-						MapWithPinView(latitude: 33.778219, longitude: -84.380027, location: $receiveStore.location)
-							.frame(maxWidth: .infinity, alignment: .leading)
+						MapPickerView(
+              latitude: 33.778219,
+              longitude: -84.380027,
+              location: $receiveStore.location
+            )
+            .frame(maxWidth: .infinity, alignment: .leading)
 						
 //						HStack {
 //							Text.sfProRegular("Select pickup time", size: 16)
