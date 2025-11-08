@@ -62,14 +62,14 @@ struct SelectHacoHubContentView: View {
 						Text.sfProBold("+$3", size: 24)
 					}
 					.padding(.horizontal, 16)
-					.padding(.vertical, 8)
+					.padding(.vertical, 12)
 					.background(
 						RoundedRectangle(cornerRadius: 14)
-							.fill(sendStore.isExpress ? getRGBColor(255, 241, 224) : Color.white) // 薄緑 or 白
+							.fill(sendStore.isExpress ? getRGBColor(255, 241, 224) : Color.white)
 					)
 					.overlay(
 						RoundedRectangle(cornerRadius: 14)
-							.stroke(sendStore.isExpress ? getRGBColor(255, 172, 71) : getRGBColor(208, 215, 222), lineWidth: 2) // 緑 or グレー
+							.stroke(sendStore.isExpress ? getRGBColor(255, 172, 71) : getRGBColor(208, 215, 222), lineWidth: 2)
 					)
 					.cornerRadius(14)
 				}
@@ -95,34 +95,38 @@ struct HacoHubOptionView: View {
 			sendStore.size = size
 			sendStore.cost = cost
 		} label: {
-			HStack(spacing: 8) {
-				Image(imageName)
-					.resizable()
-					.scaledToFit()
-					.frame(width: 50, height: 50)
-				
-				VStack(alignment: .leading, spacing: 7) {
-					HStack(spacing: 30) {
-						Text.sfProBold(size, size: 20)
-							.foregroundColor(getRGBColor(36, 41, 47))
-						Text.sfProRegular(sizeDescription, size: 14)
-					}
-					Text.sfProRegular(description, size: 12)
-						.foregroundColor(getRGBColor(36, 41, 47))
-				}
-				
-				Spacer()
-				
-				Text.sfProBold("$\(cost)", size: 24)
-			}
-			.padding(.horizontal, 20)
-			.padding(.vertical, 16)
-			.background(
-					RoundedRectangle(cornerRadius: 8)
-						.fill(sendStore.size == size ? getRGBColor(236, 249, 243) : .white)
-			)
-			.overlay(
-				RoundedRectangle(cornerRadius: 8)
+      HStack(spacing: 0) {
+        HStack(spacing: 8) {
+          Image(imageName)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 50, height: 50)
+
+          VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 0) {
+              Text.sfProBold(size, size: 20)
+                .foregroundColor(getRGBColor(36, 41, 47))
+              Spacer()
+              Text.sfProRegular(sizeDescription, size: 14)
+            }
+            Text.sfProRegular(description, size: 12)
+              .foregroundColor(getRGBColor(36, 41, 47))
+          }
+          .frame(width: 200)
+        }
+
+        Spacer()
+
+        Text.sfProBold("$\(cost)", size: 24)
+      }
+      .padding(.horizontal, 20)
+      .padding(.vertical, 16)
+      .background(
+          RoundedRectangle(cornerRadius: 8)
+            .fill(sendStore.size == size ? getRGBColor(236, 249, 243) : .white)
+      )
+      .overlay(
+        RoundedRectangle(cornerRadius: 8)
 					.stroke(sendStore.size == size ? Color.pri : getRGBColor(208, 215, 222), lineWidth: 1)
 			)
 			.cornerRadius(8)
