@@ -45,7 +45,7 @@ struct DeliveryDetailsWhiteCard: View {
 						.foregroundColor(getRGBColor(106, 114, 130, 1))
 					
           VStack(alignment: .leading, spacing: 9) {
-						Text.sfProMedium(sendStore.friend.name, size: 16)
+						Text.sfProMedium(sendStore.selectedFriend?.name ?? "Unregistered", size: 16)
 							.foregroundColor(getRGBColor(36, 41, 47, 1))
 							.padding(.top, 9)
 						
@@ -53,15 +53,15 @@ struct DeliveryDetailsWhiteCard: View {
 							Text.sfProRegular("Address", size: 14)
 								.foregroundColor(getRGBColor(106, 114, 130, 1))
 							
-							Text.sfProRegular(sendStore.friend.address, size: 14)
-								.foregroundColor(getRGBColor(36, 41, 47, 1))
+              Text.sfProRegular(sendStore.selectedFriend?.address ?? "Unregistered", size: 14)
+								.foregroundColor(getRGBColor(36, 41, 47))
 						}
 
 						VStack(alignment: .leading, spacing: 0) {
 							Text.sfProRegular("Phone Number", size: 14)
 								.foregroundColor(getRGBColor(106, 114, 130, 1))
 							
-							Text.sfProRegular(sendStore.friend.phoneNumber, size: 14)
+							Text.sfProRegular(sendStore.selectedFriend?.phoneNumber ?? "Unregistered", size: 14)
 								.foregroundColor(getRGBColor(36, 41, 47, 1))
 						}
 					}

@@ -17,7 +17,7 @@ class SendStore: ObservableObject {
 	@Published var cost: Int = 5
 	@Published var isExpress: Bool = false
 	@Published var expressFee: Int = 3
-	@Published var friend: FriendInfo = Friend.lucaMoretti.friend
+	@Published var selectedFriend: Friend? = nil
 
   func reset() {
     location = "Current Location"
@@ -27,7 +27,7 @@ class SendStore: ObservableObject {
     cost = 5
     isExpress = false
     expressFee = 3
-    friend = Friend.lucaMoretti.friend
+    selectedFriend = nil
   }
 }
 
@@ -39,5 +39,5 @@ class ReceiveStore: ObservableObject {
 	@Published var cost: Int = 5
 	@Published var isExpress: Bool = false
 	@Published var expressFee: Int = 3
-	@Published var friend: FriendInfo = Friend.lucaMoretti.friend
+  @Published var friend: Friend = Friend.sampleData[0]
 }
