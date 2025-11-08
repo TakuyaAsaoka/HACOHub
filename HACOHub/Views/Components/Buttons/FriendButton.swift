@@ -49,7 +49,7 @@ struct FriendButton: View {
 						.overlay(
 								RoundedRectangle(cornerRadius: 14)
 									.stroke((storeFriend.name == friend.name)
-														? getRGBColor(79, 190, 159) : .white, lineWidth: 2)
+                          ? Color.pri : .white, lineWidth: 2)
 						)
             .cornerRadius(14)
         }

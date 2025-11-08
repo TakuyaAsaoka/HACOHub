@@ -123,7 +123,7 @@ struct HacoHubOptionView: View {
 			)
 			.overlay(
 				RoundedRectangle(cornerRadius: 8)
-					.stroke(sendStore.size == size ? getRGBColor(79, 190, 159) : getRGBColor(208, 215, 222), lineWidth: 1)
+					.stroke(sendStore.size == size ? Color.pri : getRGBColor(208, 215, 222), lineWidth: 1)
 			)
 			.cornerRadius(8)
 			.shadow(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 2)

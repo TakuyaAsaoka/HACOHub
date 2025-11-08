@@ -21,7 +21,7 @@ struct PrimarySpinner: View {
       Circle()
         .trim(from: 0, to: 0.75)
         .stroke(
-          getRGBColor(79, 190, 159),
+          Color.pri,
           style: StrokeStyle(
             lineWidth: 12,
             lineCap: .round

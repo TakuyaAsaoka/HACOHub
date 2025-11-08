@@ -15,7 +15,7 @@ struct HomeHeaderView: View {
 		VStack(spacing: 16) {
       HStack() {
 				Text.sfProBold("HACOHub", size: 32)
-					.foregroundColor(getRGBColor(79, 190, 159))
+          .foregroundColor(Color.pri)
         Spacer()
         Button {
 					// TODO: アイコンをタップしたらどうなる？
@@ -47,7 +47,7 @@ struct HomeHeaderView: View {
 				.background(getRGBColor(236, 249, 243))
 				.overlay(
 					RoundedRectangle(cornerRadius: 16)
-						.stroke(getRGBColor(79, 190, 159), lineWidth: 1)
+						.stroke(Color.pri, lineWidth: 1)
 				)
 				.cornerRadius(16)
 			}

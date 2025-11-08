@@ -38,12 +38,12 @@ struct NearbyHacoHubLocationButton: View {
 				Spacer()
 			
 				Text.sfProMedium("\(availableNumber) available", size: 12)
-					.foregroundColor(getRGBColor(79, 190, 159))
+					.foregroundColor(Color.pri)
 					.padding(.vertical, 3)
 					.padding(.horizontal, 8)
 					.overlay(
 						RoundedRectangle(cornerRadius: 8)
-							.stroke(getRGBColor(79, 190, 159), lineWidth: 1)
+              .stroke(Color.pri, lineWidth: 1)
 					)
 			}
 			.padding(.horizontal, 24)

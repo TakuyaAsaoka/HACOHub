@@ -41,7 +41,7 @@ struct PrimaryRadioButtonGrid: View {
         } label: {
           ZStack {
             RoundedRectangle(cornerRadius: 8)
-              .stroke(selectedItem == button.id ? getRGBColor(79, 190, 159) : getRGBColor(208, 215, 222), lineWidth: 1)
+              .stroke(selectedItem == button.id ?Color.pri : getRGBColor(208, 215, 222), lineWidth: 1)
 
             if let text = button.text {
               Text.sfProBold(text, size: 16)

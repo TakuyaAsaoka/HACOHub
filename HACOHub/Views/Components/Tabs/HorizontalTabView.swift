@@ -29,7 +29,7 @@ struct HorizontalTabView: View {
               .overlay(
                 Rectangle()
                   .frame(height: 1)
-                  .foregroundColor(selectedTab == tab ? getRGBColor(79, 190, 159) : .clear)
+                  .foregroundColor(selectedTab == tab ? Color.pri : .clear)
                   .padding(.top, 38)
               )
           }

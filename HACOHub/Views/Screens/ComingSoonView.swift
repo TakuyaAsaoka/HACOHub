@@ -18,7 +18,7 @@ struct ComingSoonView: View {
 				.scaledToFit()
 				.frame(width: 380, height: 234)
 				Text.sfProMedium("Coming\nSoon!!", size: 64)
-					.foregroundColor(getRGBColor(79, 190, 159))
+					.foregroundColor(Color.pri)
 					.multilineTextAlignment(.center)
 			}
 		}

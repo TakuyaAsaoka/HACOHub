@@ -17,7 +17,7 @@ struct SplashView: View {
 
       VStack(alignment: .trailing) {
         Text.sfProBold("HACOHub", size: 64)
-          .foregroundColor(getRGBColor(79, 190, 159))
+          .foregroundColor(Color.pri)
         Text.sfProRegular("@TOYOTA AUTO BODY", size: 13)
           .foregroundColor(getRGBColor(102, 102, 102))
       }

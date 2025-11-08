@@ -115,7 +115,7 @@ struct PrimaryRoundedButton: View {
       textColor: .white,
       size: size,
       weight: weight,
-      bgColor: getRGBColor(79, 190, 159),
+      bgColor: .pri,
       vPadding: vPadding,
       radius: radius,
       action: action

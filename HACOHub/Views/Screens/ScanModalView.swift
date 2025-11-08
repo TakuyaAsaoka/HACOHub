@@ -106,7 +106,7 @@ struct QRCodeView: View {
         .resizable()
         .scaledToFit()
         .frame(width: 40, height: 40)
-        .foregroundColor(getRGBColor(79, 190, 159))
+        .foregroundColor(Color.pri)
         .background(.white.opacity(0.8))
         .clipShape(Circle())
     }

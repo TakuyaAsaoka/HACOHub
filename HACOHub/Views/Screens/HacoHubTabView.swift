@@ -56,10 +56,10 @@ struct HacoHubTabView: View {
         VStack {
           Image(icon)
             .renderingMode(.template)
-            .foregroundColor(selectedTab == index ? getRGBColor(79, 190, 159) : getRGBColor(110, 119, 129))
+            .foregroundColor(selectedTab == index ? Color.pri : getRGBColor(110, 119, 129))
           Text.sfProBold(label, size: 13)
         }
-        .foregroundColor(selectedTab == index ? getRGBColor(79, 190, 159) : getRGBColor(110, 119, 129))
+        .foregroundColor(selectedTab == index ? Color.pri : getRGBColor(110, 119, 129))
       }
     }
   }

@@ -26,7 +26,7 @@ struct SquareIconButton: View {
           .resizable()
           .scaledToFit()
           .padding(8)
-          .foregroundColor(getRGBColor(79, 190, 159))
+          .foregroundColor(Color.pri)
       }
       .frame(width: length, height: length)
     }

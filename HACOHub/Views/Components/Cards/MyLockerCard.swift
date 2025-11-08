@@ -71,7 +71,7 @@ struct MyLockerCard: View {
         RoundedRectangle(cornerRadius: 16)
           .stroke(
             myLocker.status == .inUse
-            ? getRGBColor(79, 190, 159)
+            ? Color.pri
             : getRGBColor(208, 215, 222),
             lineWidth: myLocker.status == .inUse ? 2 : 1
           )
@@ -90,12 +90,12 @@ struct StatusView: View {
     switch status {
       case .reserved:
       Text.sfProRegular("Reserved", size: 16)
-        .foregroundColor(getRGBColor(79, 190, 159))
+        .foregroundColor(Color.pri)
         .padding(.vertical, 3)
         .padding(.horizontal, 12)
         .overlay(
           RoundedRectangle(cornerRadius: 24)
-            .stroke(getRGBColor(79, 190, 159), lineWidth: 1)
+            .stroke(Color.pri, lineWidth: 1)
         )
       case .inUse:
       Text.sfProRegular("In Use", size: 16)
@@ -104,7 +104,7 @@ struct StatusView: View {
         .padding(.horizontal, 12)
         .background(
           RoundedRectangle(cornerRadius: 24)
-            .fill(getRGBColor(79, 190, 159))
+            .fill(Color.pri)
         )
       case .completed:
         Text("Completed")
