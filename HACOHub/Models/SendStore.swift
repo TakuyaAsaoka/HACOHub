@@ -18,7 +18,7 @@ class SendStore: ObservableObject {
 }
 
 class ReceiveStore: ObservableObject {
-	@Published var location: String = "Current Location"
+	@Published var location: String = "7th St NE, Atlanta, GA 30308"
 	@Published var size: String = "Small"
 	@Published var cost: Int = 5
 	@Published var isExpress: Bool = false

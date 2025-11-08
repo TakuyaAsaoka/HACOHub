@@ -41,7 +41,7 @@ struct ShippingDetailContentView: View {
 			
 			VStack(alignment: .leading, spacing: 16) {
 				Text.sfProRegular("Shipping Location", size: 16)
-				MapWithPinView(location: $sendStore.location)
+				MapWithPinView(latitude: 33.7518510, longitude: -84.3853718, location: $sendStore.location)
 			}
 			.frame(maxWidth: .infinity, alignment: .leading)
 			.padding(.vertical, 20)

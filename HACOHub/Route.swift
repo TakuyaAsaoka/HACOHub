@@ -10,4 +10,5 @@ enum Route: Hashable {
 	case confirmAndPay
 	case receive
 	case changePickUpLocation
+	case receiveConfirmAndPay
 }

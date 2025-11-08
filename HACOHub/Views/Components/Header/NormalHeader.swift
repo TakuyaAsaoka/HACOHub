@@ -35,6 +35,7 @@ struct NormalHeader: View {
 		.padding(.top, 56)
 		.padding(.horizontal, 24)
 		.padding(.bottom, 16)
+		.background(.white)
 	}
 }
 

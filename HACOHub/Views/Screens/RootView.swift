@@ -46,7 +46,12 @@ struct RootView: View {
 										.toolbarBackground(.hidden, for: .navigationBar)
 								case .changePickUpLocation:
 									ChangePickUpLocationView(path: $path)
-										.environmentObject(sendStore)
+										.environmentObject(receiveStore)
+										.navigationBarBackButtonHidden(true)
+										.toolbarBackground(.hidden, for: .navigationBar)
+								case .receiveConfirmAndPay:
+									ReceiveConfirmAndPayView(path: $path)
+										.environmentObject(receiveStore)
 										.navigationBarBackButtonHidden(true)
 										.toolbarBackground(.hidden, for: .navigationBar)
 								}

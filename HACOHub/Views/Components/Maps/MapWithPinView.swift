@@ -9,15 +9,28 @@ import SwiftUI
 import MapKit
 
 struct MapWithPinView: View {
-	@State private var region = MKCoordinateRegion(
-			center: CLLocationCoordinate2D(latitude: 33.7518510, longitude: -84.3853718),
-			span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-	)
+	let latitude: CLLocationDegrees
+	let longitude: CLLocationDegrees
 	
-	@State private var centerCoordinate = CLLocationCoordinate2D(latitude: 33.7518510, longitude: -84.3853718)
+	@State private var region: MKCoordinateRegion
+	@State private var centerCoordinate: CLLocationCoordinate2D
 	@Binding var location: String
 	@State private var geocodeWorkItem: DispatchWorkItem?
 	@State private var didInitialLoad = false
+
+	init(latitude: CLLocationDegrees, longitude: CLLocationDegrees, location: Binding<String>) {
+		self.latitude = latitude
+		self.longitude = longitude
+		self._location = location
+		
+		let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+		 
+		 _centerCoordinate = State(initialValue: coordinate)
+		 _region = State(initialValue: MKCoordinateRegion(
+				 center: coordinate,
+				 span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+		 ))
+	}
 
 	var body: some View {
 		VStack {
@@ -82,6 +95,8 @@ struct MapWithPinView: View {
 
 #Preview {
 	MapWithPinView(
+		latitude: 33.7518510,
+		longitude: -84.3853718,
 		location: .constant("test")
 	)
 }
