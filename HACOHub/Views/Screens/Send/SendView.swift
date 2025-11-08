@@ -20,7 +20,7 @@ struct SendView: View {
       backAction: goBack,
 			content: {
 				SendContentView(
-					currentScreen: $currentStep,
+					currentStep: $currentStep,
 				)
 			},
 			buttonText: "Next",
@@ -46,16 +46,16 @@ struct SendView: View {
 }
 
 struct SendContentView: View {
-	@Binding var currentScreen: Int
+	@Binding var currentStep: Int
 
 	var body: some View {
-    TabView(selection: $currentScreen) {
+    TabView(selection: $currentStep) {
       ShippingDetailContentView().tag(0)
       DeliveryDetailContentView().tag(1)
       SelectHacoHubContentView().tag(2)
     }
     .tabViewStyle(.page(indexDisplayMode: .never))
-		.animation(.easeInOut, value: currentScreen)
+		.animation(.easeInOut, value: currentStep)
 	}
 }
 

@@ -8,35 +8,31 @@
 import SwiftUI
 
 struct HacoHubTabView: View {
-	@Binding var selectedTab: Int
-	@Binding var path: NavigationPath
+  @Binding var selectedTab: Int
+  @Binding var path: NavigationPath
 
   var body: some View {
     VStack(spacing: 0) {
       HomeHeaderView()
-			
-       Group {
-        switch selectedTab {
-				case 0: HomeView(path: $path)
-				case 1: ActivityView()
-				default: HomeView(path: $path)
-				}
+
+      TabView(selection: $selectedTab) {
+        HomeView(path: $path).tag(0)
+        ActivityView().tag(1)
       }
-      .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .transition(.opacity)
-      .animation(.easeInOut(duration: 0.2), value: selectedTab)
+      .tabViewStyle(.page(indexDisplayMode: .never))
+      .animation(.easeInOut(duration: 0.25), value: selectedTab)
 
       VStack(spacing: 0) {
         Rectangle()
           .frame(height: 1)
           .foregroundColor(getRGBColor(208, 215, 222))
 
-				HStack(spacing: 0) {
-					Spacer()
+        HStack(spacing: 0) {
+          Spacer()
           tabButton(index: 0, icon: "HomeIcon", label: "Home")
-					Spacer()
+          Spacer()
           tabButton(index: 1, icon: "ActivityIcon", label: "Activity")
-					Spacer()
+          Spacer()
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 14)
@@ -48,7 +44,9 @@ struct HacoHubTabView: View {
 
   private func tabButton(index: Int, icon: String, label: String) -> some View {
     Button(action: {
-      selectedTab = index
+      withAnimation(.easeInOut) {
+        selectedTab = index
+      }
     }) {
       ZStack {
         Circle()
@@ -68,5 +66,8 @@ struct HacoHubTabView: View {
 }
 
 #Preview {
-//	HacoHubTabView(selectedTab: 1, path: .constant(NavigationPath()))
+	HacoHubTabView(
+    selectedTab: .constant(1),
+    path: .constant(NavigationPath())
+  )
 }
