@@ -11,7 +11,7 @@ struct PhaseHeaderView<Content: View>: View {
 	@Binding var path: NavigationPath
 	let title: String
 	let steps: [String]
-	@Binding var currentStep: Int
+	@Binding var currentPhase: Int
   let backAction: () -> Void
 	@ViewBuilder let content: () -> Content
 	
@@ -39,7 +39,7 @@ struct PhaseHeaderView<Content: View>: View {
 		}
 			
 			StepperView(
-				steps: steps, completeNumber: currentStep
+				steps: steps, completeNumber: currentPhase
 			)
 		}
 		.padding(.top, 56)
@@ -54,7 +54,7 @@ struct PhaseHeaderView<Content: View>: View {
 			path: .constant(NavigationPath()),
 			title: "title1",
 			steps: ["test1", "test2", "test3"],
-      currentStep: .constant(2),
+      currentPhase: .constant(2),
       backAction: {},
 			content: { Text("test") }
 		)

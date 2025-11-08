@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-struct FriendButton: View {
+struct FriendOptionButton: View {
 	let friend: Friend
 
   @EnvironmentObject var sendStore: SendStore
@@ -62,7 +62,7 @@ struct FriendButton: View {
   ZStack {
     getRGBColor(150, 160, 170)
 
-    FriendButton(friend: Friend.sampleData[0])
+    FriendOptionButton(friend: Friend.sampleData[0])
       .environmentObject(SendStore())
   }
 }

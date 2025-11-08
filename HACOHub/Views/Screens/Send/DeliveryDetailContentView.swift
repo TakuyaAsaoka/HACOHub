@@ -20,7 +20,7 @@ struct DeliveryDetailContentView: View {
 
 				VStack(spacing: 12) {
           ForEach(Friend.sampleData.prefix(2), id: \.id) { friend in
-            FriendButton(friend: friend)
+            FriendOptionButton(friend: friend)
           }
 				}
 				
@@ -30,12 +30,13 @@ struct DeliveryDetailContentView: View {
 						
 				VStack(spacing: 12) {
           ForEach(Friend.sampleData.dropFirst(2), id: \.id) { friend in
-            FriendButton(friend: friend)
+            FriendOptionButton(friend: friend)
           }
 				}
 				Spacer()
 			}
 		}
+    .scrollIndicators(.hidden)
 		.padding(.top, 20)
 		.padding(.horizontal, 20)
 		.background(getRGBColor(240, 242, 245))

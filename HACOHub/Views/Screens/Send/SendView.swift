@@ -9,18 +9,18 @@ import SwiftUI
 
 struct SendView: View {
 	@Binding var path: NavigationPath
-	@State var currentStep: Int = 0
+	@State var currentPhase: Int = 0
 
 	var body: some View {
 		PhaseLayoutView(
 			path: $path,
 			title: "Send",
 			steps: sendSteps,
-			currentStep: $currentStep,
+			currentPhase: $currentPhase,
       backAction: goBack,
 			content: {
 				SendContentView(
-					currentStep: $currentStep,
+					currentStep: $currentPhase,
 				)
 			},
 			buttonText: "Next",
@@ -29,18 +29,18 @@ struct SendView: View {
 	}
 
   private func goNext() {
-    if currentStep == 2 {
+    if currentPhase == 2 {
       path.append(Route.confirmAndPay)
     } else {
-      currentStep += 1
+      currentPhase += 1
     }
   }
 
   private func goBack() {
-    if currentStep == 0 {
+    if currentPhase == 0 {
       path.removeLast()
     } else {
-      currentStep -= 1
+      currentPhase -= 1
     }
   }
 }
