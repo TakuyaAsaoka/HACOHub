@@ -19,21 +19,21 @@ struct SelectHacoHubContentView: View {
 					.foregroundColor(getRGBColor(54, 65, 83))
 				
 				VStack (spacing: 12) {
-					HacoHubOptionView(
+					LockerSizeOptionView(
 						cost: 5,
 						imageName: "SmallIcon",
 						size: "Small",
 						sizeDescription: "12'W×15'D×15'H",
 						description: "Shopping bag / Tote bag",
 					)
-					HacoHubOptionView(
+					LockerSizeOptionView(
 						cost: 8,
 						imageName: "MediumIcon",
 						size: "Medium",
 						sizeDescription: "15'W×18'D×18'H",
 						description: "Backpack / Weekend bag",
 					)
-					HacoHubOptionView(
+					LockerSizeOptionView(
 						cost: 12,
 						imageName: "LargeIcon",
 						size: "Large",
@@ -82,7 +82,7 @@ struct SelectHacoHubContentView: View {
 	}
 }
 
-struct HacoHubOptionView: View {
+struct LockerSizeOptionView: View {
 	let cost: Int
 	let imageName: String
 	let size: String

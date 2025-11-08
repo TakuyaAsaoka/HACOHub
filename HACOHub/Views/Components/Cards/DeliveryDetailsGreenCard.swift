@@ -121,4 +121,5 @@ struct DeliveryDetailsGreenCard: View {
 
 #Preview {
 	DeliveryDetailsGreenCard()
+    .environmentObject(SendStore())
 }

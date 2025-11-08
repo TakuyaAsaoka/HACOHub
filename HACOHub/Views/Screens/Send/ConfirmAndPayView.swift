@@ -49,17 +49,15 @@ struct ConfirmAndPayContentView: View {
 		ZStack {
 			getRGBColor(245, 247, 247)
 			
-			ScrollView(.vertical, showsIndicators: false) {
-				VStack(alignment: .leading, spacing: 8) {
+      ScrollView(.vertical, showsIndicators: false) {
+        VStack(alignment: .leading, spacing: 8) {
 					Text.sfProRegular("Delivery Details", size: 16)
 						.foregroundColor(getRGBColor(54, 65, 83))
 				
-					VStack {
-						DeliveryDetailsGreenCard()
-						
-						DeliveryDetailsWhiteCard()
-					}
-					
+          DeliveryDetailsGreenCard()
+
+          DeliveryDetailsWhiteCard()
+
 					Text.sfProRegular("Choose payment method", size: 16)
 						.foregroundColor(getRGBColor(54, 65, 83))
 					
@@ -73,18 +71,18 @@ struct ConfirmAndPayContentView: View {
 						vSpacing: 0,
 						hSpacing: 7
 					)
-					.padding(2)
 				}
-			}
-			.padding(.vertical, 20)
-			.padding(.horizontal, 20)
+        .padding(.vertical, 20)
+        .padding(.horizontal, 20)
+      }
 		}
 	}
 }
 
-//#Preview {
-//	ConfirmAndPayView(
-//		path: .constant(NavigationPath()),
-//		selectedTab: .constant(0)
-//	)
-//}
+#Preview {
+	ConfirmAndPayView(
+		path: .constant(NavigationPath()),
+		selectedTab: .constant(0)
+	)
+    .environmentObject(SendStore())
+}
