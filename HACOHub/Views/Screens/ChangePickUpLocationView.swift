@@ -41,8 +41,8 @@ struct ChangePickUpLocationView: View {
 						}
 						
 						MapPickerView(
-              latitude: 33.778219,
-              longitude: -84.380027,
+              latitude: $receiveStore.latitude,
+              longitude: $receiveStore.longitude,
               location: $receiveStore.location
             )
             .frame(maxWidth: .infinity, alignment: .leading)

@@ -22,6 +22,8 @@ class SendStore: ObservableObject {
 
 class ReceiveStore: ObservableObject {
 	@Published var location: String? = "7th St NE, Atlanta, GA 30308"
+  @Published var latitude: CLLocationDegrees = 33.7518510
+  @Published var longitude: CLLocationDegrees = -84.3853718
 	@Published var size: String = "Small"
 	@Published var cost: Int = 5
 	@Published var isExpress: Bool = false

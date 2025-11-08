@@ -13,8 +13,6 @@ struct PhaseLayoutView<Content: View>: View {
 	let steps: [String]
 	@Binding var currentScreen: Int
 	@Binding var oldScreen: Int
-	@Binding var currentFlow: Bool
-	@Binding var oldFlow: Bool
 	@ViewBuilder let content: () -> Content
 	let buttonText: String
 	let action: () -> Void
@@ -27,8 +25,6 @@ struct PhaseLayoutView<Content: View>: View {
 				steps: steps,
 				currentScreen: $currentScreen,
 				oldScreen: $oldScreen,
-				currentFlow: $currentFlow,
-				oldFlow: $oldFlow,
 				content: content
 			)
 			content()

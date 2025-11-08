@@ -13,8 +13,6 @@ struct PhaseHeaderView<Content: View>: View {
 	let steps: [String]
 	@Binding var currentScreen: Int
 	@Binding var oldScreen: Int
-	@Binding var currentFlow: Bool
-	@Binding var oldFlow: Bool
 	@ViewBuilder let content: () -> Content
 	
 	let backButtonWidth: CGFloat = 44
@@ -23,8 +21,6 @@ struct PhaseHeaderView<Content: View>: View {
 		VStack(spacing: 16) {
 			HStack {
 				Button {
-					oldFlow = currentFlow
-					currentFlow = false
 					oldScreen = currentScreen
 					if currentScreen == 0 {
 						if !path.isEmpty { path.removeLast() }

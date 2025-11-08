@@ -11,9 +11,7 @@ struct SendView: View {
 	@Binding var path: NavigationPath
 	@State var currentScreen: Int = 0
 	@State var oldScreen: Int = -1
-	@State var currentFlow: Bool = true
-	@State var oldFlow: Bool = true
-	
+
 	var body: some View {
 		PhaseLayoutView(
 			path: $path,
@@ -21,20 +19,14 @@ struct SendView: View {
 			steps: sendSteps,
 			currentScreen: $currentScreen,
 			oldScreen: $oldScreen,
-			currentFlow: $currentFlow,
-			oldFlow: $oldFlow,
 			content: {
 				SendContentView(
 					currentScreen: $currentScreen,
 					oldScreen: $oldScreen,
-					currentFlow: $currentFlow,
-					oldFlow: $oldFlow
 				)
 			},
 			buttonText: "Next",
 			action: {
-				oldFlow = currentFlow
-				currentFlow = true
 				oldScreen = currentScreen
 				if currentScreen == 0 || currentScreen == 1 {
 					currentScreen += 1
@@ -49,8 +41,6 @@ struct SendView: View {
 struct SendContentView: View {
 	@Binding var currentScreen: Int
 	@Binding var oldScreen: Int
-	@Binding var currentFlow: Bool
-	@Binding var oldFlow: Bool
 	@State private var isMovingForward: Bool = true
 	
 	var body: some View {
@@ -95,4 +85,5 @@ struct SendContentView: View {
 
 #Preview {
 	SendView(path: .constant(NavigationPath()))
+    .environmentObject(SendStore())
 }

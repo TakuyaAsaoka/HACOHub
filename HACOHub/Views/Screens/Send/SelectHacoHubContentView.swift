@@ -7,26 +7,6 @@
 
 import SwiftUI
 
-//struct SelectHacoHubView: View {
-//	@Binding var path: NavigationPath
-//	
-//	var body: some View {
-//		PhaseLayoutView(
-//			path: $path,
-//			title: "Send",
-//			steps: sendSteps,
-//			currentScreen: 2,
-//			content: {
-//				SelectHacoHubContentView()
-//			},
-//			buttonText: "Next",
-//			action: {
-//				path.append(Route.confirmAndPay)
-//			}
-//		)
-//	}
-//}
-
 struct SelectHacoHubContentView: View {
 	@EnvironmentObject var sendStore: SendStore
 	
@@ -139,11 +119,11 @@ struct HacoHubOptionView: View {
 			.padding(.vertical, 16)
 			.background(
 					RoundedRectangle(cornerRadius: 8)
-						.fill(sendStore.size == size ? getRGBColor(236, 249, 243) : Color.white) // 薄緑 or 白
+						.fill(sendStore.size == size ? getRGBColor(236, 249, 243) : .white)
 			)
 			.overlay(
 				RoundedRectangle(cornerRadius: 8)
-					.stroke(sendStore.size == size ? getRGBColor(79, 190, 159) : getRGBColor(208, 215, 222), lineWidth: 1) // 緑 or グレー
+					.stroke(sendStore.size == size ? getRGBColor(79, 190, 159) : getRGBColor(208, 215, 222), lineWidth: 1)
 			)
 			.cornerRadius(8)
 			.shadow(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 2)
@@ -152,6 +132,7 @@ struct HacoHubOptionView: View {
 	}
 }
 
-//#Preview {
-//	SelectHacoHubView(path: .constant(NavigationPath()))
-//}
+#Preview {
+	SelectHacoHubContentView()
+    .environmentObject(SendStore())
+}

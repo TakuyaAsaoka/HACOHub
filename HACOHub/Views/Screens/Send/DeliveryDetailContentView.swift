@@ -7,26 +7,6 @@
 
 import SwiftUI
 
-//struct DeliveryDetailView: View {
-//	@Binding var path: NavigationPath
-//
-//	var body: some View {
-//		PhaseLayoutView(
-//			path: $path,
-//			title: "Send",
-//			steps: sendSteps,
-//			completeNumber: 1,
-//			content: {
-//				DeliveryDetailContentView()
-//			},
-//			buttonText: "Next",
-//			action: {
-//				path.append(Route.selectHacoHub)
-//			}
-//		)
-//	}
-//}
-
 struct DeliveryDetailContentView: View {
 	@EnvironmentObject var sendStore: SendStore
 	
@@ -88,5 +68,6 @@ struct DeliveryDetailContentView: View {
 
 
 #Preview {
-//	DeliveryDetailView(path: .constant(NavigationPath()))
+	DeliveryDetailContentView()
+    .environmentObject(SendStore())
 }
