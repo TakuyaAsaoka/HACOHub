@@ -30,7 +30,7 @@ struct SendView: View {
 
   private func goNext() {
     if currentPhase == 2 {
-      path.append(Route.confirmAndPay)
+      path.append(Route.sendConfirmAndPay)
     } else {
       currentPhase += 1
     }

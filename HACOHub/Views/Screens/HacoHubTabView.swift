@@ -17,7 +17,7 @@ struct HacoHubTabView: View {
 
       TabView(selection: $selectedTab) {
         HomeView(path: $path).tag(0)
-        ActivityView().tag(1)
+        ActivityView(path: $path).tag(1)
       }
       .tabViewStyle(.page(indexDisplayMode: .never))
       .animation(.easeInOut(duration: 0.25), value: selectedTab)

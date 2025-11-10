@@ -26,6 +26,8 @@ struct RootView: View {
         if hasLaunchedBefore {
 					NavigationStack(path: $path) {
 						HacoHubTabView(selectedTab: $selectedTab, path: $path)
+              .environmentObject(sendStore)
+              .environmentObject(receiveStore)
               .transition(.opacity)
 							.navigationDestination(for: Route.self) { route in
 								switch route {
@@ -34,14 +36,14 @@ struct RootView: View {
 										.environmentObject(sendStore)
 										.navigationBarBackButtonHidden(true)
 										.toolbarBackground(.hidden, for: .navigationBar)
-								case .confirmAndPay:
-									ConfirmAndPayView(path: $path, selectedTab: $selectedTab)
+								case .sendConfirmAndPay:
+									SendConfirmAndPayView(path: $path, selectedTab: $selectedTab)
 										.environmentObject(sendStore)
 										.navigationBarBackButtonHidden(true)
 										.toolbarBackground(.hidden, for: .navigationBar)
 								case .receive:
 									ReceiveView(path: $path)
-										.environmentObject(sendStore)
+										.environmentObject(receiveStore)
 										.navigationBarBackButtonHidden(true)
 										.toolbarBackground(.hidden, for: .navigationBar)
 								case .changePickUpLocation:
@@ -50,7 +52,7 @@ struct RootView: View {
 										.navigationBarBackButtonHidden(true)
 										.toolbarBackground(.hidden, for: .navigationBar)
 								case .receiveConfirmAndPay:
-									ReceiveConfirmAndPayView(path: $path)
+									ReceiveConfirmAndPayView(path: $path, selectedTab: $selectedTab)
 										.environmentObject(receiveStore)
 										.navigationBarBackButtonHidden(true)
 										.toolbarBackground(.hidden, for: .navigationBar)

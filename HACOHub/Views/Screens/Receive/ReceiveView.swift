@@ -46,4 +46,5 @@ struct ReceiveView: View {
 
 #Preview {
 	ReceiveView(path: .constant(NavigationPath()))
+    .environmentObject(ReceiveStore())
 }

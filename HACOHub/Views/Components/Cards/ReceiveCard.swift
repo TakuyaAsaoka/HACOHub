@@ -10,6 +10,7 @@ import SwiftUI
 struct ReceiveCard: View {
 	@Binding var path: NavigationPath
 	@Binding var isShowingQR: Bool
+  @EnvironmentObject var receiveStore: ReceiveStore
 
 	var body: some View {
 		Button {
@@ -35,7 +36,7 @@ struct ReceiveCard: View {
                   .resizable()
                   .scaledToFit()
                   .frame(width: 14, height: 14)
-                Text.sfProRegular("Small", size: 12)
+                Text.sfProRegular(receiveStore.size, size: 12)
                   .foregroundColor(getRGBColor(74, 85, 101))
               }
 
@@ -44,7 +45,7 @@ struct ReceiveCard: View {
                   .resizable()
                   .scaledToFit()
                   .frame(width: 14, height: 14)
-                Text.sfProRegular("7th St NE, Atlanta, GA 30308", size: 12)
+                Text.sfProRegular(receiveStore.location ?? "Unregisterd", size: 12)
                   .foregroundColor(getRGBColor(74, 85, 101))
               }
 
@@ -116,4 +117,5 @@ struct ReceiveCard: View {
 
 #Preview {
 	ReceiveCard(path: .constant(NavigationPath()), isShowingQR: .constant(false))
+    .environmentObject(ReceiveStore())
 }

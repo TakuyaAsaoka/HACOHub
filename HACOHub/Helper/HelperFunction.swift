@@ -56,3 +56,10 @@ func mergeDateAndTime(datePart: Date, timePart: Date) -> Date {
 
   return calendar.date(from: merged) ?? datePart
 }
+
+func formatDateWithAMPM(_ date: Date) -> String {
+  let formatter = DateFormatter()
+  formatter.locale = Locale(identifier: "en_US_POSIX")
+  formatter.dateFormat = "MMMM d, yyyy, a h:mm"
+  return formatter.string(from: date)
+}

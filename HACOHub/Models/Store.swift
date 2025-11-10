@@ -37,6 +37,7 @@ class ReceiveStore: ObservableObject {
   @Published var longitude: CLLocationDegrees = -84.3853718
   @Published var date: Date = Date()
 	@Published var size: String = "Small"
+  @Published var payment: Payment = .applePay
 	@Published var cost: Int = 5
 	@Published var isExpress: Bool = false
 	@Published var expressFee: Int = 3

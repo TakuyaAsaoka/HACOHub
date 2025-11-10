@@ -9,7 +9,8 @@ import SwiftUI
 
 struct PaymentModalView: View {
 	@Binding var path: NavigationPath
-	@Binding var selectedTab: Int
+  @Binding var selectedTab: Int
+  let action: () -> Void
   @State private var isCompletedLoading = false
 
   @EnvironmentObject var sendStore: SendStore
@@ -47,7 +48,7 @@ struct PaymentModalView: View {
       .onAppear {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
           withAnimation {
-            sendStore.reset()
+            action()
             isCompletedLoading = true
           }
         }
@@ -66,6 +67,10 @@ struct PaymentModalView: View {
 }
 
 #Preview {
-  PaymentModalView(path: .constant(NavigationPath()), selectedTab: .constant(1))
+  PaymentModalView(
+    path: .constant(NavigationPath()),
+    selectedTab: .constant(1),
+    action: {}
+  )
     .environmentObject(SendStore())
 }

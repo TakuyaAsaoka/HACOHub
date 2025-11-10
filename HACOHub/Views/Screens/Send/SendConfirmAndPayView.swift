@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-struct ConfirmAndPayView: View {
+struct SendConfirmAndPayView: View {
 	@State var isShowingPayment: Bool = false
 	@State var isComfirmed: Bool = false
 	@Binding var path: NavigationPath
 	@Binding var selectedTab: Int
-	
+  @EnvironmentObject var sendStore: SendStore
+
 	var body: some View {
 		ZStack {
 			VStack(alignment: .leading, spacing: 0) {
@@ -36,7 +37,13 @@ struct ConfirmAndPayView: View {
 				.background(.white)
 			}
 			
-			if isShowingPayment { PaymentModalView(path: $path, selectedTab: $selectedTab) }
+			if isShowingPayment {
+        PaymentModalView(
+          path: $path,
+          selectedTab: $selectedTab,
+          action: { sendStore.reset() }
+        )
+      }
 		}
 		.ignoresSafeArea()
 	}
@@ -80,7 +87,7 @@ struct ConfirmAndPayContentView: View {
 }
 
 #Preview {
-	ConfirmAndPayView(
+	SendConfirmAndPayView(
 		path: .constant(NavigationPath()),
 		selectedTab: .constant(0)
 	)

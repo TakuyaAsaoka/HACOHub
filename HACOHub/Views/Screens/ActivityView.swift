@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ActivityView: View {
+  @Binding var path: NavigationPath
 	@State var isScanModalView: Bool = false
 	
 	var body: some View {
@@ -17,14 +18,16 @@ struct ActivityView: View {
 			VStack(alignment: .leading, spacing: 8) {
 				ScrollView {
 					HStack {
-						
-				Text.sfProRegular("Upcoming", size: 16)
-					.foregroundColor(getRGBColor(54, 65, 83))
-						Spacer()
-					}
-				
-				UpcomingCard(isShowingQR: $isScanModalView)
-				Spacer()
+            Text.sfProRegular("Upcoming", size: 16)
+              .foregroundColor(getRGBColor(54, 65, 83))
+            Spacer()
+          }
+
+          ReceiveCard(path: $path, isShowingQR: $isScanModalView)
+
+          UpcomingCard(isShowingQR: $isScanModalView)
+          
+          Spacer()
 				}
 			}
 			.padding(20)
@@ -40,5 +43,6 @@ struct ActivityView: View {
 }
 
 #Preview {
-    ActivityView()
+  ActivityView(path: .constant(NavigationPath()))
+    .environmentObject(ReceiveStore())
 }
