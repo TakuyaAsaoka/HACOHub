@@ -29,6 +29,7 @@ struct ActivityView: View {
           
           Spacer()
 				}
+        .scrollIndicators(.hidden)
 			}
 			.padding(20)
 			
