@@ -40,3 +40,19 @@ func fromDateToFullDate(date: Date, format: String = "MMMM dd, yyyy a hh:mm") ->
   formatter.locale = Locale(identifier: "en_US_POSIX")
   return formatter.string(from: date)
 }
+
+func mergeDateAndTime(datePart: Date, timePart: Date) -> Date {
+  let calendar = Calendar.current
+  let dateComponents = calendar.dateComponents([.year, .month, .day], from: datePart)
+  let timeComponents = calendar.dateComponents([.hour, .minute, .second], from: timePart)
+
+  var merged = DateComponents()
+  merged.year = dateComponents.year
+  merged.month = dateComponents.month
+  merged.day = dateComponents.day
+  merged.hour = timeComponents.hour
+  merged.minute = timeComponents.minute
+  merged.second = timeComponents.second
+
+  return calendar.date(from: merged) ?? datePart
+}

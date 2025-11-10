@@ -1,24 +1,24 @@
 //
-//  TimePickerView.swift
+//  DatePickerView.swift
 //  HACOHub
 //
-//  Created by AsaokaTakuya on 2025/10/07.
+//  Created by AsaokaTakuya on 2025/11/10.
 //
 
 import SwiftUI
 
-struct TimePickerView: View {
+struct DatePickerView: View {
   let textSize: CGFloat
 
   @State private var isShowingSheet = false
-  @Binding var selectedTime: Date
+  @Binding var selectedDate: Date
 
   var body: some View {
     Button {
       isShowingSheet.toggle()
     } label: {
       HStack {
-        Text.sfProRegular(fromDateToFormattedDate(date: selectedTime), size: textSize)
+        Text.sfProRegular(fromDateToFormattedDate(date: selectedDate, format: "MMMM d, yyyy"), size: textSize)
       }
     }
     .buttonStyle(.plain)
@@ -27,15 +27,15 @@ struct TimePickerView: View {
         DatePicker(
           "",
           selection: Binding(
-            get: { selectedTime },
+            get: { selectedDate },
             set: { newValue in
-              selectedTime = mergeDateAndTime(
-                datePart: selectedTime,
-                timePart: newValue
+              selectedDate = mergeDateAndTime(
+                datePart: newValue,
+                timePart: selectedDate
               )
             }
           ),
-          displayedComponents: [.hourAndMinute]
+          displayedComponents: [.date]
         )
         .datePickerStyle(.wheel)
         .labelsHidden()
@@ -58,6 +58,6 @@ struct TimePickerView: View {
 }
 
 #Preview {
-  @Previewable @State var selectedTime = Date()
-  TimePickerView(textSize: 20, selectedTime: $selectedTime)
+  @Previewable @State var selectedDate = Date()
+  DatePickerView(textSize: 20, selectedDate: $selectedDate)
 }
